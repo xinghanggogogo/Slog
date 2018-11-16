@@ -1,0 +1,106 @@
+
+<!--
+豆瓣的一个模块
+你看其实很简单哈.
+a标签你不加链接的话颜色就会变.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style media="screen">
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        body, div, dl, dt, dd, ul, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, blockquote {
+            margin: 0;
+            padding: 0;
+        }
+        a {
+            text-decoration: none;
+        }
+        .wrap {
+            width: 950px;
+            margin: 0 auto;
+        }
+        .side {
+            float: left;
+            width: 264px;
+            padding: 50px 0;
+            margin-left: 50px;
+            text-align: left;
+
+        }
+        .username {
+            border-radius: 2px;
+            width: 264px;
+            height: 32px;
+            margin-bottom: 10px;
+        }
+        .password {
+            border-radius: 2px;
+            width: 264px;
+            height: 32px;
+            margin-bottom: 20px;
+        }
+        .login {
+            border: none;
+            border-radius: 2px;
+            width: 130px;
+            height: 30px;
+            margin-right: 2px;
+            font-size: 12px;
+            text-align: center;
+            color: #fff;
+            background-color: #30A080;
+        }
+        .signup {
+            display: inline-block;
+            border: 1px solid #30A080;
+            border-radius: 2px;
+            width: 130px;
+            padding: 8px 15px 8px;
+            margin-left: 2px;
+            font-size: 12px;
+            line-height: 1;
+            color: #30A080;
+            text-align: center;
+            vertical-align: top;
+        }
+        .bottom {
+            float: right;
+        }
+        .checkbox {
+            font-size: 12px;
+        }
+        .bottom span {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin: 0 5px;
+            background-color: #30A080;
+        }
+    </style>
+</body>
+    <div class="wrap">
+        <div class="side">
+            <form action="">
+                <input class="username" type="text" name="" value="邮箱/手机号">
+                <input class="password" type="text" name="" value="密码">
+                <input class="login" type="text" name="" value="登录豆瓣"><a class="signup" href="">注册账号</a>
+                <div>
+                    <input type="checkbox" name="" value="记住我"><span class="checkbox">记住我</span>
+                    <div class="bottom">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</html>

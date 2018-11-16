@@ -1,0 +1,391 @@
+fullStack本机mysql用户密码:
+mysql -uroot -pxinghang
+使用brew安装:
+mysql路径: /usr/local/Cellar/mysql/5.7.17/
+mysql默认配置文件路径:/usr/local/Cellar/mysql/5.7.17/support-files/my-default.conf
+mysql默认data路径: /usr/local/var/mysql
+
+ubuntu14.04 安装mysql5.7
+wget http://dev.mysql.com/get/mysql-apt-config_0.6.0-1_all.deb
+sudo dpkg -i mysql-apt-config_0.6.0-1_all.deb
+sudo apt-get update
+sudo apt-get install mysql-server
+
+How to Install Latest MySQL 5.7.9 on RHEL/CentOS 7/6/5
+RedHat是收费的, 而centos是它的拷贝, 是免费的
+RHEL(Red Hat Enterprise Linux)
+centos(community ENTerprise Operating System)
+https://www.tecmint.com/install-latest-mysql-on-rhel-centos-and-fedora/
+
+mysql版本
+mysql -V
+
+查看当前mysql所在端口号:
+show global variables like 'port'
+
+查看表大小:
+mysql> use information_schema;
+Database changed
+mysql> select data_length, index_length from tables where table_schema='kugou' and table_name = 'o2o_spider_song';
+
+表的导出与导入(mysqldump)
+mysqldump  -uktvsky -p098f6bcd4621d373cade4e832627b4f6 -P3306 -h10.10.146.167 myktv archive_order > archive_order.csv
+scp work@120.132.55.163:/home/work/archive_order.sql .
+scp -p 3026 stage@101.254.157.124:/home/stage/o2o_spider_song.sql
+!my
+use myktv
+source /home/xinghang/archive_order.sql
+mysqldump -uroot -h10.9.138.23 -p098f6bcd4621d373cade4e832627b4f6 kugou singer < qq_singer2.sql
+
+导出mysql数据:
+mysql -uktvsky -p098f6bcd4621d373cade4e832627b4f6 -P3306 -h10.9.192.10 ktv_bar -e 'select * from music_order where sp_id != 6 and state =1' > o.txt
+mysql -uroot -pthunder5166 songs -e 'select thunder_id, name, artist1, ori_ks_url, bt_ks_url, krc_ks_url state from thunder_song where ori_ks_url !=''' > o.txt
+
+mysql导入数据(load data infile)
+mysql导入csv文件
+load data infile '/var/lib/mysql-files/30W.csv' into table thunder_song set utf8
+fields terminated by '\t' lines terminated by '\n'
+(thunder_id, name, artist1, artist2, artist3, artist4, @duration, has_krc, download_link)
+set duration=NULLif(@duration, 0)
+mysql导入csv文件
+load data infile '/var/lib/mysql-files/3333.csv' into table thunder_song character set utf8
+fields terminated by '\t' lines terminated by '\n'
+(thunder_id, name, artist1, artist2, artist3, artist4, duration, has_krc, download_link)
+mysql导入csv文件
+load data infile '/var/lib/mysql-files/179W.csv' into table kugou_krc_song character set utf8
+fields terminated by '\t' lines terminated by '\n'
+(o2o_id, krc_link, download_link)
+mysql导入csv文件
+load data infile '/var/lib/mysql-files/match-all-time.txt' into table thunder_match character set utf8
+fields terminated by ';' lines terminated by '\n'
+(thunder_id, name, artist, o2o_id, t_duration, o_duration, d_duration)
+将本地的txt文件导入远端远端远端远端的存储, 加上local...
+load data local infile '/home/work/all_singer.txt' into table test character set utf8
+fields terminated by ',' lines terminated by '\n'
+(thunder_id, name)
+将本地的txt文件导入远端远端远端远端的存储, 加上local..., 默认字段对齐
+load data local infile '/home/work/o2omusicinfo.txt' into table test character set utf8
+fields terminated by '|' lines terminated by '\n'
+
+查看mysql所有进程:
+show processlist
+
+未完成事务导致locktable:
+select * from information_schema.innodb_trx \G
+kill sid
+问:
+什么情况下会导致锁表:
+一个事务太复杂, 耗时长, 因为隔离性导致了行锁
+
+关于offset, offset用在limit之后, 应该尽量避免使用offset, 用where来代替:
+select * from kugou_singer limit 10 offset 0  #从1开始
+select * from kugou_singer limit 10 offset 10 #从11开始
+以上的效率极差, 对于大表而言, 应该先where, 在limit
+eg:
+select * from o2o_spider_song where id>1000000 limit 100;
+它的效率远远高于 select * from o2o_spider_song limit 1000 offset 1000000;
+
+清空表:
+delete from 5sing (保留表结构和自增, 可以回滚)
+truncate table 5sing (保留表结构)
+drop table 5sing (完全删除表相关的一切)
+
+update多字段
+update o2o_spider_song set bthash = '', btname = '' where bthash != ''
+
+建立索引:
+create index o2o_spider_song_artist on o2o_spider_song(artist)
+create index o2o_spider_song_artist_bthash on o2o_spider_song(artist, bthash)
+create unique index hash on o2o_spider_song(hash) (效果等同于建表时候的UNIQUE KEY `hash` (`hash`))
+查看表的索引:
+show index from o2o_spider_song
+删除表的索引:
+drop index index_name on table_name
+
+#关于index的关键字:
+mysql的字段名字竟然不能用index!我真是的醉了.!
+
+mysql的初步.http://blog.csdn.net/javazejian/article/details/61614366
+
+desc <table_name>
+
+定义浮点类型:
+float(6, 1) 最大长度6位, 小数点位1位
+
+group by and having:
+select sex ,count(id) from user group by sex having sex is not null
+
+关于concat的一个sql:
+select concat(day, hour) a, down_trigger b, sum(if(isp2p=1, 1, 0)) p2p, count(distinct concat(song_no, client_id)) c
+from vod_down
+where
+    {where_state}
+    and down_trigger in (0,1,2)
+    group by concat(day, hour), down_trigger
+    order by concat(day, hour), down_trigger
+;'''
+
+关于表连接
+select * from table1
++------+-------+
+| id   | name  |
++------+-------+
+|    1 | lee   |
+|    2 | zhang |
+|    3 | steve |
+|    4 | wang  |
++------+-------+
+select * from table2;
++------+-------+
+| id   | score |
++------+-------+
+|    1 |    90 |
+|    2 |   100 |
+|    3 |    70 |
+|    5 |    80 |
++------+-------+
+传统连接: 结果集只显示两个表满足查询条件的部分
+select * from table1 t1, table2 t2 where t1.id = t2.id;
++------+-------+------+-------+
+| id   | name  | id   | score |
++------+-------+------+-------+
+|    1 | lee   |    1 |    90 |
+|    2 | zhang |    2 |   100 |
+|    3 | steve |    3 |    70 |
++------+-------+------+-------+
+内连接: 效果等同于传统链接, 这里用on子句指定连接条件，用where子句指定其他限定条件
+select * from table1 t1 inner join table2 t2 on t1.id = t2.id;
++------+-------+------+-------+
+| id   | name  | id   | score |
++------+-------+------+-------+
+|    1 | lee   |    1 |    90 |
+|    2 | zhang |    2 |   100 |
+|    3 | steve |    3 |    70 |
++------+-------+------+-------+
+select * from table1 t1 inner join table2 t2 on t1.id = t2.id where t2.score = 90;
++------+------+------+-------+
+| id   | name | id   | score |
++------+------+------+-------+
+|    1 | lee  |    1 |    90 |
++------+------+------+-------+
+外连接:
+左连接:
+结果集包括语句中指定的左表的所有行，而不仅仅是满足连接条件的行
+如果左表的某行在右表中没有匹配行，在结果集中此行的右表的所有的字段值均为空值null
+select * from from table1 t1 left join table2 t2 on t1.id = t2.id;
++------+-------+------+-------+
+| id   | name  | id   | score |
++------+-------+------+-------+
+|    1 | lee   |    1 |    90 |
+|    2 | zhang |    2 |   100 |
+|    3 | steve |    3 |    70 |
+|    4 | wang  | NULL |  NULL |
++------+-------+------+-------+
+左连接查看差别:
+select * from table1 t1 left join table2 t2 on t1.id = t2.id WHERE t2.id is null
+select count(*) from table1 t1 left join table2 t2 on t1.id = t2.id where t2.id is null (注意是is而不是=)
++------+------+------+-------+
+| id   | name | id   | score |
++------+------+------+-------+
+|    4 | wang | NULL |  NULL |
++------+------+------+-------+
+右连接:
+结果集包括语句中指定的右表的所有行, 而不仅仅是满足连接条件的行
+如果右表的某行在左表中没有匹配行,在结果集中此行的左表的所有的字段值均为空值null
+select * from table1 t1 right join table2 t2 on t1.id = t2.id
+select t1.id t2.original_id from movie t1 right join eros_movie t2 on t1.id = t2.movie_id;
++------+-------+------+-------+
+| id   | name  | id   | score |
++------+-------+------+-------+
+|    1 | lee   |    1 |    90 |
+|    2 | zhang |    2 |   100 |
+|    3 | steve |    3 |    70 |
+| NULL | NULL  |    5 |    80 |
++------+-------+------+-------+
+select * from table1 t1 right join table2 t2 on t1.id = t2.id order by t2.score;
++------+-------+------+-------+
+| id   | name  | id   | score |
++------+-------+------+-------+
+|    3 | steve |    3 |    70 |
+| NULL | NULL  |    5 |    80 |
+|    1 | lee   |    1 |    90 |
+|    2 | zhang |    2 |   100 |
++------+-------+------+-------+
+全连接:
+包含左右表的所有行
+select * from table1 t1 full join table2 t2 on t1.id = t2.id
+记忆方式就是左连接左表全, 右连接右表全, 全连接全部全
+
+eg1.左连接的查询操作:
+select count(*) from kugou_by_cat k1 left join o2o_spider_song o1 on k1.hash = o1.hash where o1.hash is null;
++----------+
+| count(*) |
++----------+
+|   204813 |
++----------+
+eg2.左连接的更新操作:
+update kugou_by_cat k1 left join o2o_spider_song o1 on k1.hash = o1.hash set k1.is_exist = 1 where o1.hash is not null;
+
+关于mysql增删改字段:
+添加字段: alter table table_name add column column_name int(11) not null default 0 comment '附加信息'
+删除字段: alter table table_name drop column column_name
+添加多字段: alter table table_name add column column_name int(11) not null default 0 comment '附加信息', add column column_name int(11) not null default 0 comment '附加信息'
+修改字段名称: alter table table_name change column old_column new_column int(11)
+修改字段: alter table table_name modify column column_name tinyint(1) comment '';
+
+一次实例, 关于索引:
+o2o_spider_song这个表, 建表时, 我为了避免重复爬取, 将hash值设定成了unique key
+后来制定hash进行查询时候, 发现速度缓慢, 然后用create index o2o_spider_song_hash on o2o_spider_song(hash)的方式建立了索引
+查询速度果然大增, 可是当我接下show createtable的时候, hash的unique_key的表示没有了, 取而代之的是一个key(KEY `o2o_spider_song_artist_bthash` (`bthash`), o2o_spider_song_hash这个名字是我起的)的标识
+这是不是意味着, key和index中间的某种关联呢?
+1.建表的时候, key会自动建立index, 无论是PRIMARY KEY, 试试UNIQUE KEY, 还是KEY, index的名字都是定义, 比如
+PRIMARY KEY (`id`),
+UNIQUE KEY `hash` (`hash`),
+KEY `o2o_spider_song_bthash` (`bthash`)
+--说道这里为什么刚开始的时候, hash查询会缓慢, 我并不清楚.
+2.而当你建立index时, 如果跟建表时候的key的名称发生冲突, 则key类型会被index类型覆盖
+
+关于多列索引的生效规则:
+eg.create index index_a_b_c on xing(a, b, c)
+where a=3 and b=45 and c=5 .... 这种三个索引顺序使用中间没有断点，全部发挥作用；
+where a=3 and c=5... 这种情况下b就是断点，a发挥了效果，c没有效果
+where b=3 and c=4... 这种情况下a就是断点，在a后面的索引都没有发挥作用，这种写法联合索引没有发挥任何效果；
+where b=45 and a=3 and c=5 .... 这个跟第一个一样，全部发挥作用，abc只要用上了就行，跟写的顺序无关
+
+关于alter的本质:
+MySQL在被alter时是可以insert和update的，但是操作会被延迟。
+ALTER TABLE运行时会对原表进行临时复制, 在副本上进行更改, 然后删除原表, 再对新表进行重命名
+在执行ALTER TABLE时, 其它用户可以阅读原表, 但是对表的更新和修改的操作将被延迟, 直到新表生成为止
+新表生成后, 这些更新和修改信息会自动转移到新表上
+
+# 一次工作实例, 从.txt中导入数据, 然后连表更新
+# 导入数据
+load data local infile '/home/work/down_music_krc.txt' into table o2o_normal_song character set utf8
+fields terminated by '    ' lines terminated by '\n'
+(o2o_id, name, artist, music_link, krc_link)
+# 做连接更新
+update o2o_normal_song k1 left join o2o_spider_song o1
+on k1.o2o_id = o1.id set k1.duration = o1.duration, k1.bitrate = o1.bitrate, k1.size = o1.size, k1.label = o1.label
+;
+
+mysql插入date类型的数据:
+insert into table (name,date,value) values ('魂牵梦萦','2009-06-08 23:53:17','朝秦暮楚');
+
+查询实例:
+select distinct(hash) from kugou_by_cat
+
+inert into tablename (filed1, filed2) select 2, product_id from product_info
+
+select count(distinct(hash)) from kugou_by_cat
+
+select * from (select * from test order by age desc) as b group by class
+
+select Concat(username,'(',birthday,')') AS name_birthday  from user where birthday is not null
+
+select tm.name, tm.price, od.items_num, (tm.price * od.items_num) AS sum_price from orderdetail AS od inner join items AS tm on od.items_id = tm.id
+
+select ktv_id, sum(total_fee)/100 as sum_total_fee
+from archive_order
+where state=2 and channel in (0, 1) and tp not in (1, 2, 7) and finish_time >= '2016-02-16 00:00:00' and finish_time <= '2016-02-16 23:59:59'
+group by ktv_id
+order by sum_total_fee desc
+limit 10
+
+select ktv_id, MIN(finish_time) as first_order_time
+from archive_order
+group by ktv_id
+order by first_order_time desc
+limit 10
+
+select sum(total_fee)/100 as sum_total_fee
+from archive_order
+where ktv_id = 87603 and state = 2 and channel in (0, 1) and tp not in (1, 2, 7) and finish_time >= '2017-02-19 00:00:00'
+
+select sum(total_fee)/100 as sum_total_fee, count(*) as cnt
+from archive_order
+where tp in (1, 2, 7)
+group by tp
+order by cnt desc
+
+bitdance:
+-----
+关于mysql事务:
+事务用来管理insert, update, delete语句
+事务保证成批的sql语句要么全部执行, 要么全部不执行, 即回退
+MySQL事务主要用于处理操作量大, 复杂度高的数据操作
+比如说, 比如一个消费系统, 用户完成消费, 需要同时更新几张表, 这些操作是互相绑定必须同时成功, 这就可以看做是一个事务
+在mysql中只有使用了Innodb(早期MyISAM普遍运用, 可是因为对事务的流行和对并发要求越来越高, 逐渐退出了)数据库引擎的数据库或表才支持事务
+一般来说, 事务是必须满足4个条件(ACID): Atomicity(原子性), Consistency（稳定性), Isolation(隔离性), Durability(可靠性)
+1.原子性: 一组事务, 要么成功, 要么撤回
+2.稳定性: 有非法数据(外键约束之类), 事务撤回
+3.隔离性: 事务的隔离性是分等级的(https://www.cnblogs.com/ws-astrologer/p/6681089.html). 默认是'REPEATABLE READ', 事事务串行化执行, 隔离级别最高, 牺牲了系统的并发性, 可以解决并发事务的所有问题
+4.可靠性: 软硬件崩溃后, InnoDB数据表驱动会利用日志文件重构修改, 事务在mysql容灾经常会用到
+
+使用begin和commit显式开启一个事务: http://www.runoob.com/mysql/mysql-transaction.html
+sqlalcmy rollback:
+def update_wow_coupon_consume_order(self, data):
+    ...
+    try:
+        self.master.query(MusicOrder).filter_by(pay_order_id=pay_order_id).update(_mo)
+        self.master.add(WowCouponOrder(**data))
+        self.master.commit()
+        return 1
+    except Exception as e:
+        logging.error(e)
+        self.master.rollback()
+
+-----
+关于mysql的外键:
+http://www.runoob.com/sql/sql-foreignkey.html
+1.一个表中的外键必然是一个表中的主键
+2.外键约束用于预防破坏表之间连接的行为
+3.外键约束也能防止非法数据插入外键列, 因为它必须是它指向的那个表中的值之一
+
+-----
+关于以innodb为引擎的mysql表的锁:
+https://www.2cto.com/database/201508/429967.html
+数据库锁定机制简单来说, 就是数据库为了保证数据的一致性.
+而使各种共享资源在被并发访问时不会影响到数据的一致性.
+innodb共有两种行级锁, 分别是共享锁和排他锁
+如果一个事务获得了某行的共享锁, 那么其他事务可以加上共享锁, 不可以加上排他锁
+如果一个事务获得了某行的排他锁, 那么她不允许其他任何事物对本行加锁, 只允许读, 不允许写
+对于insert, update, delete, InnoDB会自动给涉及的数据加排他锁(X), 对于一般的Select语句, InnoDB不会加任何锁, 事务可以通过以下语句给显示加共享锁或排他锁
+
+-----
+mysql是像redis一样单线程吗?
+mysql是可以配置多线程执行的, 多线程必然涉及到共享资源的的一致性问题, 这就是mysql锁的意义所在, 排他锁共享锁. 另, 如果你的库涉及到大量的读操作, 多线程的配置是极有成效的.
+每个线程的执行具有原子性
+
+-----
+关于mysql主从以及数据一致性:
+关于mysql的主从:
+1.主从复制
+建立一个和主数据库完全一样的数据库环境, 称为从数据库
+从数据库作为后备数据库, 主数据库服务器故障后, 可切换到从数据库继续工作, 也可以在在从数据库作备份、数据统计等工作, 这样不影响主数据库的性能
+2.读写分离
+是指读与写分别使用不同的数据库, 因为mysql是有最大并发数(可以设置成cpu核数*2, 注意区别最大连接数(默认100)http://blog.csdn.net/czhphp/article/details/41644351)
+一般读写的数据库环境配置为, 一个写入的数据库, 一个或多个读的数据库各个数据库分别位于不同的服务器上, 充分利用服务器性能和数据库性能, 提高吞吐量, 因为写比读慢的多, 当然, 其中会涉及到如何保证读写数据库的数据一致，这个就可以利用主从复制技术来完成
+一般应用场合为, 业务吞吐量很大, 读数据库(可简单理解为select语句的 比例和影响)的负载较大
+主从复制的过程:
+在master上提交事务后(增改删), 并且写入主log, 返回事务成功标记
+将主log发送到slave, 转储成从log
+在slave上再将从log读取出来应用
+以上是一个异步的过程, 必然会发生数据不一致的情况
+如果发生了数据不一致:
+1.从新从0开始同步, 对主库的使用影响不大(可能增加读的任务量)
+2.dump主, 锁库, dumpin从, 影响线上业务
+3.percona-toolkit 中的工具来校验和同步, 从介绍上来看是符合现在的情况的, 使用上还需要学习和认识才行
+
+-----
+思考一个问题, mysql的的线程数是4, 为什么读写分离会快?
+如果碰巧这4个线程中的的写操作全在读操作之前, 那么读操作只能等待, 这就影响了mysql的吞吐量
+
+-----
+mysql的线程数设置成1, 会不会发生数据不一致?
+不会, 就像redis一样
+
+CREATE TABLE test_default(
+a int NOT NULL DEFAULT 0,
+b timestamp NOT NULL DEFAULT now(),
+c char(50) NOT NULL DEFAULT ''
+);

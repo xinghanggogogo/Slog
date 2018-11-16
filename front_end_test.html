@@ -1,0 +1,166 @@
+<!-- 常用那几种浏览器测试 有哪些内核(Layout Engine)
+Ie(Ie)
+Chrome(webkit)
+Safari(webkit)
+FireFox(Gecko )-->
+
+<!-- 介绍一下你对浏览器内核的理解？
+主要分成两部分, 渲染引擎(layout engineer或Rendering Engine)和JS引擎。
+渲染引擎:
+负责取得网页的内容(HTML、XML、图像等等)、整理讯息(例如加入CSS等), 以及计算网页的显示方式, 然后会输出至显示器或打印机, 浏览器的内核的不同对于网页的语法解释会有不同, 所以渲染的效果也不相同。
+JS引擎则:
+解析和执行javascript来实现网页的动态效果
+最开始渲染引擎和JS引擎并没有区分的很明确, 后来JS引擎越来越独立, 内核就倾向于只指渲染引擎 -->
+
+<!-- 写出几种IE6-BUG的解决方法
+1.float引起的双边距BUG: 第一个浮动元素的css属性加上display: inline属性就可以了
+2.使用float引起的3像素问题: _margin-right: -3px; 记住, 前边加上一下划线
+3.<a>标签hover伪类点击后失效: 使用正确的伪类书写顺序link, visited, hover, active
+4.select 在ie6下遮盖 使用iframe嵌套
+5.PNG24位的图片在iE6浏览器上出现背景, 解决方案是做成PNG8
+-->
+
+<!-- HTTP状态码
+100 Continue  继续  一般在发送post请求时, 已发送了http header之后服务端将返回此信息, 表示确认, 之后发送具体参数信息
+200 OK  正常返回信息
+30* Redirect  请求的网页已永久移动到新位置
+40* Client 出错
+400 Bad Request  服务器无法理解请求的格式, 参数错误
+401 Unauthorized  授权出错
+403 Forbidden  禁止访问
+404 Not Found  找不到如何与URI相匹配的资源
+405 Method Not Allowed 请求方法错误
+50* Server 出错
+500 Internal Server Error  最常见的服务器端错误
+503 Service Unavailable 服务器端暂时无法处理请求, 可能是过载或维护 -->
+
+<!-- 关于优化
+先了解以下内容:
+1.关于gzip(http://www.cnblogs.com/sunhk/p/5189425.html):
+一个100KB的Javascript文件, 正常的下载量就是100KB, 把文件在服务端压缩一下, 压缩成30kb, 下载到客户端再进行解压,
+这样就减少了大量的HTTP的传输时间，这就是GZIP的作用
+2.关于同步加载与异步加载, 懒加载与预加载:
+同步加载:
+<script src="http://XXX.com/script.js"></script>, 这就是一个典型的同步加载.
+同步加载会发生阻塞, 会阻止浏览器的后续行为, 比如生成dom树, cssdom树.
+例如在head中添加一个script, 但这个script下载时网络不稳定, 很长时间没有下载完成对应的js文件, 那么浏览器此时一直等待这个js文件下载, 此时浏览器并不能开始生成dom树和cssdom树
+异步加载:
+在body内部加入下列代码实现异步加载.
+<script></script>
+<strong>(function() {
+     var s = document.createElement('script')
+     s.type = 'text/javascript'
+     s.async = true; //关键代码.
+     s.src = 'http://yourdomain.com/script.js'
+     var x = document.getElementsByTagName('script')[0]
+     x.parentNode.insertBefore(s, x)
+ })()</strong>
+这样就能跟dom树和cssdom树的生成异步进行啦
+懒加载(需要的时候再加载):
+js的懒加载: 也就是将js切分成许多模块，页面初始化时只加载需要立即执行的js, 然后其它js的加载延迟到第一次需要用到的时候再加载。
+图片的懒加载: 在图片出现在可视区域内时（在滚动条下拉）才加载显示图片
+
+预加载(加载全部全部之后再显示):
+在页面正式显示之前，先把所需要的图片资源全部加载下来，然后再显示界面，用户就不会看到图片加载的过程，提高了用户体验
+预加载的实现:
+    1.拿到所有图片的地址，分别创建Image对象，并赋值给src
+    2.在imgObj.onload方法中，判断是否所有图片都已经加载完毕
+    3.当所有图片加载完毕之后，调用回调函数，处理页面的显示
+3.js使用全局变量的缺点:
+js查找某个变量的时候都是成成查找的, 最后才会找到window层面.
+4.inline-img, 内联图片(http://www.cnblogs.com/malvina/p/5815360.html):
+<img src="../a.jpg"> or 以css中的background-img：url("../a.png"), 这种都是http请求获取文件
+而内联图片是这么写的 src的格式称作DataURI(关于dataurl, 效率极差):
+<img src="data:image/png;base64,iVAGRw0KGDCFGNSUhEUgACBBQAVGADCAIATYJ7ljmRGGAAGElEVQQIW2P4DwcMDAxAfBvMAhEQMYgcACEHG8ELxtbPACCCTElFTEVBQmGA" />
+把一张图片做base64编码, 这就是内联图片, 优点: 不需要http请求; 缺点: 浏览器不会缓存, 图片不宜过大
+5.关于图片的DataURL
+-->
+<!-- 前端性能优化的策略:
+1.减少
+减少http请求次数, 避免重定向, 异步加载第三方资源(比如js): async; 减少IO次数; 减少用全局变量; 减少DOM操作次数(或在使用DOM操作库时用上array-ids批量查询)
+2.变小, 变轻
+CSS Sprites(雪碧图); 压缩JS,CSS(服务器设置gzip), 使用带有min的三方库(jquery.min.js); 图片大小合适的时候使用内联方式(DataUrl)定义<img>; 选取图片的时候, webp>jpg>png>gif;
+首屏加载不超过120k;
+3.缓存
+合理设置HTTP缓存; 用变量保存AJAX请求结果, 每次操作本地变量; 缓存DOM节点查找的结果(存入全局变量)
+4.关于html
+dom层次要少; 避免iframe、img等src为空; 图片尽量避免使用DataURI; 避免重设图片大小
+5.关于css
+层次<3; 合并规则, 移除空的规则; 去掉0的单位; 不要声明过多的font-size属性, 将样式表放在顶部, 用link; 避免使用css表达式(动态属性); 当需要设置的样式很多时设置className而不是直接操作style
+-->
+<!-- 移动端性能优化的策略
+7.oneRequest: 首次内联CSS，JavaScript，存localStroage，第二次读取localStroage
+8.按需加载: 滚动加载、点击加载
+4.点击事件优化
+5.注意scroll resize事件绑定时机
+1.动画优化: 使用CSS3动画、使用requestAnimationFrame替代setTimeout
+2.高频事件优化: touch事件、scroll事件
+3.避免使用DataURI, 因为在移动端, 效率极差
+4.GPU加速: 使用transition触发、tranform触发、opacity
+6.JS主动的释放内存
+-->
+
+<!-- js代码为什么要放在body后边;为什么建议把css代码以link方式放在body前边的head中的(还建议把link标签放在<script>前边呢)
+(Q1)浏览器是逐行加载html代码的,js代码在加载完成后立即执行,全部加载完成后,开始渲染,渲染顺序是(dom, cssom, layout, render),渲染顺序不等于加载顺序
+某些js代码是必须放在body前边的,比如获取浏览器的UA来决定引入不同的css,
+但是某些包含dom操作的js代码,会因为dom树木当前还没有加载完成,导致代码并没有产生效果,这类js代码就应该放在body之后,等待dom树生成之后再加载然后执行,
+当然你的js代码还可以放在body中,但是必须注意,如果这段代码包含了某些dom操作,它可能会打断dom树的深度遍历,影响dom树的生成,导致渲染失败.
+所以js代码通常放在body之后.
+(Q2)如果你的项目是模块化的,import显然更有利于开发,
+link之所已效率更高,是因为在dom树生成时, link会同时被加载,而@import引用的CSS会等到页面被加载完再加载,
+现在来看一个例子,假定link css需要10ms加载完成,dom树的生成也需要10ms:
+如果link放在body的前边:
+浏览器按序加载html,首先发出linkcss的加载请求,然后继续向下,10ms后dom树加载完成,因为link标签同时加载的属性,此时css也已加载完成,直接可以生成cssom树
+共需10ms, 就可以生成dom树和cssom树,然后再layout(定位), render(渲染);
+如果link放在body的后边,浏览器首先需要10ms生成dom树,然后发现link标签,再花费10ms加载css, 生成cssom树,共需20ms.
+因为我们建议把link标签放在最前边,包括script的前边
+-->
+
+<!-- 关于CDN
+http://baike.baidu.com/link?url=y78p7c2IFG6s2Xt4205GbGSbRbEgNiL9bMv9jql0uuXe-bVWfd9FV9Vk7AKBHNTtvFTc2Cbg_zvTuHFwOJ7eLKDgldfRvk-eB6SXv8qSdTPT6WGeAP73EQZr6NhiV4IkDTAqzh7SD7ls9lXM-DwKxa
+全称: content delivery network 内容分发网络
+其基本思路是尽可能避开互联网上有可能影响数据传输速度和稳定性的瓶颈和环节，
+使内容传输的更快、更稳定。通过在网络各处放置节点服务器所构成.
+-->
+
+<!-- 常见的兼容性问题
+1.浏览器默认的margin和padding不同。解决方案是加一个全局的 * {margin:0;padding:0;}来统一
+2.Chrome 中文界面下默认会将小于 12px 的文本强制按照 12px 显示, 可通过加入 CSS 属性 -webkit-text-size-adjust:none; 解决. 如果这一属性也不成 使用 transform: scale 来解决
+3.IE下, 既可以使用获取常规属性的方法来获取自定义属性, 又可以使用getAttribute()获取自定义属性;Firefox下,只能使用getAttribute()获取自定义属性. 解决方法:统一通过getAttribute()获取自定义属性.
+-->
+
+<!-- 实现跨域的三种方案
+1. JSONP
+2. 后台设置访问源限制
+3. 使用后台代理
+JSONP(最常用):
+利用了script标签src属性没有域的限制而完成
+需要前端、后台配合完成.
+后台设置访问源限制:
+只需后台做访问源(Access-Control-Allow-Origin)的设置, 修改报文头, 前端就可以正常访问跨域的数据
+self.set_header("Access-Control-Allow-Origin", "*")
+self.set_header("Access-Control-Allow-Headers", "x-requested-with")
+self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+使用后台代理:
+前端不直接访问跨域的数据, 而是交给服务器去做
+服务器去请求别的站点的数据, 后台服务器是没有域的限制的
+当后台获取到数据之后, 前端从自己的服务器请求到数据, 无需做跨域处理
+-->
+
+<!-- 关于baiduTemplate.js模板引擎
+根据数据，快速生成HTML代码片段，插入到HTML结构中显示
+首先编写结构，可以将HTML和JavaScript混写，然后赋值数据，就可以生成HTML代码片段
+<script type="text/template" id="fruit">
+    <%for (var i = 0; i < data.length; i++) {%>
+        <li><%= data[i] %></li>
+    <%}%>
+</script>
+var data = ['orange', 'pear', 'apple']
+var html = baidu.template('li', {data: data})
+document.getElementById("result").innerHTML = html
+-->
+
+<!-- 什么是单页应用SPA
+SPA项目的时候, 通常只有一个主页面, 通过点击不同的按钮(a标签), 来修改锚点的值, 然后使用路由根据锚点, 实现加载不同的页面
+不需要进行网页跳转, 即可切换页面
+-->

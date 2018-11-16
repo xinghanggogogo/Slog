@@ -1,0 +1,77 @@
+<!-- 两个按钮 分别用input和a标签实现
+注意标签的书写顺序
+border的两个border的写法
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style media="screen">
+        body, div, dl, dt, dd, ul, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, blockquote {
+            margin: 0;
+            padding: 0;
+        }
+        a {
+            text-decoration: none;
+        }
+        ul {
+            list-style: none;
+        }
+
+        .wrap {
+            width: 950px;
+            margin: 0 auto;
+        }
+        .sign-in {
+            border: none;
+            border-color: #30A080;
+            border-radius: 2px;
+            width: 100px;
+            height: 30px;
+            padding: 0 22px;
+            margin-right: 2px;
+            font-size: 12px;
+            text-align: center;
+            color: #fff;
+            background-color: #30A080;
+        }
+        .sign-up {
+            display: inline-block;
+            border: 1px solid #30A080;
+            border-radius: 2px;
+            width:89px;
+            padding: 8px 21px 8px;
+            margin-left: 4px;
+            font-size: 12px;
+            line-height: 1;
+            color: #30A080;
+            text-align: center;
+            vertical-align: top;
+        }
+        /*十秒写出一个样式.*/
+        .test {
+            display: inline-block;
+            width: 133px;
+            height: 30px;
+            border: 1px #30A080 solid;
+            border-radius: 2px;
+            line-height: 28px;
+            font-size: 12px;
+            color: #30A080;
+            text-align: center;
+            vertical-align: top;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <input class="sign-in" type="text" name="" value="登录按钮">
+        <a href="" class="sign-up">注册账号</a>
+        <a href="asdf" class="test">注册账号</a>
+    </div>
+</body>
+</html>

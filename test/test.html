@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    $("p").toggle(
+        function() {
+            $("body").css("background-color", "green")
+        },
+        function() {
+            $("body").css("background-color", "red")
+        },
+        function(){
+            $("body").css("background-color", "yellow")
+    })
+    </script>
+</head>
+<body>
+    <table>
+        <caption>xinghang</caption>
+        <thead>
+            <tr><th></th><th></th></tr>
+        </thead>
+        <tbody>
+            <tr><td></td><td><td/></tr>
+        </tbody>
+    </table>
+</body>
+</html>

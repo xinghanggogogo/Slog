@@ -1,0 +1,17 @@
+1.python数组和php不同, php相对简单统一, 即array(包括普通数组和关联数组两部分), python可分为列表[], 元组(), 字典{}, 格式不一, 用法比较灵活
+
+2.python输出语句统一print, php不同, 字符串echo, 数组print_r
+
+3.python格式较为严格,缩进 
+
+4.python mysqldb返回元组, 可以通过配置参数使之返回列表
+
+5.python强类型语言, php弱类型语言
+  python: 3 + '6' 报错, 0 == false 返回false 
+  php:    3 + '6' = '36', 0 == false 返回true 
+
+6.php的强大的功能性在于它自带的大量的的函数, python在于她的模块化, 遇到问题, import一下
+
+7.语法差别:
+  python: +, for, 没有switch, and or, lambda 
+  php: ., foreach, 有swithch, &&或者and ||或者or, 没有lamda

@@ -1,0 +1,14 @@
+curl -X PUT http://localhost:9200/singer -d'{
+"mappings": {
+    "singer": {
+          	"properties": {
+                "singer_name" : {
+                    "type" : "text",
+                    "boost" : 8.0,
+                    "analyzer" : "ik_smart",
+                    "include_in_all" : true
+                }
+           }
+    }
+}
+}'

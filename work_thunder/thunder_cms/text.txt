@@ -1,0 +1,7 @@
+数据只到6月9日
+排行榜接口为: 127.0.0.1:8989/song/search?select_date=2017-06-09&select_type=2&select_app=1
+redis建立接口为: 127.0.0.1:8989/song/search?select_date=2017-06-20&select_type=2&select_app=1
+
+
+关于酷狗短信接口:
+select language, count(id) sum, count(distinct(album_id)) d from o2o_spider_song where id > 4200000 and create_time > '2017-06-29' and create_time < '2017-06-30' group by language;

@@ -1,0 +1,115 @@
+平凡之路:
+mp3:
+
+    昨日:http://fs.web.kugou.com/71bed9609fd462fbc03754d55134a725/58c12718/G014/M05/06/0F/roYBAFULdtuAHs9sAEm5eIvKrV4229.mp3
+
+    今日:http://fs.web.kugou.com/920ef341d02d516d76026b8678aa2157/58c1f76f/G014/M05/06/0F/roYBAFULdtuAHs9sAEm5eIvKrV4229.mp3
+krc:
+    http://mobilecdn.kugou.com/new/app/i/krc.php?keyword=%E6%9C%B4%E6%A0%91%20-%20%E5%B9%B3%E5%87%A1%E4%B9%8B%E8%B7%AF&timelength=301000&type=1&cmd=200&hash=396090D23F283EBAD546D136E5F89CD6
+info:
+{
+  "pay_type_320": 0,
+  "m4afilesize": 0,
+  "price_sq": 0,
+  "first": 0,
+  "filesize": 4831608,
+  "bitrate": 128,
+  "price": 0,
+  "inlist": 1,
+  "pkg_price_sq": 0,
+  "pay_type": 0,
+  "topic_url": "",
+  "fail_process_320": 0,
+  "pkg_price": 0,
+  "feetype": 0,
+  "filename": "朴树 - 平凡之路",
+  "price_320": 0,
+  "extname": "mp3",
+  "320hash": "30D511219C379714FA8F36CAB879D4EE",
+  "audio_id": 4019510,
+  "privilege": 0,
+  "addtime": "2014-08-20 09:28:13",
+  "album_id": "0",
+  "topic_url_320": "",
+  "320filesize": 12079019,
+  "sqfilesize": 34198733,
+  "has_accompany": 1,
+  "topic_url_sq": "",
+  "320privilege": 0,
+  "isfirst": 0,
+  "duration": 301,                        #时长: 秒
+  "fail_process": 0,
+  "mvhash": "13B9192ADD4E2B018E255B095751B65D",
+  "remark": "《后会无期》电影主题曲",
+  "sqhash": "AD340900006612B87A71C21D2A8799BD",
+  "pay_type_sq": 0,
+  "pkg_price_320": 0,
+  "sqprivilege": 0,
+  "fail_process_sq": 0,
+  "hash": "396090D23F283EBAD546D136E5F89CD6"
+}
+
+首页排行榜:
+http://www.kugou.com/yy/rank/home/1-6666.html
+web站排行榜接口:
+http://mobilecdn.kugou.com/api/v3/rank/song?ranktype=1&page=1&rankid=6666&pagesize=500
+
+
+http://mobilecdn.kugou.com/api/v3/rank/song?ranktype=2&page=1&rankid=6666&pagesize=500 total=80
+http://mobilecdn.kugou.com/api/v3/rank/song?ranktype=2&page=1&rankid=22943&pagesize=500 total=78
+http://mobilecdn.kugou.com/api/v3/rank/song?ranktype=2&page=1&rankid=8888&pagesize=500 total=285
+http://mobilecdn.kugou.com/api/v3/rank/song?ranktype=2&page=1&rankid=23784&pagesize=500 total=311
+http://mobilecdn.kugou.com/api/v3/rank/song?ranktype=2&page=1&rankid=24971&pagesize=500 total=98
+http://mobilecdn.kugou.com/api/v3/rank/song?ranktype=2&page=1&rankid=27&pagesize=500 total=86
+http://mobilecdn.kugou.com/api/v3/rank/song?ranktype=2&page=1&rankid=28&pagesize=500 total=54
+http://mobilecdn.kugou.com/api/v3/rank/song?ranktype=2&page=1&rankid=24045&pagesize=500 total=29
+http://mobilecdn.kugou.com/api/v3/rank/song?ranktype=2&page=1&rankid=24047&pagesize=500 toal=98
+http://mobilecdn.kugou.com/api/v3/rank/song?ranktype=2&page=1&rankid=29606&pagesize=500 total=50
+
+# 总: 624938
+select count(id) from o2o_spider_song where name like '%快三%' or name like '%慢四%' or name like '%快四%' or  name like '%DJ%' or name like '%舞曲%' or name like '%广场舞%' or name like '%串烧%' or name like '%电音%' or name like '%慢摇%' or name like '%MC%' or name like '%喊麦%' or name like '%慢三%' or name like '%伴奏%' or name like '%纯音乐%' or name like '%铃声%' or name like '%戏剧%' or name like '%粤剧%' or name like '%戏剧%' or name like '%黄梅戏%' or name like '%京剧%' or name like '%戏曲%' or name like '%庐剧%' or name like '%越剧%' or name like '%沪剧%' or name like '%吕剧%' or name like '%豫剧%' or name like '%曲剧%' or name like '%潮剧%' or name like '%锡剧%' or name like '%淮剧%' or name like '%评剧%' or name like '%婺剧%' or name like '%琼剧%' or name like '%甬剧%' or name like '%remix%' or name like '%现场%' or name like '%m c%' or name like '%m.c%' or name like 'd.j' or name like '演唱会' or name like '%Concerto%'
+
+# dj mc 喊麦: 128522
+select count(id) from o2o_spider_song where
+label != '伴奏'
+and name not like '%伴奏%'
+and (name like '%快三%'
+or name like '%慢四%'
+or name like '%快四%'
+or name like '%DJ%'
+or name like '%舞曲%'
+or name like '%广场舞%'
+or name like '%串烧%'
+or name like '%电音%'
+or name like '%慢摇%'
+or name like '%MC%'
+or name like '%喊麦%'
+or name like '%慢三%'
+or name like '%车载%'
+or name like '%劲嗨%'
+or name like '%remix%'
+or name like '%m c%'
+or name like '%m.c%'
+or name like 'd.j')
+
+# 戏曲: 3996
+select count(id) from o2o_spider_song where name like '%戏剧%' or name like '%粤剧%' or name like '%戏剧%' or name like '%黄梅戏%' or name like '%京剧%' or name like '%戏曲%' or name like '%庐剧%' or name like '%越剧%' or name like '%沪剧%' or name like '%吕剧%' or name like '%豫剧%' or name like '%曲剧%' or name like '%潮剧%' or name like '%锡剧%' or name like '%淮剧%' or name like '%评剧%' or name like '%婺剧%' or name like '%琼剧%' or name like '%甬剧%'
+
+# 伴奏: 154973
+select count(id) from o2o_spider_song where name like '%伴奏%'
+
+# 纯音乐: 81950
+select count(id) from o2o_spider_song where name like '%纯音乐%' or name like '%Concerto%'
+
+# 铃声: 244051
+select count(id) from o2o_spider_song where name like '%铃声%'
+
+# 雷石缺失
+select count(id) from o2o_spider_song where name not like '%伴奏%' and name not like '%纯音乐%' and name not like '%铃声%' and name not like '%remix%' and name not like '%Concerto%' and lable = '伴奏' and (simhash_krc != '' or state = 1)
+
+#kugou mobile
+分类首页: http://mobilecdnbj.kugou.com/api/v3/tag/list?apiver=2&plat=0&pid=0
+儿童首页: http://m.www2.kugou.com/yueku/category/index.php?r=area/index&areaid=2&t=0.5147441825829446
+获取tagid: http://mobilecdnbj.kugou.com/api/v3/tag/info?&apiver=2&id=235
+
+http://www.kugou.com/yy/index.php?r=play/getdata&hash=2B3FADD4EDB3D08F8C0D9F883445CEF2&album_id=0&_=1492755395805

@@ -1,0 +1,41 @@
+[自定义Django Command]
+https://blog.csdn.net/slamx/article/details/51221046
+1.Django的Command命令是要放在一个app的management/commands目录下的.
+2.Command文件名为closepoll.py, 对此模块只有唯一的要求, 它必须定义一个Command类并扩展自BaseCommand.
+3.重写handler方法, 用add_arguments方法接收参数.
+
+[多数据库联用]
+https://code.ziqiangxuetang.com/django/django-multi-database.html
+
+[通用视图]
+https://code.ziqiangxuetang.com/django/django-generic-views.html
+1.View(get or post)
+2.TemplateView
+3.RedirectView
+4.DetailView
+5.ListView
+
+[上下文渲染器]
+https://code.ziqiangxuetang.com/django/django-context-processors.html
+
+[关于中间件]
+https://code.ziqiangxuetang.com/django/django-middleware.html
+1.process_request
+2.process_view
+3.process_response
+4.process_exception
+
+[订制管理模型]
+list_display = ('title', 'slug', 'author', 'publish', 'status')
+list_filter = ('status', 'created', 'publish', 'author')
+search_fields = ('title', 'body')
+prepopulated_fields = {'slug': ('title',)}
+raw_id_fields = ('author')
+date_hierarchy = 'publish'
+ordering = ['status', 'publish']
+
+[Model层添加函数属性]
+[装饰器 or fun()]
+@cached_property
+def shape(self):
+    return 0 if self.width > self.height else 1

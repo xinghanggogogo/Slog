@@ -1,0 +1,17 @@
+第一步, 建立py.py, 运行:
+#coding=utf-8
+from selenium import webdriver
+driver = webdriver.PhantomJS()
+url = 'http://106.75.97.4:8990/song/publish'
+driver.get(url)
+fdu = driver.find_element_by_id('song_stat')
+print('xinghanggogogo')
+print(driver.title)
+print('xinghanggogogo')
+print(fdu.text)
+
+然后报错:
+Message: 'phantomjs' executable needs to be in PATH.
+
+然后通过brew安装phantomjs:
+brew install phantomjs

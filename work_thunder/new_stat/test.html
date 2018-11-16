@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href={{ static_url('css/bootstrap.css') }} type="text/css">
+    <script src="{{ static_url('js/jquery.min.js') }}"></script>
+    <script src="{{ static_url('js/jquery.marcopolo.min.js') }}"></script>
+    <script src="{{ static_url('js/jquery.ui.widget.min.js') }}"></script>
+    <script src="{{ static_url('js/bootstrap.min.js') }}"></script>
+    <script src="{{ static_url('js/cms.js') }}"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>支付实时数据统计</title>
+</head>
+<body>
+<div class="amount" id="accordion">
+    <div>
+        <div>
+            <h1>今日总计</h1>
+            <ul class="amount">
+                <li>
+                    <label><a href='/stat/wx_stat'>微信</a></label>
+                    <label><a href='/stat/ali_stat'>支付宝</a></label>
+                    <label><a href='/stat/pos_stat'>POS</a></label>
+                    <label><a href='/baoyang'>红包</a></label>
+                    <label><a href='http://data.handle.ktvdaren.com/admin/propose/list'>表白</a></label>
+                    <label><a href='/stat/archive_stat'>汇总</a></label>
+                    <label><a href='/stat/today/archive_more'>日榜</a></label>
+                    <label><a href='/stat/ktv/rank/month'>月榜</a></label>
+                </li>
+                <li>
+                    <label>订单:</label><b class="t_stat" data-type="order_count_day,total">加载中,笔</b>
+                    <label>微信:</label><b class="t_stat" data-type="order_count_day,wx">加载中,笔</b>
+                    <label>支付宝:</label><b class="t_stat" data-type="order_count_day,ali">加载中,笔</b>
+                    <label>POS:</label><b class="t_stat" data-type="order_count_day,pos">加载中,笔</b>
+                    <label>电影:</label><b class="t_stat" data-type="order_count_day,movie">加载中,笔</b>
+                    <label>红包:</label><b class="t_stat" data-type="order_count_day,red">加载中,笔</b>
+                    <label>会员卡:</label><b class="t_stat" data-type="order_count_day,card">加载中,笔</b>
+                    <label>预定:</label><b class="t_stat" data-type="order_count_day,room">加载中,笔</b>
+                    <label>wow:</label><b class="t_stat" data-type="order_count_day,wow">加载中,笔</b>
+                </li>
+                <li>
+                    <label>金额:</label><b class="t_stat" data-type="fee_day,total">加载中,元</b>
+                    <label>微信:</label><b class="t_stat" data-type="fee_day,wx">加载中,元</b>
+                    <label>支付宝:</label><b class="t_stat" data-type="fee_day,ali">加载中,元</b>
+                    <label>POS:</label><b class="t_stat" data-type="fee_day,pos">加载中,元</b>
+                    <label>电影:</label><b class="t_stat" data-type="fee_day,movie">加载中,元</b>
+                    <label>红包:</label><b class="t_stat" data-type="fee_day,red">加载中,元</b>
+                    <label>会员卡:</label><b class="t_stat" data-type="fee_day,card">加载中,元</b>
+                    <label>预定:</label><b class="t_stat" data-type="fee_day,room">加载中,元</b>
+                    <label>wow:</label><b class="t_stat" data-type="fee_day,wow">加载中,元</b>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <h1>昨日总计</h1>
+        <ul class="amount">
+            <li>
+                <label>订单:</label><b id="">{{ y_stat['order_count_day']['total'] }}笔</b>
+                <label>微信:</label><b id="">{{ y_stat['order_count_day']['wx'] }}笔</b>
+                <label>支付宝:</label><b id="">{{ y_stat['order_count_day']['ali'] }}笔</b>
+                <label>POS:</label><b id="">{{ y_stat['order_count_day']['pos'] }}笔</b>
+                <label>电影:</label><b id="">{{ y_stat['order_count_day']['movie'] }}笔</b>
+                <label>红包:</label><b id="">{{ y_stat['order_count_day']['red'] }}笔</b>
+                <label>会员卡:</label><b id="">{{ y_stat['order_count_day'].get('card') }}笔</b>
+                <label>预定:</label><b id="">{{ y_stat['order_count_day'].get('room') }}笔</b>
+                <label>wow:</label><b id="">{{ y_stat['order_count_day'].get('wow', '0') }}笔</b>
+            </li>
+            <li>
+                <label>金额:</label><b id="">{{ yuan_to_wan(y_stat['fee_day']['total']) }}元</b>
+                <label>微信:</label><b id="">{{ yuan_to_wan(y_stat['fee_day']['wx']) }}元</b>
+                <label>支付宝:</label><b id="">{{ yuan_to_wan(y_stat['fee_day']['ali']) }}元</b>
+                <label>POS:</label><b id="">{{ yuan_to_wan(y_stat['fee_day']['pos']) }}元</b>
+                <label>电影:</label><b id="">{{ yuan_to_wan(y_stat['fee_day']['movie']) }}元</b>
+                <label>红包:</label><b id="">{{ yuan_to_wan(y_stat['fee_day']['red']) }}元</b>
+                <label>会员卡:</label><b id="">{{ yuan_to_wan(y_stat['fee_day'].get('card')) }}元</b>
+                <label>预定:</label><b id="">{{ yuan_to_wan(y_stat['fee_day'].get('room')) }}元</b>
+                <label>wow:</label><b id="">{{ yuan_to_wan(y_stat['fee_day'].get('wow', 0)) }}元</b>
+            </li>
+            <li>
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseYesterday" id="collapseYestodayBtn">展开</a>
+            </li>
+        </ul>
+    </div>
+    <div id="collapseYesterday" class="panel-collapse collapse">
+        <div class="panel-body">
+        <ul class="amount">
+            <li>
+                <label>均价:</label><b id="">{{ y_stat['order_averrage_fee_day']['total'] }}元</b>
+                <label>微信:</label><b id="">{{ y_stat['order_averrage_fee_day']['wx'] }}元</b>
+                <label>支付宝:</label><b id="">{{ y_stat['order_averrage_fee_day']['ali'] }}元</b>
+                <label>POS:</label><b id="">{{ y_stat['order_averrage_fee_day']['pos'] }}元</b>
+                <label>电影:</label><b id="">{{ y_stat['order_averrage_fee_day']['movie'] }}元</b>
+            </li>
+            <li>
+                <label>日活:</label><b id="">{{ y_stat['ktv_count_day']['total'] }}家</b>
+                <label>微信:</label><b id="">{{ y_stat['ktv_count_day']['wx'] }}家</b>
+                <label>支付宝:</label><b id="">{{ y_stat['ktv_count_day']['ali'] }}家</b>
+                <label>POS:</label><b id="">{{ y_stat['ktv_count_day']['pos'] }}家</b>
+                <label>电影:</label><b id="">{{ y_stat['ktv_count_day']['movie'] }}家</b>
+            </li>
+            <li>
+                <label>日增:</label><b id="">{{ y_stat['new_ktv_count_day']['total'] }}家</b>
+                <label>微信:</label><b id="">{{ y_stat['new_ktv_count_day']['wx'] }}家</b>
+                <label>支付宝:</label><b id="">{{ y_stat['new_ktv_count_day']['ali'] }}家</b>
+                <label>POS:</label><b id="">{{ y_stat['new_ktv_count_day']['pos'] }}家</b>
+                <label>电影:</label><b id="">{{ y_stat['new_ktv_count_day']['movie'] }}家</b>
+            </li>
+            <li>
+                <label>转化率:</label><b id="">{{ y_stat['coverage_rate_day']['total'] }}%</b>
+                <label>微信:</label><b id="">{{ y_stat['coverage_rate_day']['wx'] }}%</b>
+                <label>支付宝:</label><b id="">{{ y_stat['coverage_rate_day']['ali'] }}%</b>
+                <label>POS:</label><b id="">{{ y_stat['coverage_rate_day']['pos'] }}%</b>
+                <label>电影:</label><b id="">{{ y_stat['coverage_rate_day']['movie'] }}%</b>
+            </li>
+            <li>
+                <label>覆盖率:</label><b id="">{{ y_stat['market_rate_day']['total'] }}%</b>
+                <label>微信:</label><b id="">{{ y_stat['market_rate_day']['wx'] }}%</b>
+                <label>支付宝:</label><b id="">{{ y_stat['market_rate_day']['ali'] }}%</b>
+                <label>POS:</label><b id="">{{ y_stat['market_rate_day']['pos'] }}%</b>
+                <label>电影:</label><b id="">{{ y_stat['market_rate_day']['movie'] }}%</b>
+            </li>
+            <li>
+                <label>店流水:</label><b id="">{{ y_stat['ktv_averrage_fee_day']['total'] }}元</b>
+                <label>微信:</label><b id="">{{ y_stat['ktv_averrage_fee_day']['wx'] }}元</b>
+                <label>支付宝:</label><b id="">{{ y_stat['ktv_averrage_fee_day']['ali'] }}元</b>
+                <label>POS:</label><b id="">{{ y_stat['ktv_averrage_fee_day']['pos'] }}元</b>
+                <label>电影:</label><b id="">{{ y_stat['ktv_averrage_fee_day']['movie'] }}元</b>
+            </li>
+            <li>
+                <label>店订单:</label><b id="">{{ y_stat['ktv_averrage_order_day']['total'] }}笔</b>
+                <label>微信:</label><b id="">{{ y_stat['ktv_averrage_order_day']['wx'] }}笔</b>
+                <label>支付宝:</label><b id="">{{ y_stat['ktv_averrage_order_day']['ali'] }}笔</b>
+                <label>POS:</label><b id="">{{ y_stat['ktv_averrage_order_day']['pos'] }}笔</b>
+                <label>电影:</label><b id="">{{ y_stat['ktv_averrage_order_day']['movie'] }}笔</b>
+            </li>
+            <li>
+                <label>KTV:</label><b id="">{{ y_stat['total_ktv_count']['total'] }}家</b>
+                <label>微信:</label><b id="">{{ y_stat['total_ktv_count']['wx'] }}家</b>
+                <label>支付宝:</label><b id="">{{ y_stat['total_ktv_count']['ali'] }}家</b>
+                <label>POS:</label><b id="">{{ y_stat['total_ktv_count']['pos'] }}家</b>
+                <label>电影:</label><b id="">{{ y_stat['total_ktv_count']['movie'] }}家</b>
+            </li>
+            <li>
+                <label>最高单:</label><b id="">{{ y_stat['day_max_fee']['total'] }}元</b>
+                <label>微信:</label><b id="">{{ y_stat['day_max_fee']['wx'] }}元</b>
+                <label>支付宝:</label><b id="">{{ y_stat['day_max_fee']['ali'] }}元</b>
+                <label>POS:</label><b id="">{{ y_stat['day_max_fee']['pos'] }}元</b>
+                <label>电影:</label><b id="">{{ y_stat['day_max_fee']['movie'] }}元</b>
+            </li>
+        </ul>
+    </div>
+</div>
+    <center>
+        <input id='ktv_search' type='text' value='请输入ktv加密狗名字搜索' >
+        <br /><br />
+        <h1 style="display: inline;">ktv实时订单</h1> <a href='/stat/real/time/orders'>更多</a>
+        <table class="table tablesorter" id='Z_table'>
+            <thead>
+                <tr>
+                    <th>ktv</th>
+                    <th>收入</th>
+                    <th>渠道</th>
+                    <th>时间</th>
+                </tr>
+            </thead>
+            <tbody class="" >
+                {% for order in today_orders %}
+                <tr>
+                    <td><a href="/stat/ktv/detail/{{order['ktv_id']}}">{{ order['ktv_name']}}</a></td>
+                    <td>{{ order['total_fee']/100 }}</td>
+                    <td>{{ order['channel'] }}</td>
+                    <td>{{ order['finish_time'] }}</td>
+                </tr>
+                {% end %}
+            </tbody>
+        </table>
+    </center>
+<script type="text/javascript">
+$(function () {
+    $('#collapseToday').collapse({
+        toggle: false
+    });
+    $('#collapseTodayBtn, #collapseYestodayBtn').on('click', function(){
+        if ($(this).attr('aria-expanded')=='false'){
+            $(this).text('收起');
+        }else{
+            $(this).text('展开');
+        }
+    });
+
+    var putTodayStat2Page = function(data){
+        var items = $('.t_stat');
+        for (var i=0; i<items.length; i++){
+            var item = items[i];
+            var typeList = $(item).data('type').split(',');
+            var textList = $(item).text().split(',');
+            if(i<=8){
+                $(item).text(data[typeList[0]][typeList[1]] + textList[1]);
+            }else{
+                res = parseFloat(data[typeList[0]][typeList[1]])
+                if(res<10000){
+                    $(item).text(data[typeList[0]][typeList[1]] + textList[1]);
+                }else{
+                    $(item).text(String((res/10000).toFixed(2)) + '万元')
+                }
+            }
+        }
+    };
+
+    var fetchTodayStat = function(){
+        var path=window.location.pathname;
+        LB.post(path, {}, function(data){
+            if (data.errcode==0){
+                putTodayStat2Page(data);
+            }else{
+                setTimeout(fetchTodayStat, 1000);
+            }
+        })
+    }
+    fetchTodayStat();
+    $("#ktv_search").on("focus", function(){
+        $("#ktv_search").val("");
+    });
+    $("#ktv_search").marcoPolo({
+        url: '/ktv/search/ajax',
+        data:{
+            intent: 'global',
+            limit: 20
+        },
+        formatData: function(data){
+            return data;
+        },
+        formatItem: function(data, $item){
+            return data.name;
+        },
+        onSelect: function(data, $item){
+            if (data != '请输入ktv加密狗名字搜索') {
+                window.location.href= '/stat/ktv/detail/' + data.id
+            }
+        },
+        required: false
+    });
+
+});
+</script>
+
+</body>
+</html>

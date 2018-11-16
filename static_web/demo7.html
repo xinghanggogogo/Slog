@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <style>
+        .wrap {
+            width: 950px;
+            margin: 0 auto;
+        }
+        .content {
+            float: left;
+            width: 310px;
+        }
+        .header {
+            height: 34px;
+            padding: 2px 0;
+            line-height: 30px;
+            font-size: 16px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        .header h3 {
+            float: left;
+            width: 90px;
+            margin-right: 3px;
+        }
+        .header a {
+            font-size: 12px;
+        }
+        ul li {
+            border-bottom: 1px solid #eaeaea;
+            padding: 12px 0;
+            font-size: 12px;
+            line-height: 1;
+        }
+        li span {
+            margin-right: 5px;
+        }
+        /*测试行高*/
+        .test {
+            padding: 20px 0;
+            line-height:200px;
+            font-size: 50px;
+            background-color: #30A080;
+        }
+        /*测试两元素底部对齐, 必须设置行高为1, 否则你看看效果.*/
+        .test1 {
+            background-color: #30A080;
+            padding-bottom: 20px;
+        }
+        .test1 h2 {
+            float: left;
+            font-size: 24px;
+            line-height: 1;
+        }
+        .test1 a {
+            margin-left: 5px;
+            font-size: 12px;
+            line-height: 1;
+            vertical-align: bottom;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="content">
+            <div class="header">
+                <h3>本周口碑榜</h3>
+                <span>
+                    <a href="some_url">更多榜单>></a>
+                </span>
+            </div>
+            <ul>
+                <li><span>1</span><a href="">金刚狼3: 殊死一战</a></li>
+                <li><span>1</span><a href="">金刚狼3: 殊死一战</a></li>
+                <li><span>1</span><a href="">金刚狼3: 殊死一战</a></li>
+                <li><span>1</span><a href="">金刚狼3: 殊死一战</a></li>
+                <li><span>1</span><a href="">金刚狼3: 殊死一战</a></li>
+                <li><span>1</span><a href="">金刚狼3: 殊死一战</a></li>
+                <li><span>1</span><a href="">金刚狼3: 殊死一战</a></li>
+                <li><span>1</span><a href="">金刚狼3: 殊死一战</a></li>
+            </ul>
+            <p>行高测试:</p>
+            <div class="test">
+                <p>这是一段文字</p>
+            </div>
+            <br>
+            <div class="test1">
+                <h2>两段文字</h2><a href="">下端对齐</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

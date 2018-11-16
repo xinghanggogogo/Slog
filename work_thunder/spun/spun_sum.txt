@@ -1,0 +1,34 @@
+查找当前目录下所有指定类型文件并输出文件名 -type 表示指定类型 f 标准文件 文件名:
+find *.lrc -type f print0
+
+关于less命令:
+用来浏览文字档案的内容
+用PageUp键向上翻页, 用PageDown键向下翻页
+
+Mandatory remove
+rm tmp.out -f
+
+Find all lrc file which code way is utf8 and asc, split whith ':' and output the file name
+file *.lrc | grep -v UTF | grep -v ASCII | cut -d":" -f1 > tmp.out
+
+one way to write reg more gentleman
+PATTARN = r'\[(\d*:[\d\.]*)\](.*)'
+
+mysqldump -uroot -p098f6bcd4621d373cade4e832627b4f6 -h10.9.138.23 kugou kugou_singer > singer.sql
+
+阿杜:
+1.撕夜 done
+2.andy error flac
+ffmpeg -i "20025610.flac" -b:a 192k -acodec mp3 -ar 44100 -ac 2 "test.mp3"
+e.天黑 error flac
+rm krc/*.krc && rm lrc/* && rm mp3/* && rm mp3_s/*
+ls krc/ && ls lrc/ && ls mp3/&& ls mp3_s
+
+mysql -uroot -pthunder5166 songs -e
+'select artist, kugouid, hot_songs, spun_state, hot_songs_num, music_link from kugou_singer'
+> singer.txt
+;
+load data infile '/var/lib/mysql-files/singer.txt' into table singer character set utf8
+fields terminated by '\t' lines terminated by '\n'
+(artist, kugouid, hot_songs, spun_state, hot_songs_num, music_link)
+;

@@ -1,0 +1,57 @@
+alter table gzh_user add earn_sum int(11) not null default 0 comment "赚取总金额";
+alter table gzh_user add flag tinyint(1) not null default 0 comment "是否第一次进入分销";
+
+CREATE TABLE `gzh_dis_order` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `order_id` varchar(128) NOT NULL DEFAULT '' COMMENT '',
+    `openid` varchar(64) NOT NULL DEFAULT '' COMMENT '',
+    `phone_num` bigint(11) NOT NULL DEFAULT 0 COMMENT '电话号码',
+    `s_openid` varchar(64) NOT NULL DEFAULT '' COMMENT '分享者openid',
+    `ktv_id` int(11) NOT NULL DEFAULT 0 COMMENT '',
+    `card_type` varchar(11) NOT NULL DEFAULT '' COMMENT '',
+    `total_fee` int(11) NOT NULL DEFAULT 0 COMMENT '赚取总金额',
+    `payed` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0:下单成功，1:支付成功',
+    `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0:没有或不需要发红包，1:发红包成功',
+    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `card_order` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `openid` varchar(64) NOT NULL DEFAULT '' COMMENT '下单用户的openid',
+    `ktv_id` int(11) NOT NULL DEFAULT '0' COMMENT '下单的ktv',
+    `cards` varchar(2048) NOT NULL DEFAULT '[]' COMMENT '用户下单的所有的会员卡的信息，json dumps后',
+    `order_type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '订单类型: 0=办卡, 1=充值',
+    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `order_id` varchar(128) NOT NULL DEFAULT '' COMMENT '自身的order id',
+    `wx_pay_id` varchar(128) NOT NULL DEFAULT '' COMMENT '微信的订单id',
+    `state` tinyint(1) NOT NULL DEFAULT '0' COMMENT '订单状态: 0订单创建, 1订单未支付, 2订单已支付 3订单撤销，4订单关闭，5订单退款申请，6订单退款成功，7订单退款失败',
+    `fee` int(11) NOT NULL DEFAULT '0' COMMENT '支付了多钱',
+    `zktv_id` int(11) NOT NULL DEFAULT '0' COMMENT '下单ktv的主ktv id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10612 DEFAULT CHARSET=utf8 |
+
+
+#会员卡接口
+#ktv对应会员卡: http://84579.ngrok.ktvsky.com/member/getmembertype
+{
+    "code": 200,
+    "count": 1,
+    "msg": "ok",
+    "list": [
+        {
+            "MinAmountMoney": "1,000.00",   #最少充值
+            "costfee": 0,
+            "fooddiscount": 88,             #食品打折
+            "iscash": 1,
+            "isscore": 1,
+            "memberprice": 1,
+            "name": "普通卡",
+            "roomdiscount": 88,         #包房打折
+            "typeid": 1,                #在此ktv此会员卡的id
+            "validtime": ""
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+$baseWidth: 1000;
+
+@function px2rem($px) {
+  @return $px / $baseWidth * 10rem;
+}
+
+.father {
+    width: px2rem(1000);
+    height: px2rem(500);
+    margin: 0 auto;
+    background-color: #f8f8f8;
+    .son {
+        font-size: px2rem(16);
+        color: red;
+    }
+}
+.daughter {
+    font-size: px2rem(16);
+    color: blue;
+}

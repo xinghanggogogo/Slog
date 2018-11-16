@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>page</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+</head>
+<body>
+    <div id="page"></div>
+    <script src="layui/layui.js" charset="utf-8"></script>
+    <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        layui.use(['laypage'], function() {
+            var laypage = layui.laypage
+            laypage({
+                cont: 'page',
+                curr: 12,
+                pages: 20,
+                groups: 10,
+                first: false,
+                last: false,
+                jump: function (obj, first) {
+                    console.log(first)
+                    if (!first) {
+                        window.location.href = `http://baidu.com?page=${obj.curr}`
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+</html>

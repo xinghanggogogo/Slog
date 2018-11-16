@@ -1,0 +1,58 @@
+CREATE TABLE `ktv_bar_apply_user` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`name` varchar(32) NOT NULL DEFAULT '' COMMENT '',
+	`phone_num` bigint(11) NOT NULL DEFAULT 0 COMMENT '',
+	`city` varchar(32) NOT NULL DEFAULT '' COMMENT '',
+	`own_source` varchar(32) NOT NULL DEFAULT '' COMMENT '所拥有资源',
+	`own_source_other` varchar(128) NOT NULL DEFAULT '' COMMENT '所拥有资源其他信息',
+	`own_money` varchar(32) NOT NULL DEFAULT '' COMMENT '可以投入资金',
+	`own_money_other` varchar(128) NOT NULL DEFAULT '' COMMENT '可以投入资金其他信息',
+	`create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+insert into ktv_bar_apply_user (name, phone_num, city, own_source, own_money) values('xinghang', 13521776628, 'beijing', '超市', '1000000')
+
+| music_order | CREATE TABLE `music_order` (
+  `order_id` int(11) NOT NULL AUTO_INCREMENT,
+  `sp_id` int(11) NOT NULL DEFAULT '0' COMMENT 'æœåŠ¡å•†ID',
+  `store_id` int(11) NOT NULL DEFAULT '0' COMMENT 'é—¨åº—ID',
+  `mac_id` varchar(32) NOT NULL DEFAULT '' COMMENT 'æœºå™¨çš„MACåœ°å€',
+  `tp` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'æ”¯ä»˜ç±»åž‹ï¼Œ0æŠ•å¸ï¼Œ1å¾®ä¿¡ï¼Œ2æ”¯ä»˜å®',
+  `pay_fee` int(11) NOT NULL DEFAULT '0' COMMENT 'æ”¯ä»˜çš„å®žé™…é‡‘é¢å•ä½åˆ†',
+  `state` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'æ”¯ä»˜çš„çŠ¶æ€ 0ä¸‹å•ï¼Œ1å·²æ”¯ä»˜ï¼Œ2å…³å•ï¼Œ3å…³å•æˆåŠŸï¼Œ4å·²ç»é€€æ¬¾',
+  `info` varchar(256) NOT NULL DEFAULT '' COMMENT 'æ”¯ä»˜è¯¦æƒ…',
+  `pay_coin` int(11) NOT NULL DEFAULT '0' COMMENT 'æ”¯ä»˜çš„å¸æ•°',
+  `pay_order_id` varchar(128) NOT NULL DEFAULT '' COMMENT 'æ”¯ä»˜çš„è®¢å•IDï¼Œå¯¹åº”æ”¯ä»˜è¡¨çš„æ”¯ä»˜ID',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`order_id`),
+  UNIQUE KEY `uk_pay_id` (`pay_order_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1440 DEFAULT CHARSET=utf8 |
+
+http://static.ktvsky.com/2015/index.html
+静态活动页面!
+
+CREATE TABLE `feedback_info` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`type`varchar(8) NOT NULL DEFAULT '' COMMENT '反馈信息类型',
+	`detail` text NOT NULL DEFAULT '' COMMENT '详细描述',
+	`contact` varchar(16) NOT NULL DEFAULT '' COMMENT '联系方式',
+	`create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+{% if 'game_order' in modules %}
+<li{% if body_class == 'game_order' %} class="active"{% end %}>
+    <a class="dropdown-toggle" id="dropdownMenuWow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        WOW相关统计
+        <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+        <li><a href="/game/order">游戏机订单</a></li>
+        <li><a href="/ktv_bar/feedback/stat">反馈统计</a></li>
+    </ul>
+</li>
+{% end %}

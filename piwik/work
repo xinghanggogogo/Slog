@@ -1,0 +1,13 @@
+thunder_lab piwik
+centOS:
+php-fpm配置文件所在: /usr/local/php/php-5.5.35/sbin
+killall -9 php-fpm
+./php-fpm
+nginx路径:/usr/local/openresty/nginx
+killall -9 nginx
+./sbin/ngnix
+
+python import_logs.py --url=http://120.132.66.202:50001/ --idsite=1 --recorders=2 --token-auth=6f2bda8b3f4788f3739b15e598fd70cc --enable-static --enable-bots --enable-http-errors --enable-http-redirects /data/logs/kuailezhua_access.log
+python import_logs.py --url=http://127.0.0.1:50001/ --idsite=1234 --recorders=4 --enable-http-errors --enable-http-redirects --enable-static --enable-bots /data/logs/kuailezhua_access.log
+
+recommend

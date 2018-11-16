@@ -1,0 +1,147 @@
+a {
+    text-decoration: none;
+}
+body, dl, dd, ul, ol, h1, h2, h3, h4, h5, h6, form, input, textarea, p, th, td {
+    margin: 0;
+    padding: 0;
+}
+.modular {
+    position: relative;
+    padding: 0 20px;
+}
+.modular-box {
+    padding-top: 20px;
+    overflow: hidden;
+    background-color: #FFF
+}
+.mixture {
+    float: left;
+    width: 400px;
+    height: 360px;
+    overflow: hidden;
+}
+.mixture h2 {
+    margin-left: 10px;
+    font-size: 22px;
+    font-weight: normal;
+    line-height: 32px;
+
+}
+.mixture ul {
+    list-style: none;
+    overflow: hidden;
+}
+.mixture li {
+    position: relative;
+    float: left;
+    margin-top:15px;
+    margin-left: 15px;
+    width: 127px;
+    text-align: center;
+}
+.mixture li .img {
+    width: 100%;
+    height: 63px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+.mixture li .img img {
+    width: 100%;
+    height: 100%;
+}
+.news {
+    float: left;
+    width: 400px;
+    height: 360px;
+    overflow: hidden;
+    margin-left: 15px;
+    margin-top: 5px;
+}
+.news p span {
+    float: left;
+    width: 107px;
+    height: 47px;
+    text-align: center;
+    font-size: 20px;
+    color: #FFF;
+    line-height: 38px;
+    background: url(http://zhibo.sogou.com/web2/images/sprite.png) -313px -120px no-repeat ;
+}
+.news p a {
+    float: right;
+    font-size: 13px;
+    color: #666;
+    margin-top: 10px;
+
+}
+.news ul {
+    clear: both;
+    list-style: none;
+    overflow: hidden;
+}
+.news li {
+    float: left;
+    margin-top: 15px;
+}
+.news li p {
+    line-height: 20px;
+    text-overflow: ellipsis;
+}
+.new li div {
+    font-size: 12px;
+    line-height: 20px;
+    color: #bbb;
+    margin-top:15px;
+}
+.news li .time {
+    float: left;
+}
+.news li .time em {
+    display: inline-block;
+    margin-right: 10px;
+    width: 13px;
+    height: 15px;
+    vertical-align: middle;
+    background: url(http://zhibo.sogou.com/web2/images/sprite.png)  -331px -298px no-repeat;
+}
+.news li .num {
+    float: left;
+    margin-left: 10px;
+    margin-top: 2px;
+}
+.news li .num em {
+    display: inline-block;
+    margin-right: 5px;
+    width: 15px;
+    height: 15px;
+    vertical-align: middle;
+    background: url(http://zhibo.sogou.com/web2/images/sprite.png) -407px -104px no-repeat;
+}
+.modular-down {
+    float: left;
+    width: 253px;
+    height: 360px;
+    margin-left: 15px;
+    background: url(http://zhibo.sogou.com/web2/images/plat.png) no-repeat;
+}
+.modular-down .pc-down {
+    display: block;
+    margin: 255px auto 0;
+    width: 190px;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    color: #fff;
+    background-color: #ff512f;
+    border-radius: 10px;
+}
+.modular-down .wap-down {
+    display: block;
+    position: relative;
+    margin: 17px auto 0;
+    width: 120px;
+    font-size: 14px;
+    color: #999;
+    line-height: 20px;
+    height: 20px;
+}

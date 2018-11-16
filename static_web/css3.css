@@ -1,0 +1,405 @@
+body {
+    font-family: arial, stheiti, 'microsoft yahei', sans-serif;
+    min-width: 1185px;
+}
+a {
+    text-decoration: none;
+}
+button, input, select, textarea {
+    font-size: 100%;
+    margin: 0;
+    vertical-align: baseline;
+}
+button, input, select, textarea {
+    font-size: 100%;
+    margin: 0:auto;
+    vertical-align: ;
+}
+.head {
+    position: relative;
+    width: 1500px;
+    height: 137px;
+    z-index: 1;
+    margin: 0 auto;
+}
+.head .head-left {
+    float: left;
+    width: 890px;
+    height: 106px;
+    padding-right: 268px;
+    padding-top: 31px;
+    background: url(http://zhibo.sogou.com/web2/images/retouch.png) right bottom no-repeat;
+}
+.head .logo {
+    position: absolute;
+    left: 0;
+    width: 300px;
+    height: 40px;
+    background: url(http://zhibo.sogou.com/web2/images/word.png) right center no-repeat;
+}
+.head .logo a {
+    display: inline-block;
+    width: 145px;
+    height: 40px;
+    overflow: hidden;
+    background: url("http://zhibo.sogou.com/web2/images/sprite.png") -313px 0px no-repeat;
+}
+.head .search {
+    position: relative;
+    float: left;
+    margin-left: 345px;
+    height: 36px;
+}
+.head .search input {
+    outline: none;
+}
+.head .search .text {
+    float: left;
+    width: 379px;
+    height: 34px;
+    border: 1px solid #ffaca0;
+    border-right: none;
+    border-radius: 2px 0 0 2px;
+    text-indent: 10px;
+    line-height: 34px;
+}
+.head .search .btn {
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+    width: 74px;
+    height: 36px;
+    background: url("http://zhibo.sogou.com/web2/images/sprite.png") -219px -73px no-repeat;
+}
+
+.nav {
+    position: absolute;
+    height: 37px;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    font-size: 16px;
+    line-height: 39px;
+}
+.nav .on {
+    background: -webkit-linear-gradient(left, #fa5339 0, #fa2b54 100%);
+    color: #fff;
+}
+
+.nav a {
+    float: left;
+    width: 104px;
+    height: 37px;
+    color: #333;
+    border-radius: 5px 5px 0 0;
+}
+.tools {
+    position: relative;
+    float: right;
+    font-size: 12px;
+    color: #333;
+    height: 30px;
+    line-height: 30px;
+    margin-top: 31px;
+    margin-right: 19px;
+}
+.tools .download em {
+    display: inline-block;
+    margin-right: 3px;
+    vertical-align: middle;
+    width: 13px;
+    height: 13px;
+    background: url(http://zhibo.sogou.com/web2/images/sprite.png) -399px -298px no-repeat;
+}
+.complex {
+        background: url(http://zhibo.sogou.com/web2/images/bg.png) center top no-repeat;
+}
+.row {
+        width: 1500px;
+    margin: 0 auto;
+}
+.recommand {
+    overflow: hidden;
+    padding: 0 20px;
+}
+.recommand-bar {
+    padding: 5px 0;
+    height: 60px;
+    overflow: hidden;
+    font-size: 14px;
+    color: #fff;
+}
+.recommand-bar .tt {
+    float: left;
+    width: 70px;
+    height: 60px;
+    line-height: 60px;
+}
+.recommand-bar .recommand-list {
+    float: left;
+    width: 100%;
+    height: 37px;
+    overflow: hidden;
+    margin: 13px 0 14px;
+}
+.recommand-bar .recommand-list a {
+    float: left;
+    margin-left: 25px;
+    height: 39px;
+    color: #fff;
+}
+.recommand-bar .recommand-list a .img {
+    float: left;
+    width: 33px;
+    height: 33px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 8px;
+    box-shadow: 0 0 2px 2px rgba(0,0,0,0.1);
+}
+.recommand-bar .recommand-list a .name {
+    filter: alpha(opacity=60);
+    -moz-opacity: 0.6;
+    opacity: 0.6;
+    line-height: 39px;
+    white-space: nowrap;
+}
+.recommand-bar .more {
+    float: right;
+    width: 105px;
+}
+.recommand-bar .more s {
+        float: left;
+    width: 11px;
+        height: 64px;
+        background: url(http://zhibo.sogou.com/web2/images/sprite.png) -131px -79px no-repeat;
+}
+.recommand-bar .more a {
+    float: right;
+    vertical-align: middle;
+    color: #fff;
+    line-height: 20px;
+    margin-top: 24px;
+}
+.recommand-vedio .item2, .recommand-vedio .item, .recommand-vedio .item3 {
+    position: relative;
+    float: left;
+    box-shadow: 0 0 3px 3px rgba(0,0,0,0.1);
+    overflow: hidden;
+    border-radius: 6px;
+}
+.recommand-vedio .item2 {
+    width: 573px;
+    height: 327px;
+}
+.recommand-vedio .msg {
+    position: absolute;
+    font-size: 12px;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    height: 60px;
+}
+.recommand-vedio .msg .dt {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 100%;
+    color: #fff;
+    line-height: 20px;
+    height: 20px;
+    text-indent: 10px;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.recommand-vedio .msg .name {
+    position: absolute;
+    color: #fff;
+    left: 10px;
+    bottom: 10px;
+}
+.recommand-vedio .msg .forum {
+    position: absolute;
+    color: #ff512f;
+    right: 10px;
+    bottom: 10px;
+}
+.recommand-vedio .item {
+    width: 275px;
+    height: 156px;
+    margin-left: 20px;
+    margin-top: 15px;
+}
+.recommand-vedio .item2 .img, .recommand-vedio .item .img, .recommand-vedio .item3 .img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.recommand-vedio .recommand-box-right {
+    float: left;
+    width: 600px;
+    height: 327px;
+    margin-top: -15px;
+}
+.modular:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 332px;
+    background: url(http://zhibo.sogou.com/web2/images/sprite.png) -24px 0px no-repeat;
+}
+.modular {
+    position: relative;
+    margin-top: 19px;
+    padding: 0 20px;
+}
+.modular-box {
+    background-color: #FFF;
+    overflow: hidden;
+    padding-top: 22px;
+}
+.mixture {
+    float: left;
+    width: 500px;
+    height: 360px;
+    overflow: hidden;
+    margin-top: -5px;
+}
+.mixture h2 {
+    font-size: 22px;
+    font-weight: normal;
+    margin-left: 20px;
+    line-height: 32px;
+    margin-top: 11px;
+}
+.mixture-box {
+    margin-left: 5px;
+}
+.mixture-box li {
+    float: left;
+    width: 127px;
+    margin-left: 20px;
+    margin-top: 18px;
+    text-align: center;
+}
+.mixture-box li .img {
+    display: block;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 100%;
+    height: 63px;
+}
+.news {
+    float: left;
+    width: 400px;
+    margin-left: 10px;
+}
+.news .news-tt span {
+    display: inline-block;
+    font-size: 20px;
+    color: #fff;
+    line-height: 38px;
+    text-align: center;
+    width: 107px;
+    height: 47px;
+    background: url(http://zhibo.sogou.com/web2/images/sprite.png) -313px -120px no-repeat;
+}
+.news .news-more {
+    float: right;
+    font-size: 13px;
+    color: #666;
+    margin-top: 10px;
+}
+.news-box {
+    overflow: hidden;
+    margin-top: -19px;
+}
+.news-box li {
+    margin-top: 19px;
+}
+.news-box p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 20px;
+}
+.news-box li div {
+    font-size: 12px;
+    line-height: 20px;
+    color: #bbb;
+    margin-top: 6px;
+}
+.news-box li .time {
+    display: inline-block;
+    width: 96px;
+}
+.news-box li .time em {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -2px;
+    margin-right: 5px;
+    width: 13px;
+    height: 13px;
+    background: url(http://zhibo.sogou.com/web2/images/sprite.png) -331px -298px no-repeat;
+}
+.news-box li .num em {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -2px;
+    margin-right: 5px;
+    width: 15px;
+        height: 10px;
+        background: url(http://zhibo.sogou.com/web2/images/sprite.png) -407px -104px no-repeat;
+}
+.modular-down {
+    float: left;
+    margin-left: 10px;
+    width: 253px;
+    height: 358px;
+    background: url(http://zhibo.sogou.com/web2/images/plat.png) no-repeat;
+    margin-bottom: 45px;
+}
+.pc-down {
+    display: block;
+    margin: 250px auto 0;
+    width: 190px;
+    height: 44px;
+    line-height: 44px;
+    color: #fff;
+    text-align: center;
+    background: #ff512f;
+    border-radius: 22px;
+}
+.wap-down {
+    position: relative;
+    display: block;
+    margin: 17px auto 0;
+    width: 120px;
+    font-size: 14px;
+    color: #999;
+    line-height: 20px;
+    height: 20px;
+}
+.pc-down em {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 6px;
+    width: 20px;
+    height: 14px;
+    background: url(http://zhibo.sogou.com/web2/images/sprite.png) -424px -151px no-repeat;
+}
+ul, ol {
+    list-style: none;
+}
+img {
+    width: 100%;
+    height: 100%;
+}
+body, dl, dd, ul, ol, h1, h2, h3, h4, h5, h6, form, input, textarea, p, th, td {
+    margin: 0;
+    padding: 0;
+}

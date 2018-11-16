@@ -1,0 +1,21 @@
+cent os: xinghang@101.254.157.124
+pyenv active scripy
+sudo yum install numpy scipy python-matplotlib ffmpeg portaudio-devel
+mac os
+
+rsync push xinghang@101.254.157.124 xinghangtest
+xinghang
+function (xinghang) {
+    var xinghang  = 'love feifei'
+}
+
+load data infile '/var/lib/mysql-files/30W.csv' into table thunder_song
+fields terminated by '\t' lines terminated by '\n'
+(thunder_id, name, artist1, artist2, artist3, artist4, @duration, has_krc, download_link)
+set duration=NULLif(@duration,0)
+
+http://kcloud.v2.service.ktvdaren.com/MusicService.aspx?op=getksdownurl&url=
+
+{'song_id': 11, 'song_name': '\xe5\x9c\xb0\xe7\x90\x83\xe5\xbe\x88\xe5\x8d\xb1\xe9\x99\xa9',
+ 'file_sha1': 'A2882D1C37E9A70C05ECFBE36550D7A5D68D17DD', 'confidence': 6,
+ 'offset_seconds': 1.06812, 'match_time': 13.048210859298706, 'offset': 23}

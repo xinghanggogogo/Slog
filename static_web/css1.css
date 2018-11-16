@@ -1,0 +1,63 @@
+body {
+    line-height: 1.5;
+    font-family: arial,"\5b8b\4f53";
+    background: #fff;
+    font-size: 12px;
+}
+.wrapper {
+    width: 1000px;
+    margin: 0 auto;
+    position: relative;
+}
+.three_box {
+        margin-left: -35px;
+}
+.three_box li {
+    width: 310px;
+    margin-left: 35px;
+    float: left;
+}
+.three_box li .img {
+    width: 310px;
+    height: 202px;
+    overflow: hidden;
+}
+.three_box li .author {
+    padding-left: 45px;
+    background: url(http://img1.cache.netease.com/f2e/news/renjian/images/author.png) no-repeat;
+    color: #888;
+    font: 12px;
+    line-height: 16px;
+    margin-bottom: 26px;
+}
+
+.three_box li p {
+    font: 14px '\65b0\5b8b\4f53';
+    line-height: 22px;
+    color: #888;
+    padding-right: 44px;
+}
+.three_box li a, .three_box li a:hover, .three_box li a:visited {
+    text-decoration: none;
+    display: block;
+}
+ul {
+    list-style: none;
+        margin: 0;
+        padding: 0;
+}
+.haodu_tit {
+    margin: 0 auto;
+    height: 168px;
+    margin-bottom: 55px;
+    display: block;
+}
+}
+.clearfix:after {
+    clear: both;
+    height: 0;
+    overflow: hidden;
+    display: block;
+    visibility: hidden;
+    content: ".";
+}

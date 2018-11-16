@@ -1,0 +1,702 @@
+/*css书写规范: https://github.com/fex-team/styleguide/blob/master/css.md*/
+
+/*所有的样式会根据下面的规则层叠于一个新的虚拟样式表中
+内联样式(在HTML元素内部, 双引号, 冒号, 分号)
+内部样式表(位于<head>标签内部的style标签)
+外部样式表(位于<head>标签内部的link标签, 注意是href)
+浏览器缺省设置
+*/
+
+/*内联样式表*/
+<p style="color: sienna; margin-left: 20px">This is a paragraph</p>
+
+/*内部样式表*/
+<head>
+    <style type="text/css">  /*type可省*/
+        hr {color: sienna;}
+        p {margin-left: 20px;}
+        body {background-image: url("images/back40.gif");}
+    </style>
+</head>
+
+/*外部样式表*/
+<head>
+    <link rel="stylesheet" type="text/css" href="./mystyle.css" />
+</head>
+
+/*关于多重样式的继承规则: 优先级规则, 多样性规则
+/*外部样式表拥有针对h3选择器的三个属性*/
+h3 {
+    color:red;
+    text-align:left;
+    font-size:8px;
+}
+/*而内部样式表拥有针对 h3 选择器的两个属性*/
+h3 {
+    text-align:right;
+    font-size:20px;
+}
+/*假如拥有内部样式表的这个页面同时与外部样式表链接那么h3得到的样式是:*/
+h3 {
+color:red;
+text-align:right;
+font-size:20pt;
+}
+
+/*文本属性：
+font              字体属性(font:italic bold 12px/20px arial,sans-serif;)
+font-size         设置字体大小
+color             设置文本颜色
+direction         设置文本方向
+letter-spacing    设置字符间距
+line-height       设置行高
+text-align        对齐元素中的文本
+text-decoration   向文本添加修饰
+text-indent       缩进元素中文本的首行
+text-shadow       设置文本阴影
+*/
+
+/*彻底解决css选择器*/
+/*元素选择器*/
+html {color: black;}
+p {color: gray;}
+/*元素选择器分组, 逗号间隔*/
+body, h2, p, table, th, td, pre, strong, em {color: gray;}
+/*通配符选择器*/
+* {color: red;}
+/*类选择器*/
+/*<p class="important warning">This paragraph is a very important warning.</p>*/
+.important {font-weight: bold;}
+.warning {font-style: italic;}
+.important .warning {background: silver;}
+/*id选择器*/
+#mostImportant {color: red; background: yellow;}
+/*属性选择器*/
+*[title] {color: red;}
+a[href] {color: red;}
+img[alt] {border: 5px solid red;}
+/*后代选择器*/
+h1 em {color: red;}
+/*子元素选择器, */
+/*如果您不希望选择任意的后代元素，而是希望缩小范围，只选择某个元素的子元素*/
+h1 > strong {color: red;}
+/*相邻兄弟选择器*/
+/*读作，将h1元素之后的的兄弟p元素巴拉巴拉*/
+h1 + p {margin-top: 50px;}
+/*读作，将li元素之后的的兄弟li元素巴拉巴拉*/
+li + li {font-weight: bold;} /*第一个li元素没有样式*/
+/*伪类选择器*/
+a:link {color: #FF0000;}
+a:hover {color: #FF00FF;}
+a:active {color: #0000FF;}
+a:visited {color: #00FF00;}
+/*伪元素选择器*/
+p:first-letter {color: #ff0000;} /*http://www.w3school.com.cn/cssref/pr_pseudo_first-child.asp*/
+
+/*彻底理解行高line-height*/
+/*http://www.w3school.com.cn/tiy/t.asp?f=csse_dim_line-height_percent
+/*根据百度前端规范，line-height应该用数值倍数替换例如百分比,像素值的表示.
+/*这个倍数表示行高对字体大小的倍数
+/*line_height:1.0本身就会形成间距，而大部分的浏览器的行高默认为1.1,1.2*/
+p {font-size: 20px}
+p {line-height: 1.2;} /*默认*/
+p.small {line-height: 1}
+p.big {line-height: 2}
+/*
+http://m.studyofnet.com/news/273.html
+你知道原因吗？https://zhidao.baidu.com/question/425857126386532692.html
+浏览器显示最小字体是12px（百度前端规范），行高为10px，所以重叠。
+*/
+
+/*理解em
+px是绝对单位, 不支持IE的缩放, em是相对单位.
+1em指的是一个字体的大小, 它会继承父级元素的字体大小, 因此并不是一个固定的值.
+不仅仅是字体, 将行距line-height和纵向高度的单位都用em, 保证缩放时候的整体性.
+em指字体高, 任意浏览器的默认字体高都是16px, 所以, 未经调整的浏览器都符合: 1em=16px, 那么12px=0.75em, 10px=0.625em
+https://segmentfault.com/q/1010000004704818/a-1020000004705715
+*/
+
+/*关于content属性
+移步浮动.*/
+
+/*彻底解决清除浮动
+1.使用浮动会产生哪些问题:
+https://www.zhihu.com/question/20063303
+<1>块状元素, 会钻进浮动元素的下面, 被浮动元素所覆盖
+<2>行内元素, 例如文字, 则会环绕在浮动元素的周围, 为浮动元素留出空间
+<3>浮动元素的父元素坍缩
+2.如何解决上述问题:
+http://www.jb51.net/css/173023.html
+<1>父元素手动定义height, 或定义display: table, 这两种方式都能获取子元素的宽高, 可以解决父元素坍塌.
+<2>父级div定义 overflow: hidden or auto, 也可以解决父元素坍塌
+<2>内部浮动平级结尾处加空div标签 clear:both, 可以解决上述三个问题
+<4>父级div定义 伪类::after 和 zoom, 也可以解决上述三个问题
+/*最常用的方式伪类的方式*/
+.clearfix::after {
+    content: '.';
+    display: block;
+    visibility: hidden;
+    height: 0;
+    clear: both;
+}
+.clearfix {
+    *zoom: 1;
+}
+
+/*一个常用的组合*/
+#id {
+    display: none
+}
+$('#id').show()
+
+/*弹性盒布局*/
+/*关键记住两个属性, justify-content和aligin-items, 分别决定了主轴和交叉轴的上的对齐方式*/
+/*Flex是Flexible Box的缩写, 意为"弹性布局", 用来为盒状模型提供最大的灵活性, 任何一个容器都可以指定为Flex布局。*/
+/*http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html*/
+.container {
+    display: flex;
+    flex-direction: row | row-reverse | column | column-reverse;
+    flex-wrap: nowrap | wrap | wrap-reverse;
+    justify-content: flex-start | flex-end | center | space-between | space-around;
+    align-items: flex-start | flex-end | center | baseline | stretch;
+}
+.item {
+    order: <integer>;
+    flex-grow: <number>;
+    flex-shrink: <number>;
+    flex-basis: auto;
+    flex: 0 1 auto;
+}
+/*使用弹性盒布局的两个例子: http://www.cnblogs.com/qq9694526/p/5713698.html*/
+/*使用flex的传统布局*/
+.container {
+    display: flex;
+    display: -webkit-flex;
+    height: 50px;
+}
+.left {
+    flex: 0 1 50px;
+}
+.right {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+.right .title {
+    flex: 0 1 20px;
+}
+.right .desc {
+    flex: 1 1 auto;
+}
+/*一行两列的例子*/
+.container {
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+}
+.item {
+    flex: 0 1 50%;
+    height: 30px;
+}
+
+/*关于适配,真的最后一关了...*/
+/*https://isux.tencent.com/web-app-rem.html*/
+/*
+
+/*Css盒模型:内容, border, margin, padding*/
+
+/*关于inline-block*/
+/*block元素的特点是:
+总是在新行上开始
+高度, 行高以及顶和内边距都可控制
+宽度缺省是它的容器的100%, 除非设定一个宽度
+<div>, <p>, <h1>, <form>, <ul>和<li>是块元素的例子 */
+/*inline元素的特点是:
+和其他元素都在一行上
+高, 行高及顶和底边距不可改变
+宽度就是它的文字或图片的宽度, 不可改变
+/*inline-block的元素特点:
+应用此特性的元素呈现为行对象, 和周围元素保持在同一行, 但可以设置宽度和高度地块元素的属性*/
+
+/*用法1:用于行内元素, 元素将可以设置宽度和高度和内边距, 用于设置背景图片*/
+em {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-top: 2px;
+    margin-right: 2px;
+    background: url(http://zhibo.sogou.com/web2/images/sprite.png) -331px -298px no-repeat;
+}
+a {
+   display: inline-block;
+   width: 145px;
+   height: 40px;
+   overflow: hidden;
+   background: url("http://zhibo.sogou.com/web2/images/sprite.png") -313px 0px no-repeat;
+}
+/*用法2:用于块元素, 将其展现为行内元素, 和周围元素同一个行显示, 此例效果为两个相邻的表单, 右为放大镜*/
+.input1 {
+    float: left;
+    width: 200px;
+    height: 20px;
+    border: 1px solid #ffaca0;
+    border-right: none;
+    border-radius: 2px 0 0 2px;
+    text-indent: 10px;
+    line-height: 34px;
+}
+.input2 {
+    display: inline-block;
+    width: 74px;
+    height: 36px;
+    cursor: pointer;
+    border: none;
+    background: url("http://zhibo.sogou.com/web2/images/sprite.png") -219px -73px no-repeat;
+}
+
+/*关于background属性*/
+/*拿上面的em标签属性为例:
+background的url是一张雪碧图,后边的坐标是雪碧图的位置,记住是选取图片的左上角,至于大小,取决于em标签的大小,此例中即指15px * 15px*/
+
+/*一个关于布局的demo*/
+/*html*/
+/*
+<body>
+    <div class="test">
+        <div class="test1"></div>
+        <div class="test3"></div>
+        <div class="test2"></div>
+    </div>
+</body>
+*/
+.test {
+    width: 940px;
+    margin: 0 auto;
+}
+
+.test1 {
+    float: left;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+}
+.test3 {
+    float: right;
+    width: 200px;
+    height: 200px;
+    background-color: red;
+}
+.test2 {
+    overflow: hidden;
+    zoom: 1;
+    width: 200px;
+    height: 200px;
+    background-color: red;
+}
+
+/*
+关于position
+static:	默认值, 没有定位, 元素出现在正常的流中(忽略 top, bottom, left, right 或者 z-index 声明)
+relative: 生成相对定位的元素, 相对于其正常位置进行定位, "left: 20" 会向元素的LEFT位置添加20像素
+absolute: 生成绝对定位的元素, 相对于static定位以外的第一个父元素进行定位, 元素的位置通过"left", "top", "right" 以及 "bottom" 属性进行规定
+fixed: 生成绝对定位的元素, 相对于浏览器窗口进行定位, 元素的位置通过 "left", "top", "right" 以及 "bottom" 属性进行规定。
+inherit: 规定应该从父元素继承 position 属性的值
+*/
+
+/*
+关于overflow: overflow 属性规定当内容溢出元素框时发生的事情
+visible: 默认值. 内容不会被修剪, 会呈现在元素框之外
+hidden: 内容会被修剪, 并且其余内容是不可见的
+scroll:	内容会被修剪, 但是浏览器会显示滚动条以便查看其余的内容
+auto: 如果内容被修剪, 则浏览器会显示滚动条以便查看其余的内容
+inherit: 规定应该从父元素继承 overflow 属性的值
+*/
+
+/* 样式的书写顺序已提高可读性
+布局位置相关(fomating-model):
+positon, top, right, bottom, left, float, display, overflow, vertical-align
+盒子模型相关(box-model):
+width, height, border, padding, margin,
+文本相关(typographic):
+font, line-height, text-align, word-wrap
+显示相关(visual):
+color, background, list-sytle, transtion
+另:
+如果有content属性, 应该放在最前面
+*/
+/*两个例子, 实例为豆瓣首页的登录和注册按钮*/
+/*必须限制行高,否则会使padding撑开.*/
+.sing-in {
+    border: 1px solid #30A080;
+    border-radius: 2px;
+    width: 100px;
+    padding: 0 22px;
+    margin-right: 2px;
+    font-size: 12px;
+    text-align: center;
+    color: #30A080;
+    visibility: top;
+    background-color: #30A080;
+}
+.sing-up {
+    display: inline-block;
+    border: 1px solid #30A080;
+    border-radius: 2px;
+    width:89px;
+    padding: 8px 21px 7px;
+    margin-left: 4px;
+    font-size: 12px;
+    line-height: 1;
+    color: #30A080;
+    text-align: center;
+    vertical-align: top;
+}
+
+/*demo5.html当中的样式问题.
+总宽度为264px, input和a标签总宽度都是130px加2px的margin,最终结果出现换行.
+原因:两个同行标显示的标签(input + a)分行书写, 导致浏览器自动加了边距, 最终大于264px,导致了不能再同一行显示.
+解决:两个同行显示的分行标签同行书写.
+http://blog.csdn.net/wangji5850/article/details/50854280
+*/
+
+/*建议背诵reset.css*/
+/*关于css3中box-sizing属性, 这个属性指定了你所定义的width和height制定的是盒子模型的哪个层次*/
+/* 由内到外：content-box、padding-box、border-box、margin-box*/
+/*http://www.cnblogs.com/zhaoran/archive/2013/05/24/3097482.html*/
+
+/*关于行内元素和块级元素的特征final!!!
+块级元素对应于display: block, 两个块状元素必然换行
+行内元素对应于display: inline, 不换行
+块级元素可以设置width, height, margin, padding属性
+行内元素设置width, height属性无效, 它的长度高度主要根据内容决定
+行内元素的margin和padding属性,水平方向的padding-left,padding-right,margin-left,margin- right都产生边距效果,但竖直方向的padding-top,padding-bottom,margin-top,margin-bottom却不 会产生边距效果.
+块级元素即使设置了宽度, 仍然是独占一行.(参考demo7,h标签必须设置float.)
+*/
+
+/*关于css3 media属性
+CSS3 @media 查询
+http://www.runoob.com/cssref/css3-pr-mediaquery.html
+*/
+@media screen and (max-width: 300px) {
+    body {
+        background-color: lightblue;
+    }
+}
+
+/*关于字体大小的设定
+大标题: 20px;
+标题: 18px;
+小标题: 16px;
+正文: 14px;
+小正文: 13px;
+辅助文字: 12px;
+*/
+
+/*关于css伪类
+css伪类用于向某些选择器添加特定的效果
+*/
+a:link {color: #FF0000}		/* 未访问的链接 */
+a:hover {color: #FF00FF}	/* 鼠标移动到链接上 */
+a:active {color: #0000FF}	/* 选定的链接 */
+a:visited {color: #00FF00}	/* 已访问的链接 */
+input:focus {border: none}  /* 拥有键盘输入焦点*/
+p:first-child {font-size: 16px} /* http://www.w3school.com.cn/cssref/pr_pseudo_first-child.asp */
+q:lang(no) {quotes: "~" "~"} /* http://www.w3school.com.cn/cssref/pr_pseudo_lang.asp */
+
+/*关于box-sizing属性
+box-sizing: content-box|border-box|inherit
+content-box: 默认, 宽度和高度分别应用到元素的内容框, 在宽度和高度之外绘制元素的内边距和边框
+border-box: 元素指定的任何内边距和边框都将在已设定的宽度和高度内进行绘制,通过从已设定的宽度和高度分别减去边框和内边距才能得到内容的宽度和高度
+*/
+
+/*关于引入css时的, link和@import的差别
+1.link属于HTML标签, 能够定义rel连接属性等作用(rel属性规定当前文档与被链接文档之间的关系); 而@import是CSS提供的, 只能用于加载CSS
+2.页面被加载的时, link会同时被加, 而@import引用的CSS会等到页面被加载完再加载
+3.import是CSS2.1 提出的, 只在IE5以上才能被识别, 而link是HTML标签，无兼容问题(这就能解释为什么你的vue项目在ie浏览器中表现很糟糕的原因)
+*/
+
+/*关于hack
+不同的浏览器, 对CSS的解析不一样，我们为了获得统一的页面效果，就需要针对不同的浏览器或不同版本写特定的CSS样式
+针对不同的浏览器/不同版本写相应的CSS code的过程，叫做CSS hack
+百度前端规范建议使用选择器hack
+*/
+/*选择器hack区分IE浏览器版本 6789*/
+#test {
+    width:300px;
+    height:300px;
+    background-color:blue;        /*firefox*/
+    background-color:red\9;       /*all ie*/
+    background-color:yellow\0;    /*ie8*/
+    +background-color:pink;       /*ie7*/
+    _background-color:orange;     /*ie6*/
+}
+:root #test {
+    background-color:purple\9;  /*ie9*/
+}
+@media all and (min-width:0px) {
+    #test {
+        background-color: black; /*opera*/
+    }
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    #test {
+        background-color: gray; /*chrome and safari*/
+    }
+}
+
+/*eg.解决ie6的双边距问题*/
+.box {
+    float: left;
+    margin-left: 20px;
+    _display: inline;            /* fix double margin */
+}
+
+/*css3 新属性
+
+1.更多的选择器
+2.弹性布局: flex
+  多列布局: column
+3.边框: border-radius(圆角)/box-shadow(阴影)
+4.背景属性: background-image/background-size/background-origin
+  背景渐变: linear-gradient(行渐变)/radial-gradient(对角渐变)
+5.2D、3D变换: transform / transform-origin(规定起始的变换位置)
+3.帧动画: keyframes/animations
+  过渡动画: transition
+7.用户界面属性添加: box-sizing/outline-offset(外围边框)/cursor(定义鼠标形状)
+*/
+
+/*关于css3中的transtion, animation, transform属性
+transtion: 处理过渡效果
+animation: css3动画, 配合keyframe一起使用
+transform: 处理元素的形变, 比如位移, 旋转, 缩放, 倾斜
+*/
+
+/*关于居中*/
+/*
+1.行内元素的水平居中(父元素定义test-align: center)
+2.定宽的块状元素的水平居中(margin: 0 auto)
+3.不定宽的块状元素的水平居中(table, inline)
+4.父元素高度未知的垂直居中(absolute)
+5.父元素高度已知的垂直居中(reletive)
+6.父子元素定宽高的垂直水平居中(margin-left, translate, 0)
+7.不定宽高元素的垂直水平居中(translate, flex)
+*/
+/*水平居中*/
+/*行内元素的水平居中: 设置文本, 图片等行内元素水平居中时, 可以通过父元素设置text-align:center来实现, 即给需要设置的元素添加一个父元素的容器, 然后设置这个父元素（容器）的text-align属性即可*/
+.test {
+    text-align: center;
+    background-color: red;
+}
+<div class="test">
+    <span>xinghantest</span>
+</div>
+/*定宽的块状元素的水平居中: margin: 0 auto*/
+.test {
+    width: 1000px;
+    margin: 0 auto:
+}
+<div class='test'>test</div>
+/*不定宽的块状元素水平居中:*/
+/*1.使用table标签*/
+table {
+    margin: 0 auto;
+}
+<table>
+    <tbody>
+        <tr>
+            <td>
+                <a href="#">Prev</a>
+                <a href="#">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">Next</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+/*2.使用display: inline, 将其转换为行内标签的问题*/
+.container {
+    text-align: center;
+}
+.container li {
+    display: inline;
+}
+<div class="container">
+    <ul>
+        <li><a href="#">Prev</a></li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">Next</a></li>
+    </ul>
+</div>
+/*垂直居中*/
+/*父元素高度未知的垂直居中*/
+parentElement {
+    position: relative;
+}
+childElement {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+/*父元素高度已知*/
+parentElement {
+    height: xxx;
+}
+childElement {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+/*flex布局一劳永逸*/
+parentElement {
+    display: flex;
+    align-items: center;
+}
+/*水平垂直居中*/
+/*父子元素已知宽高, 父元素设置relative, 此元素设置absolute, 然后left和top都设置为50%, 再根据margin的负值来调正*/
+.test {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    background-color: red;
+}
+.test1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 100px;
+    margin-left: -100px;
+    margin-top: -50px;
+    background-color: green;
+}
+<div class='test'>
+    <div class='test1'></div>
+</div>
+/*父子元素都已知宽高, 父元素设置relative, 此元素设置absolute, 然后left, top, right, bottom都设置为0, 然后设置宽高, 然后margin: auto*/
+.test {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    background-color: red;
+}
+.test1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 200px;
+    height: 100px;
+    margin: auto;
+    background-color: green;
+}
+<div class='test'>
+    <div class='test1'></div>
+</div>
+/*宽高未知的div水平垂直居中, 父元素宽高未知皆可*/
+/*常规方法*/
+.test {
+    position: relative;
+}
+.test1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: red;
+    transform: translate(-50%, -50%);
+}
+<div class='test'>
+    <div class='test1'>
+        xinghangtest
+    </div>
+</div>
+/*弹性盒子模型, 父元素高度已知未知皆可*/
+.test {
+    display: flex;
+    height: 600px;
+    align-items: center;
+    justify-content: center;
+}
+.test1 {
+    background-color: red;
+}
+<div class='test'>
+    <div class='test1'>
+        xinghangtest
+    </div>
+</div>
+
+/*关于display: inline-block显示缝隙问题
+1.float
+2.使用margin负值
+3.移除空格(写在同一行)
+*/
+
+/*关于display: none和visibility:hidden的区别是什么？
+display:none: HTML元素（对象）的宽度、高度等各种属性值都将“丢失”, 浏览器将不render这个元素, 不影响周围元素的布局
+visibility:hidden: HTML元素（对象）仅仅是在视觉上看不见（完全透明）, 可是仍然会被render, 仍然会占据空间, 影响周围元素的布局
+*/
+
+/*关于src同href的区别
+src: 即是source, 用于<script>, <img>, <iframe>, 用于替换当前元素,指向的内容将会嵌入到文档中当前标签所在位置
+href: 用于<a>, <link>, <base>, 用于在当前文档和引用资源之间确立联系
+特别注意:
+<script src="/jquery/2.1.1/jquery.min.js"></script>这是同步的, 会发生阻塞
+<link href=”common.css” rel=”stylesheet”/>异步的不会发生阻塞
+*/
+
+/*关于图片的选择
+颜色丰富(照片)用jpg
+颜色简单、有透明的用png
+有动画的用gif
+图片格式还有webp(google)、svg等等
+通常来讲: webp > jpg > png > gif
+*/
+
+/*关于*FC http://www.cnblogs.com/xiaohuochai/p/5248536.html
+BFC: block formate content 块级格式内容
+FFC: float formate content 浮动格式内容*/
+/*关于margin折叠
+同一个BFC内的文档流里的多个相邻(兄弟和父子)块级元素的垂直方向的margin合并成一个, 但是有border就不会折叠
+https://www.zhihu.com/question/24563593
+sytle:
+.div1 {
+    margin: 50px;
+    width: 50px;
+    height: 50px;
+    background-color: #aaa;
+}
+.div2 {
+    margin: 100px;
+    width: 50px;
+    height: 50px;
+    background-color: #aaa;
+}
+html:
+<div class="float">
+    <div class="div1">div1</div>
+    <div class="div2">div2</div>
+</div>
+*/
+
+/*一个关于字体大小的例子, 问p标签内字体大小和行高
+html:
+<div style="font-size: 10px">
+    <p style="font: 2em/2em arial">test</p>
+</div>
+p标签内的字体大小是20px, line-height是40px
+一定要注意, 行高的em来自字体大小, 所以line-height是20px*2=40px
+*/
+
+/*word-warp属性
+normal 只允许在断字点换行
+break-word 允许长单词或URL地址进行换行
+http://www.w3school.com.cn/tiy/t.asp?f=css3_word-wrap, 注意改成normal试试, 跟你想的可不一样!
+*/

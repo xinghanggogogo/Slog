@@ -1,0 +1,95 @@
+<!--
+重写豆瓣的登陆模块.
+1.浏览器默认字体大小16px, 12px极限大小, #aaa是一个合适的灰色.
+2.在box-sizing: border-box下重新理解属性的书写顺序:
+布局位置相关(positon, 4, float, display, overflow, vertical-align)
+盒子模型(width, height, border, padding, margin)
+文本相关(font-size, line-height, color, test-align)
+背景(background)
+3.border: 1px solid #30A080;
+4.注意span的外边距并没有设置成0!把下边的注释去掉看看效果!!!.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <style media="screen">
+    .wrap {
+        width: 950px;
+        margin: 0 auto;
+    }
+    .side {
+        float: left;
+        width: 244px;
+    }
+    .username, .password {
+        width: 100%;
+        height: 30px;
+        border: 1px solid #30A080;
+        border-radius: 2px;
+        padding-left: 5px;
+        margin-bottom: 5px;
+        font-size: 12px;
+        color: #aaa;
+    }
+    .login {
+        width: 120px;
+        height: 30px;
+        border: none;
+        margin-right: 2px;
+        font-size: 12px;
+        color: #eee;
+        text-align: center;
+        background-color: #30A080;
+    }
+    .signup {
+        display: inline-block;
+        width: 120px;
+        height: 30px;
+        border: 1px solid #30A080;
+        padding: 8px 15px;
+        margin-left: 2px;
+        font-size: 12px;
+        line-height: 1;
+        color: #30A080;
+        text-align: center;
+        vertical-align: top;
+    }
+    .remember {
+        font-size: 12px;
+        color: #aaa;
+        vertical-align: middle;
+    }
+    .icon {
+        float: right;
+    }
+    .wx, .sina {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        margin-right: 5px;
+        background-color: #30A080;
+    }
+    </style>
+</body>
+    <div class="wrap">
+        <div class="side">
+            <form action="">
+                <input class="username" type="text" name="" value="邮箱/手机号">
+                <input class="password" type="text" name="" value="密码">
+                <input class="login" type="text" name="" value="登录豆瓣"><a class="signup" href="">注册账号</a>
+                <div>
+                    <input type="checkbox" name="" value="记住我"><span class="remember">记住我</span>
+                    <div class="icon">
+                        <span class="wx"></span><span class="sina"></span>
+                    </div>
+                    <!-- <span class="wx"></span><span class="sina"></span> -->
+                </div>
+            </form>
+        </div>
+    </div>
+</html>

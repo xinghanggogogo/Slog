@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../sass/hello_world.css">
+</head>
+<body>
+    <div class="father">
+        <p class="son">I'm red</p>
+    </div>
+    <p class="daughter">I'm bule</p>
+</body>
+<script type="text/javascript">
+(function () {
+    size()
+    window.onresize = function () {
+        size()
+    }
+    function size () {
+        var winW = document.documentElement.clientWidth || document.body.clientWidth
+        document.documentElement.style.fontSize = winW / 10 + 'px'
+    }
+})()
+</script>
+</html>

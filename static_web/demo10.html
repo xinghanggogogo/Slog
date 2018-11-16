@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <style>
+        .header {
+            width: 1000px;
+            height: 58px;
+            margin: 0 auto 20px;
+            padding: 20px 0 0 0;
+        }
+        .header > a {
+            display: inline-block;
+            width: 194px;
+            height: 38px;
+            background: url(http://www.kugou.com/yy/static/images/logo.png) 0 0 no-repeat;
+        }
+        .header form {
+            display: inline-block;
+            width: 300px;
+            height: 38px;
+            border: 1px #aaa solid;
+            vertical-align: top;
+        }
+        .header .ipt {
+            width:250px;
+            height: 36px;
+            border: none;
+            font-size: 12px;
+            line-height: 36px;
+            text-indent: 10px;
+        }
+        .header .srh {
+            float: right;
+            display: inline-block;
+            margin: 10px 5px 0 0;
+            width: 16px;
+            height: 16px;
+            border: none;
+            background: url(http://www.kugou.com/yy/static/images/search/search.png) -40px -56px no-repeat
+        }
+        .right {
+            float: right;
+        }
+        .header button {
+            width: 50px;
+            height: 32px;
+            font-size: 12px;
+            line-height: 32px;
+        }
+        .signup {
+            float: right;
+            border: 1px solid #aaa;
+            background: #fff;
+        }
+        .login {
+            border: none;
+            float: right;
+            margin-right: 11px;
+            color: #fff;
+            background-color: #169af3
+        }
+        .header span {
+            margin-right:32px;
+        }
+        .header ul {
+            display: inline-block;
+            color: #aaa;
+        }
+        .header ul li {
+            display: inline-block;
+            margin-right: 32px;
+            line-height: 38px;
+            font-size: 14px
+        }
+        .navi {
+            height: 56px;
+            background-color: #2b323b;
+        }
+        .navi .wrap {
+            width: 1000px;
+            margin: 0 auto;
+            line-height: 56px;
+        }
+        .navi .wrap .left {
+            float: left;
+            display: inline-block;
+        }
+        .navi .wrap .left li {
+            display: inline-block;
+            margin-right: 60px;
+            font-size: 17px;
+            color: #cbcbdc;
+        }
+        .navi .wrap .right {
+            float: right;
+            display: inline-block;
+        }
+        .navi .wrap .right li {
+            display: inline-block;
+            float: right;
+            margin-left: 32px;
+            font-size: 15px;
+            color: #cbcbdc;
+        }
+        .navi .wrap ul span {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            width: 15px;
+            height: 15px;
+            background: url(http://www.kugou.com/yy/static/images/sprite.png) 0 -191px no-repeat;
+        }
+        .bsrh {
+            height: 120px;
+            background-color: #f8f8f8;
+        }
+        .bsrh .wrap {
+            width: 1000px;
+            margin: 0 auto;
+            padding-top: 38px
+        }
+        .bsrh .wrap form {
+            width: 500px;
+            height: 44px;
+            margin: 0 250px;
+            border: 1px solid #aaa;
+            font-size: 14px;
+            line-height: 42px;
+        }
+        .bsrh form .ipt {
+            height: 42px;
+            width: 400px;
+            border: none;
+            background: none;
+            text-indent: 5px;
+        }
+        .bsrh form .srh {
+            float: right;
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin: 13px 5px 0 0;
+            border: none;
+            background: url(http://www.kugou.com/yy/static/images/search/search.png) -40px -56px no-repeat
+        }
+        .main {
+            width: 1000px;
+            margin: 0 auto;
+        }
+        .main .bar {
+            height: 59px;
+            border-bottom: 1px #f0f0f0 solid;
+            font-size: 16px;
+            line-height: 58px;
+            color: #666;
+        }
+        .main .bar li {
+            display: inline-block;
+            width: 100px;
+            text-align: center;
+        }
+        .bar .active {
+            color: #14a9ff;
+            border-bottom: 2px #14a9ff solid;
+        }
+        .desc {
+            height: 59px;
+        }
+        .desc p {
+            float: left;
+            font-size: 14px;
+            line-height: 59px;
+        }
+        .desc p span {
+            margin: 0;
+            padding: 0;
+            color: #14a9ff;
+        }
+        .desc a {
+            float: right;
+            display: inline-block;
+            width:88px;
+            height: 36px;
+            margin-top: 11px;
+            font-size: 16px;
+            line-height: 36px;
+            text-align: center;
+            color: #fff;
+            background-color: #14a9ff;
+        }
+        .main .leader {
+            height: 54px;
+            font-size: 14px;
+            line-height: 54px;
+            background-color: #f8f8f8;
+        }
+        .main .leader .l {
+            display: inline-block;
+            float: left;
+            width: 560px;
+        }
+        .main .leader .m {
+            display: inline-block;
+            float: left;
+            width: 340px;
+        }
+        .main .leader .r {
+            display: inline-block;
+            float: left;
+            width: 100px;
+        }
+        .main .redio {
+            display: inline-block;
+            position: relative;
+            top: 2px;
+            height: 14px;
+            width:14px;
+            margin:  0 10px;
+            background: url(http://www.kugou.com/yy/static/images/search/search.png) -64px -56px no-repeat;
+        }
+        .main .content li {
+            height: 54px;
+            font-size: 14px;
+            line-height: 54px;
+            border-bottom: 1px #f8f8f8 solid;
+        }
+        .main .content .song {
+            float: left;
+            width: 560px;
+        }
+        .main .content .album {
+            float: left;
+            width: 340px;
+        }
+        .main .content .time {
+            float: left;
+            width: 100px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="#"></a>
+        <form action="">
+            <input class="ipt" type="text" name="" value="平凡之路伴奏">
+            <input class="srh" type="text" name="" value="">
+        </form>
+        <div class='right'>
+            <button class="signup" type="button" name="button">注册</button>
+            <button class="login" type="button" name="button">登录</button>
+            <ul>
+                <li>客服中心</li>
+                <li>招贤纳士</li>
+                <li>会员中心</li>
+                <li>|</li>
+            </ul>
+        </div>
+    </div>
+    <div class="navi">
+        <div class="wrap">
+            <ul class="left">
+                <li>首页</li>
+                <li>榜单</li>
+                <li>下载客户端</li>
+                <li>更多</li>
+            </ul>
+            <ul class="right">
+                <li><span></span>音乐直播</li>
+                <li><span></span>酷狗live</li>
+                <li><span></span>音乐人</li>
+                <li><span></span>游戏</li>
+                <li><span></span>商城</li>
+            </ul>
+        </div>
+    </div>
+    <div class="bsrh">
+        <div class="wrap">
+            <form>
+                <input class="ipt" type="text" name="" value="平凡之路伴奏">
+                <input class="srh" type="text" name="" value="">
+            </form>
+        </div>
+    </div>
+    <div class="main">
+        <ul class="bar">
+            <li class="active">单曲</li>
+            <li>歌单</li>
+            <li>MV</li>
+        </ul>
+        <div class="desc">
+            <p>搜索到<span>平凡之路伴奏</span>相关的曲目</p>
+            <a href="">
+                播放
+            </a>
+        </div>
+        <ul class="leader">
+            <li class="l"><span class="redio"></span>歌曲名</li>
+            <li class="m">专辑</li>
+            <li class="r">时长</li>
+        </ul>
+        <ul class="content">
+            <li>
+                <div class="song"><span class="redio"></span>朴树-平凡之路伴奏</div>
+                <div class="album"> "Old Beat I Made""</div>
+                <div class="time">05:01</div>
+            </li>
+            <li>
+                <div class="song"><span class="redio"></span>朴树-平凡之路伴奏</div>
+                <div class="album"> "Old Beat I Made""</div>
+                <div class="time">05:01</div>
+            </li>
+            <li>
+                <div class="song"><span class="redio"></span>朴树-平凡之路伴奏</div>
+                <div class="album"> "Old Beat I Made""</div>
+                <div class="time">05:01</div>
+            </li>
+            <li>
+                <div class="song"><span class="redio"></span>朴树-平凡之路伴奏</div>
+                <div class="album"> "Old Beat I Made""</div>
+                <div class="time">05:01</div>
+            </li>
+            <li>
+                <div class="song"><span class="redio"></span>朴树-平凡之路伴奏</div>
+                <div class="album"> "Old Beat I Made""</div>
+                <div class="time">05:01</div>
+            </li>
+            <li>
+                <div class="song"><span class="redio"></span>朴树-平凡之路伴奏</div>
+                <div class="album"> "Old Beat I Made""</div>
+                <div class="time">05:01</div>
+            </li>
+            <li>
+                <div class="song"><span class="redio"></span>朴树-平凡之路伴奏</div>
+                <div class="album"> "Old Beat I Made""</div>
+                <div class="time">05:01</div>
+            </li>
+            <li>
+                <div class="song"><span class="redio"></span>朴树-平凡之路伴奏</div>
+                <div class="album"> "Old Beat I Made""</div>
+                <div class="time">05:01</div>
+            </li>
+            <li>
+                <div class="song"><span class="redio"></span>朴树-平凡之路伴奏</div>
+                <div class="album"> "Old Beat I Made""</div>
+                <div class="time">05:01</div>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

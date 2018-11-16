@@ -1,0 +1,40 @@
+/* 样式的书写顺序以提高可读性
+布局位置相关(fomating-model):
+positon, top, right, bottom, left, float, display, overflow, vertical-align
+盒子模型相关(box-model):
+border, width, height, padding, margin,
+文本相关(typographic):
+font, line-height, text-align, word-wrap
+显示相关(visual):
+color, background, list-sytle, transtion
+另:
+如果有content属性, 应该放在最前面
+*/
+.sign-in {
+    border: 1px solid #30A080;
+    border-radius: 2px;
+    width: 100px;
+    padding: 0 22px;
+    margin-right: 2px;
+    font-size: 12px;
+    line-height: 1;
+    color: #30A080;
+    text-align: center;
+    visibility: top;
+    background-color: #30A080;
+}
+
+/*必须限制行高,否则会使padding撑开.*/
+.sign-up {
+    display: inline-block;
+    border: 1px solid #30A080;
+    border-radius: 2px;
+    width:89px;
+    padding: 8px 21px 7px;
+    margin-left: 4px;
+    font-size: 12px;
+    line-height: 1;
+    color: #30A080;
+    text-align: center;
+    vertical-align: top;
+}

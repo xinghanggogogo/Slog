@@ -1,0 +1,39 @@
+CREATE TABLE `singer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `artist` varchar(128) NOT NULL DEFAULT '' COMMENT '歌手',
+  `kugouid` varchar(128) NOT NULL DEFAULT '' COMMENT '酷狗id',
+  `hot_songs` text NOT NULL COMMENT '热门歌曲',
+  `spun_state` tinyint(4) NOT NULL DEFAULT '0' COMMENT '热门是否提取成功',
+  `hot_songs_num` int(11) NOT NULL DEFAULT '0' COMMENT '热门歌曲数量',
+  `music_link` varchar(256) NOT NULL DEFAULT '0' COMMENT '金山云地址',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `hash` (`artist`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `song_spun` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`music_no` int(11) NOT NULL DEFAULT 0 COMMENT 'music_no',
+	`artist` varchar(128) NOT NULL DEFAULT '' COMMENT '歌手',
+	`start_time` varchar(128) NOT NULL DEFAULT '' COMMENT '高潮开始时间',
+	`end_time` varchar(128) NOT NULL DEFAULT '' COMMENT '高潮结束时间',
+	PRIMARY KEY (`id`),
+    UNIQUE KEY `music_no` (`music_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `qnsong` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `artist` varchar(128) NOT NULL DEFAULT '' COMMENT '歌手',
+  `qn_old_link` varchar(256) NOT NULL DEFAULT '0' COMMENT '七牛旧地址',
+  `qn_new_link` varchar(256) NOT NULL DEFAULT '0' COMMENT '七牛新地址',
+  `comment` varchar(128) NOT NULL DEFAULT '' COMMENT '附加信息',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `hash` (`artist`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+load data infile '/var/lib/mysql-files/qn.txt' into table qnsong character set utf8
+fields terminated by '|' lines terminated by '\n'
+(artist, qn_old_link)

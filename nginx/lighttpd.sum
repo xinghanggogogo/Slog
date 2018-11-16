@@ -1,0 +1,63 @@
+# 典型的场景是使用 lighttpd 作为一个下载（off-load）服务器，以提供静态内容……
+
+# 这里用于提供/data/songs目录下儿歌的展示
+
+# 安装: sudo apt-get install lighttpd
+# 安装后默认启动.
+
+# 检查状态: sudo systemctl status lighttpd
+● lighttpd.service - Lighttpd Daemon
+   Loaded: loaded (/lib/systemd/system/lighttpd.service; enabled; vendor preset:
+   Active: active (running) since Tue 2017-04-18 15:25:03 CST; 21min ago
+  Process: 8607 ExecStartPre=/usr/sbin/lighttpd -t -f /etc/lighttpd/lighttpd.con
+ Main PID: 8615 (lighttpd)
+    Tasks: 1
+   Memory: 2.3M
+      CPU: 133ms
+   CGroup: /system.slice/lighttpd.service
+           └─8615 /usr/sbin/lighttpd -D -f /etc/lighttpd/lighttpd.conf
+
+Apr 18 15:25:03 10-9-175-103 systemd[1]: Starting Lighttpd Daemon...
+Apr 18 15:25:03 10-9-175-103 lighttpd[8607]: Syntax OK
+Apr 18 15:25:03 10-9-175-103 systemd[1]: Started Lighttpd Daemon.
+
+# 检查是否安装成功:
+curl localhost
+
+# 修改配置文件:
+# 此配置实现了需求:
+# /etc/lighttpd/lighttpd.conf
+server.modules = (
+	"mod_access",
+	"mod_alias",
+	"mod_compress",
+ 	"mod_redirect",
+#       "mod_rewrite",
+)
+
+server.document-root        = "/data/songs/"
+server.upload-dirs          = ( "/var/cache/lighttpd/uploads" )
+server.errorlog             = "/var/log/lighttpd/error.log"
+server.pid-file             = "/var/run/lighttpd.pid"
+server.username             = "www-data"
+server.groupname            = "www-data"
+server.port                 = 80
+
+index-file.names            = ( "index.php", "index.html", "index.lighttpd.html" )
+url.access-deny             = ( "~", ".inc" )
+static-file.exclude-extensions = ( ".php", ".pl", ".fcgi" )
+
+# 目录下文件list展示并设置编码:
+dir-listing.activate = "enable"
+dir-listing.encoding = "utf-8"
+
+compress.cache-dir          = "/var/cache/lighttpd/compress/"
+compress.filetype           = ( "application/javascript", "text/css", "text/html", "text/plain" )
+
+# default listening port for IPv6 falls back to the IPv4 port
+## Use ipv6 if available
+#include_shell "/usr/share/lighttpd/use-ipv6.pl " + server.port
+include_shell "/usr/share/lighttpd/create-mime.assign.pl"
+include_shell "/usr/share/lighttpd/include-conf-enabled.pl"
+
+# 访问:http://106.75.97.4/

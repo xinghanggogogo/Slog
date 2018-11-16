@@ -1,0 +1,29 @@
+// Sass project settings, you can edit it and set custom settings.
+{
+	"mappings": [{
+		"src": "sass",
+		"dest": "sass"
+	}],
+	"ignores": ["*.css"],
+
+	"options": {
+
+		"outputStyle": "nested",
+
+		"lineComments": false,
+
+		"debugInfo": false,
+
+		"sourceMap": false,
+
+		"unixNewlines": false,
+
+		"autoprefix": false
+	},
+
+	"customOptions": [],
+
+	"includePaths": [],
+
+	"requireLibs": []
+}

@@ -1,0 +1,73 @@
+<!-- 一个list
+li的字体颜色并不能影响a标签内部的字体颜色
+单独的字体大小的样式:font-size 而不是 font
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style media="screen">
+        body {
+            font: 12px Helvetica,Arial,sans-serif;
+            line-height: 1.62;
+        }
+        body, div, dl, dt, dd, ul, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, blockquote {
+            margin: 0;
+            padding: 0;
+        }
+        a {
+            text-decoration: none;
+        }
+        ul {
+            list-style: none;
+        }
+        .wrap {
+            width: 950px;
+            margin: 0 auto;
+        }
+        .ulwrap {
+            width: 265px
+        }
+        li {
+            display: inline-block;
+            margin-right: 5px;
+            font-size: 12px;
+            line-height: 1;
+        }
+        li a{
+            color: #30A080
+        }
+        .bigli {
+            width: 100%;
+            margin-bottom: 2px;
+            font-size: 14px;
+        }
+        .bigli a {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="ulwrap">
+            <ul>
+                <li class="bigli"><a href="">旅行</a></li>
+                <li><a href="">旅行</a></li>
+                <li><a href="">旅行</a></li>
+                <li><a href="">旅行</a></li>
+                <li><a href="">旅行</a></li>
+                <li><a href="">旅行</a></li>
+                <li><a href="">旅行</a></li>
+                <li><a href="">旅行</a></li>
+                <li><a href="">旅行</a></li>
+                <li><a href="">旅行</a></li>
+                <li><a href="">旅行</a></li>
+                <li><a href="">旅行</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

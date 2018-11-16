@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .content-box {
+            box-sizing: content-box;
+            width: 100px;
+            height: 100px;
+            border: 5px solid #30A080;
+            padding: 20px;
+            margin: 1px auto;
+            vertical-align: middle;
+            background-color: red;
+        }
+        .border-box {
+            box-sizing: border-box;
+            width: 100px;
+            height: 100px;
+            border: 5px solid #30A080;
+            padding: 20px;
+            margin: 1px auto;
+            vertical-align: ;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <p>要在脑海中形成画面. <br>
+        content-box: 这是默认值, 顺序分别是:width, height, border, padding, margin
+        border-box: 分别是:width, height, border, padding, margin
+        </p>
+        <div class="content-box">content-box</div>
+        <div class="border-box">border-box</div>
+    </div>
+</body>
+</html>

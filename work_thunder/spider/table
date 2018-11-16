@@ -1,0 +1,379 @@
+表结构:
+CREATE TABLE `o2o_spider_song` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`title` varchar(128) NOT NULL DEFAULT '' COMMENT '歌名-歌手',
+	`img` varchar(128) NOT NULL DEFAULT '' COMMENT '图片',
+	`name` varchar(128) NOT NULL DEFAULT '' COMMENT '歌名',
+	`artist` varchar(128) NOT NULL DEFAULT '' COMMENT '歌手',
+	`artist_id` int(11) NOT NULL DEFAULT 0 COMMENT '歌手id',
+	`remark` varchar(128) NOT NULL DEFAULT '' COMMENT '附加描述',
+	`duration` int(11) NOT NULL DEFAULT 0 COMMENT '时长',
+	`krc` varchar(512) NOT NULL DEFAULT '' COMMENT 'krc地址',
+	`bitrate` int(11) NOT NULL DEFAULT 0 COMMENT '比特率',
+	`extname` varchar(11) NOT NULL DEFAULT '' COMMENT '音源后缀',
+	`music_link` varchar(128) NOT NULL DEFAULT '' COMMENT  '音乐链接',
+	`size` int(11) NOT NULL DEFAULT 0 COMMENT '文件大小',
+	`hash` varchar(128) NOT NULL DEFAULT '' COMMENT '哈希值',
+	`hash320` varchar(128) NOT NULL DEFAULT '' COMMENT '320哈希值',
+	`bthash` varchar(128) NOT NULL DEFAULT '' COMMENT '背景音哈希值(background-track)',
+	`btname` varchar(128) NOT NULL DEFAULT '' COMMENT '背景音乐歌名',
+	`bt_music_link` varchar(128) NOT NULL DEFAULT '' COMMENT  '背景音乐链接',
+	`source` varchar(32) NOT NULL DEFAULT '' COMMENT '来源',
+	`source_id` varchar(32) NOT NULL DEFAULT '' COMMENT '来源内部id',
+	`addtime` varchar(32) NOT NULL DEFAULT '' COMMENT '来源内部更新时间',
+	`label` varchar(32) NOT NULL DEFAULT '' COMMENT '来源内部音源标签',
+	`state` tinyint(1) NOT NULL DEFAULT 0 COMMENT '审核状态 0:未审核 1:已审核',
+	`super_json` text NOT NULL DEFAULT '' COMMENT '歌曲meta的json长串',
+	`create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `hash` (`hash`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `aim_song` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `o2o_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(128) NOT NULL DEFAULT '' COMMENT '歌名-歌手',
+  `name` varchar(128) NOT NULL DEFAULT '' COMMENT '歌名',
+  `artist` varchar(128) NOT NULL DEFAULT '' COMMENT '歌手',
+  `artist_id` int(11) NOT NULL DEFAULT 0 COMMENT '歌手id',
+  `duration` int(11) NOT NULL DEFAULT '0' COMMENT '时长',
+  `krc` varchar(512) NOT NULL DEFAULT '' COMMENT 'krc地址',
+  `bitrate` int(11) NOT NULL DEFAULT '0' COMMENT '比特率',
+  `size` int(11) NOT NULL DEFAULT '0' COMMENT '文件大小',
+  `hash` varchar(128) NOT NULL DEFAULT '' COMMENT '哈希值',
+  `hash320` varchar(128) NOT NULL DEFAULT '' COMMENT '320哈希',
+  `source` varchar(32) NOT NULL DEFAULT '' COMMENT '来源',
+  `source_id` varchar(32) NOT NULL DEFAULT '' COMMENT '来源内部id',
+  `addtime` varchar(32) NOT NULL DEFAULT '' COMMENT '来源内部更新时间',
+  `label` varchar(32) NOT NULL DEFAULT '' COMMENT '来源内部音源标签',
+  `simhash_krc` varchar(128) DEFAULT '' COMMENT '歌词的simhash值',
+  `album_id` int(11) NOT NULL DEFAULT '0' COMMENT '专辑id',
+  `language` int(11) NOT NULL DEFAULT '0' COMMENT '语言: 0中文1英文2日韩',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `hash` (`hash`)
+) ENGINE=InnoDB AUTO_INCREMENT=4218201 DEFAULT CHARSET=utf8
+
+CREATE TABLE `btsong` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`title` varchar(128) NOT NULL DEFAULT '' COMMENT '歌名-歌手',
+	`img` varchar(128) NOT NULL DEFAULT '' COMMENT '图片',
+	`name` varchar(128) NOT NULL DEFAULT '' COMMENT '歌名',
+	`artist` varchar(128) NOT NULL DEFAULT '' COMMENT '歌手',
+	`artist_id` int(11) NOT NULL DEFAULT 0 COMMENT '歌手id',
+	`remark` varchar(128) NOT NULL DEFAULT '' COMMENT '附加描述',
+	`duration` int(11) NOT NULL DEFAULT 0 COMMENT '时长',
+	`bitrate` int(11) NOT NULL DEFAULT 0 COMMENT '比特率',
+	`extname` varchar(11) NOT NULL DEFAULT '' COMMENT '音源后缀',
+	`music_link` varchar(128) NOT NULL DEFAULT '' COMMENT  '音乐链接',
+	`size` int(11) NOT NULL DEFAULT 0 COMMENT '文件大小',
+	`hash` varchar(128) NOT NULL DEFAULT '' COMMENT '哈希值',
+	`hash320` varchar(128) NOT NULL DEFAULT '' COMMENT '320哈希值',
+	`source` varchar(32) NOT NULL DEFAULT '' COMMENT '来源',
+	`source_id` varchar(32) NOT NULL DEFAULT '' COMMENT '来源内部id',
+	`addtime` varchar(32) NOT NULL DEFAULT '' COMMENT '来源内部更新时间',
+	`label` varchar(32) NOT NULL DEFAULT '' COMMENT '来源内部音源标签',
+	` tinyint(1) NOT NULL DEFAULT 0 COMMENT '审核状态 0:未审核 1:已审核',
+	`create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `hash` (`hash`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `5sing` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`name` varchar(128) NOT NULL DEFAULT '' COMMENT '歌名',
+	`artist` varchar(128) NOT NULL DEFAULT '' COMMENT '歌手',
+	`extname` varchar(11) NOT NULL DEFAULT '' COMMENT '音源后缀',
+	`music_link` varchar(128) NOT NULL DEFAULT '' COMMENT  '音乐链接',
+	`size` int(11) NOT NULL DEFAULT 0 COMMENT '文件大小',
+	`source` varchar(32) NOT NULL DEFAULT '' COMMENT '来源',
+	`source_id` varchar(32) NOT NULL DEFAULT '' COMMENT '来源内部id',
+	`addtime` varchar(32) NOT NULL DEFAULT '' COMMENT '来源内部更新时间',
+	`label` varchar(32) NOT NULL DEFAULT '' COMMENT '来源内部音源标签',
+	`state` tinyint(1) NOT NULL DEFAULT 0 COMMENT '审核状态 0:未审核 1:已审核',
+	`song_url` varchar(128) NOT NULL DEFAULT '' COMMENT  '播放页面链接',
+	`download_url` varchar(128) NOT NULL DEFAULT '' COMMENT  '下载链接',
+	`super_json` text NOT NULL DEFAULT '' COMMENT '歌曲meta的json长串',
+	`duration` int(11) NOT NULL DEFAULT 0 COMMENT '时长',
+	`create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `hash` (`source_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `kugou_singer` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`artist` varchar(128) NOT NULL DEFAULT '' COMMENT '歌手',
+	`kugouid` varchar(128) NOT NULL DEFAULT '' COMMENT '酷狗id',
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `singer` (
+  	`id` int(11) NOT NULL AUTO_INCREMENT,
+  	`singer_name` varchar(255) NOT NULL DEFAULT '' COMMENT '歌手名',
+  	`area` varchar(255) NOT NULL DEFAULT '' COMMENT '地区: 0港澳台, 1',
+  	`attribute_3` varchar(255) NOT NULL DEFAULT '',
+  	`attribute_4` varchar(255) NOT NULL DEFAULT '',
+  	`genre` varchar(255) NOT NULL DEFAULT '',
+  	`index` varchar(255) NOT NULL DEFAULT '',
+  	`other_name` varchar(255) NOT NULL DEFAULT '',
+  	`singer_id` varchar(255) NOT NULL DEFAULT '',
+  	`singer_mid` varchar(255) NOT NULL DEFAULT '',
+  	`singer_tag` varchar(255) NOT NULL DEFAULT '',
+  	`sort` varchar(255) NOT NULL DEFAULT '',
+  	`trend` varchar(255) NOT NULL DEFAULT '',
+  	`type` varchar(255) NOT NULL DEFAULT '' COMMENT '0男, 1女, 2组合',
+  	`voc` varchar(255) NOT NULL DEFAULT '',
+  	`qq_id` varchar(128) NOT NULL DEFAULT '',
+  	PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=525416 DEFAULT CHARSET=utf8
+
+CREATE TABLE `singer_hot_song` (
+  	`id` int(11) NOT NULL AUTO_INCREMENT,
+  	`singer_name` varchar(255) NOT NULL DEFAULT '' COMMENT '歌手名',
+  	`area` varchar(255) NOT NULL DEFAULT '' COMMENT '地区: 0港澳台, 1',
+  	`attribute_3` varchar(255) NOT NULL DEFAULT '',
+  	`attribute_4` varchar(255) NOT NULL DEFAULT '',
+  	`genre` varchar(255) NOT NULL DEFAULT '',
+  	`index` varchar(255) NOT NULL DEFAULT '',
+  	`other_name` varchar(255) NOT NULL DEFAULT '',
+  	`singer_id` varchar(255) NOT NULL DEFAULT '',
+  	`singer_mid` varchar(255) NOT NULL DEFAULT '',
+  	`singer_tag` varchar(255) NOT NULL DEFAULT '',
+  	`sort` varchar(255) NOT NULL DEFAULT '',
+  	`trend` varchar(255) NOT NULL DEFAULT '',
+  	`type` varchar(255) NOT NULL DEFAULT '' COMMENT '0男, 1女, 2组合',
+  	`voc` varchar(255) NOT NULL DEFAULT '',
+  	`qq_id` varchar(128) NOT NULL DEFAULT '',
+  	PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=525416 DEFAULT CHARSET=utf8
+
+CREATE TABLE `test` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+排行榜api:(获取meta信息, 拼接krc)
+http://mobilecdn.kugou.com/api/v3/rank/song?ranktype=2&page=1&rankid=6666&pagesize=500
+
+krc拼接地址:
+http://mobilecdn.kugou.com/new/app/i/krc.php?keyword=%E6%9C%B4%E6%A0%91%20-%20%E5%B9%B3%E5%87%A1%E4%B9%8B%E8%B7%AF&timelength=301000&type=1&cmd=200&hash=396090D23F283EBAD546D136E5F89CD6
+
+歌曲信息api:(关键接口注意爬取频率.获取mp3原声播放地址.)
+http://www.kugou.com/yy/index.php?r=play/getdata&hash=25E8F5189BCB75888873821933F9E1DA
+
+kugou搜索接口获取伴奏:
+http://songsearch.kugou.com/song_search_v2?keyword=%E5%B9%B3%E5%87%A1%E4%B9%8B%E8%B7%AF%E4%BC%B4%E5%A5%8F&page=1&pagesize=30&userid=-1&clientver=&platform=WebFilter&tag=em&filter=2&iscorrection=1&privilege_filter=0&_=1489111408087
+匹配市场获取哈希.
+
+测试机pyspider安装地址:
+.pyenv/versions/2.7.1/envs/scrapy/lib/python2.7/site-packages/pyspider/
+mysql配置文件scp:
+scp -P 3026 xinghang@101.254.157.124:/home/xinghang/.pyenv/versions/2.7.1/envs/scrapy/lib/python2.7/site-packages/pyspider/database/mysql/mysqldb.py work/myktv_cms/
+
+5sing
+http://data.5sing.kgimg.com/G094/M03/16/05/ng0DAFjKlo6AP6VNAKHByI4n2WY319.mp3
+
+CREATE TABLE `kugou_by_cat` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`title` varchar(128) NOT NULL DEFAULT '' COMMENT '全称',
+	`name` varchar(128) NOT NULL DEFAULT '' COMMENT '歌名',
+	`artist` varchar(128) NOT NULL DEFAULT '' COMMENT '歌手',
+	`extname` varchar(11) NOT NULL DEFAULT '' COMMENT '音源后缀',
+	`size` int(11) NOT NULL DEFAULT 0 COMMENT '文件大小',
+	`size320` int(11) NOT NULL DEFAULT 0 COMMENT '320文件大小',
+	`sizesq` int(11) NOT NULL DEFAULT 0 COMMENT 'sq文件大小',
+	`hash` varchar(128) NOT NULL DEFAULT '' COMMENT '哈希值',
+	`hash320` varchar(128) NOT NULL DEFAULT '' COMMENT '320哈希值',
+	`hashsq` varchar(128) NOT NULL DEFAULT '' COMMENT 'sq哈希值',
+	`bitrate` int(11) NOT NULL DEFAULT 0 COMMENT '比特率',
+	`duration` int(11) NOT NULL DEFAULT 0 COMMENT '时长',
+	`source_id` int(32) NOT NULL DEFAULT 0 COMMENT '来源内部id',
+	`_index` varchar(32) NOT NULL DEFAULT '' COMMENT '_index',
+	`cat` varchar(32) NOT NULL DEFAULT '' COMMENT 'category',
+	`tag` varchar(32) NOT NULL DEFAULT '' COMMENT 'tag',
+	`re1` varchar(32) NOT NULL DEFAULT '' COMMENT '预留字段1',
+	`re2` varchar(32) NOT NULL DEFAULT '' COMMENT '预留字段2',
+	`re3` varchar(32) NOT NULL DEFAULT '' COMMENT '预留字段3',
+	`re4` varchar(32) NOT NULL DEFAULT '' COMMENT '预留字段4',
+	`re5` int(11) NOT NULL DEFAULT 0 COMMENT '预留字段5',
+	`re6` int(11) NOT NULL DEFAULT 0 COMMENT '预留字段6',
+	`re7` int(11) NOT NULL DEFAULT 0 COMMENT '预留字段7',
+	`re8` int(11) NOT NULL DEFAULT 0 COMMENT '预留字段8',
+	`create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `hash` (`hash`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `sim_list` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `_id` int(11) NOT NULL,
+  `title` varchar(128) NOT NULL DEFAULT '' COMMENT '全称',
+  `duration` int(11) NOT NULL DEFAULT 0 COMMENT '时长',
+  `sim_list` text DEFAULT NULL,
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8
+
+CREATE TABLE `thunder_song` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`thunder_id` varchar(11) NOT NULL,
+	`name` varchar(128) NOT NULL DEFAULT '' COMMENT '歌名',
+	`artist1` varchar(128) NOT NULL DEFAULT '' COMMENT '歌手',
+	`artist2` varchar(128) NOT NULL DEFAULT '' COMMENT '歌手',
+	`artist3` varchar(128) NOT NULL DEFAULT '' COMMENT '歌手',
+	`artist4` varchar(128) NOT NULL DEFAULT '' COMMENT '歌手',
+	`duration` int(11) DEFAULT 0 COMMENT '时长',
+	`download_link` varchar(128) NOT NULL DEFAULT '' COMMENT  '背景音乐链接',
+	`has_krc` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否有歌词',
+	`re1` varchar(256) NOT NULL DEFAULT '' COMMENT  '预留字段',
+	`re2` varchar(256) NOT NULL DEFAULT '' COMMENT  '预留字段',
+	`re3` varchar(256) NOT NULL DEFAULT '' COMMENT  '预留字段',
+	`re4` int(11) NOT NULL DEFAULT 0 COMMENT  '预留字段',
+	`re5` int(11) NOT NULL DEFAULT 0 COMMENT  '预留字段',
+	`re6` int(11) NOT NULL DEFAULT 0 COMMENT  '预留字段',
+	`re7` text NOT NULL COMMENT  '预留字段',
+	`create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `kugou_krc_song` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`o2o_id` int(11) NOT NULL,
+	`krc_link` varchar(128) NOT NULL DEFAULT '' COMMENT  '歌词链接',
+	`download_link` varchar(128) NOT NULL DEFAULT '' COMMENT  '下载链接',
+	`re1` int(11) NOT NULL DEFAULT 0 COMMENT  '预留字段',
+	`re2` int(11) NOT NULL DEFAULT 0 COMMENT  '预留字段',
+	`re3` varchar(128) NOT NULL DEFAULT '' COMMENT  '预留字段',
+	`re4` varchar(128) NOT NULL DEFAULT '' COMMENT  '预留字段',
+	`re5` text NOT NULL COMMENT  '预留字段',
+	`create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `thunder_match` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`thunder_id` int(11) NOT NULL DEFAULT 0 COMMENT '雷石id',
+	`name` varchar(128) NOT NULL DEFAULT '' COMMENT '歌名',
+	`artist` varchar(128) NOT NULL DEFAULT '' COMMENT '歌手',
+	`o2o_id` int(11) NOT NULL DEFAULT 0 COMMENT 'o2o_id',
+	`t_duration` varchar(32) DEFAULT '' COMMENT 'thunder时长',
+	`o_duration` varchar(32) DEFAULT '' COMMENT 'o2o时长',
+	`d_duration` varchar(32) DEFAULT '' COMMENT '时长差',
+	`create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `o2o_new_song` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`o2o_id` int(11) NOT NULL DEFAULT 0 COMMENT 'o2o_id',
+	`o2o_bt_id` int(11) NOT NULL DEFAULT 0 COMMENT 'o2o_bt_id',
+	`name` varchar(128) NOT NULL DEFAULT '' COMMENT '歌名',
+	`artist` varchar(128) NOT NULL DEFAULT '' COMMENT '歌手',
+	`duration` int(11) NOT NULL DEFAULT 0 COMMENT '时长',
+	`state` tinyint(1) NOT NULL DEFAULT 0 COMMENT '审核状态 0:未审核 1:已审核',
+	`create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `hash` (`o2o_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `o2o_normal_song` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `o2o_id` int(11) NOT NULL DEFAULT '0' COMMENT 'o2o_id',
+  `name` varchar(128) NOT NULL DEFAULT '' COMMENT '歌名',
+  `artist` varchar(128) NOT NULL DEFAULT '' COMMENT '歌手',
+  `duration` int(11) NOT NULL DEFAULT '0' COMMENT '时长',
+  `bitrate` int(11) NOT NULL DEFAULT '0' COMMENT '比特率',
+  `krc_link` varchar(512) NOT NULL DEFAULT '' COMMENT 'krc地址',
+  `music_link` varchar(512) NOT NULL DEFAULT '' COMMENT '音源地址',
+  `size` int(11) NOT NULL DEFAULT '0' COMMENT '文件大小',
+  `label` varchar(32) NOT NULL DEFAULT '' COMMENT '来源内部音源标签',
+  `state` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:未合成LS 1:合成失败 2:未审核 3:已审核 4:审核失败',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `ls_url` varchar(256) NOT NULL DEFAULT '' COMMENT 'ls文件下载URL',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `hash` (`o2o_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+Create Table: CREATE TABLE `o2omusicinfo` (
+  `o2o_id` int(11) NOT NULL COMMENT 'o2o_id',
+  `music_no` int(11) NOT NULL AUTO_INCREMENT COMMENT '歌曲编号',
+  `krc_url` varchar(256) NOT NULL COMMENT 'krc歌词URL',
+  `music_link` varchar(256) NOT NULL COMMENT '歌曲URL',
+  `bt_link` varchar(256) NOT NULL COMMENT '伴奏URL',
+  `down_state` int(11) NOT NULL COMMENT '是否下载完整',
+  `add_state` int(11) NOT NULL,
+  `create_time` datetime NOT NULL COMMENT '添加时间',
+  `bt_id` int(11) NOT NULL COMMENT '伴奏ID',
+  `ls_krc_url` varchar(256) NOT NULL COMMENT '处理后的krc歌词URL',
+  PRIMARY KEY (`music_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=24244669 DEFAULT CHARSET=utf8
+
+http://mac.kugou.com/v2/musicol/yueku/v1/singer/album/getData.js?cdn=cdn&sid=1573&p=1&s=10
+http://mac.kugou.com/v2/musicol/yueku/v1/home/collectionAjax/getData.js?cdn=cdn&c=2&id=1990647
+http://mobilecdnbj.kugou.com/api/v3/album/list?withpriv=1&sorttype=1&version=8800&apiver=1&plat=0&page=1&type=1&pagesize=5&with_res_tag=1
+
+the key_num: 322500
+id: 28417
+artist: 华少陈
+kugouid:
+1 row in set (0.00 sec)
+
+150718
+
+关于state的含义:
+0   默认值, 没有匹配结果
+999 es没有搜索结果
+# 酷狗存在带有krc的伴奏和原唱, 对应伴奏类型如下
+11  (伴奏)
+12  原版, - 伴奏
+13  KTV, ktv
+14  MV, mv
+15  电台
+16  升调, 降调
+17  男声, 女声
+18  自制
+19  DJ
+11O 现场版
+111 其他伴奏
+# 酷狗没有带有krc的伴奏, 但存在原唱
+20 	消音失败
+21  歌名歌手完全匹配, 消音成功
+22  歌名完全匹配, 歌手互相包含, 消音成功
+23  歌名互相包含, 歌手完全匹配, 消音成功
+24  歌名歌手互相包含, 消音成功
+
+1.歌手噪声
+2.英文大小写
+
+id:
+104345, (104344, 1939), 1998, 1997, 1983, 1979, 1932, 1911
+特殊字符~ \, kugou库aritst为空, 英文名大小写导致的不匹配, 酷狗歌手包含在雷石歌手, 歌词缺失, kugou歌手噪声</e, 歌曲确保一致歌手不匹配, 只有伴奏
+
+歌词缺失:
+1157517, 3756496,
+3500772, 3263761,
+3682957,
+
+CREATE TABLE `singer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `artist` varchar(128) NOT NULL DEFAULT '' COMMENT '歌手',
+  `kugouid` varchar(128) NOT NULL DEFAULT '' COMMENT '酷狗id',
+  `hot_songs` text NOT NULL COMMENT '热门歌曲',
+  `spun_state` tinyint(4) NOT NULL DEFAULT '0' COMMENT '热门是否提取成功',
+  `hot_songs_num` int(11) NOT NULL DEFAULT '0' COMMENT '热门歌曲数量',
+  `music_link` varchar(256) NOT NULL DEFAULT '0' COMMENT '金山云地址',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `hash` (`artist`)
+) ENGINE=InnoDB AUTO_INCREMENT=59720 DEFAULT CHARSET=utf8

@@ -1,0 +1,21 @@
+curl -X PUT http://localhost:9200/sim_hash -d'{
+    "mappings": {
+        	 "sim_hash": {
+              "properties": {
+                  "sim_hash": {
+                    	"index": "analyzed",
+                    	"type": "integer"
+                  },
+                  "duration": {
+                      	"index": "analyzed",
+                      	"type": "integer"
+                  },
+                  "suggest" : {
+    	              "type" : "completion",
+    	              "analyzer" : "simple",
+    	              "search_analyzer" : "simple"
+                }
+              }
+        }
+    }
+}'

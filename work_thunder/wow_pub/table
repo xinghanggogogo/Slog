@@ -1,0 +1,85 @@
+# 用户信息表
+# 新增phone_num
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `open_id` varchar(32) NOT NULL DEFAULT '' COMMENT 'å¾®ä¿¡id',
+  `nickname` varchar(64) NOT NULL DEFAULT '',
+  `gender` tinyint(1) NOT NULL DEFAULT '0',
+  `city` varchar(64) NOT NULL DEFAULT '',
+  `country` varchar(64) NOT NULL DEFAULT '',
+  `province` varchar(64) NOT NULL DEFAULT '',
+  `avatar` varchar(256) NOT NULL DEFAULT '',
+  `phone_num` varchar(11) NOT NULL DEFAULT '电话',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `open_id` (`open_id`),
+  KEY `update_time` (`update_time`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8       |
+
+# 用户消费表
+# 新增tp=4会员卡类型
+# 新增finish_time字段
+CREATE TABLE `music_order` (
+  `order_id` int(11) NOT NULL AUTO_INCREMENT,
+  `sp_id` int(11) NOT NULL DEFAULT '0' COMMENT '服务商ID',
+  `store_id` int(11) NOT NULL DEFAULT '0' COMMENT '门店ID',
+  `mac_id` varchar(32) NOT NULL DEFAULT '' COMMENT '机器的MAC地址',
+  `tp` tinyint(1) NOT NULL DEFAULT '0' COMMENT '支付类型，0投币，1微信，2支付宝, 3免费, 4会员卡',
+  `pay_fee` int(11) NOT NULL DEFAULT '0' COMMENT '支付的实际金额单位分',
+  `state` tinyint(1) NOT NULL DEFAULT '0' COMMENT '支付的状态 0下单，1已支付，2关单，3关单成功，4已经退款',
+  `is_consume` tinyint(1) NOT NULL DEFAULT '0' COMMENT '消费状态 0未消费，1已消费',
+  `info` varchar(256) NOT NULL DEFAULT '' COMMENT '支付详情',
+  `pay_coin` int(11) NOT NULL DEFAULT '0' COMMENT '支付的币数',
+  `pay_order_id` varchar(128) NOT NULL DEFAULT '' COMMENT '支付的订单ID，对应支付表的支付ID',
+  `finish_time` datetime NOT NULL,
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`order_id`),
+  UNIQUE KEY `uk_pay_id` (`pay_order_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7039 DEFAULT CHARSET=utf8 |
+
+# 用户充值表
+CREATE TABLE `wow_coupon_order` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `openid` varchar(32) NOT NULL DEFAULT '',
+      `tp` enum('recharge','consume') NOT NULL DEFAULT 'recharge',
+      `order_id` varchar(64) NOT NULL DEFAULT '',
+      `wx_pay_id` varchar(64) NOT NULL DEFAULT '',
+      `pay_fee` int(11) NOT NULL DEFAULT '0',
+      `total_fee` int(11) NOT NULL DEFAULT '0',
+      `info` varchar(32) NOT NULL DEFAULT '' COMMENT '京东众筹, 或者充值信息',
+      `state` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0订单生成, 1支付成功or京东众筹已经使用',
+      `phone_num` varchar(11) NOT NULL DEFAULT '' COMMENT '',
+      `remain_money` int(11) NOT NULL DEFAULT 0 COMMENT '账户所剩金额',
+      `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+      `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+      PRIMARY KEY (`id`),
+      KEY `order_id` (`order_id`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8
+
+insert into wow_coupon_order (openid, pay_fee, total_fee, info, state, remain_money) values('ozSixwkVLz8fIyfPAS6ME4ASd4Dc', 300, 500, '充值套餐', 1, 500)
+insert into wow_coupon_order (openid, pay_fee, total_fee, info, state, remain_money) values('ozSixwkVLz8fIyfPAS6ME4ASd4Dc', 300, 500, '充值套餐', 1, 800)
+insert into wow_coupon_order (pay_fee, total_fee, info, phone_num) values(500, 500, '京东众筹', 13521776628)
+
+制作一组数据:
+1.kbar调用下单接口:
+101.254.157.124:8888/v2/bar/order/consume post
+'{
+    tp: 5,
+    sp_id: 6,
+    store_id: 5000001,
+    mac_id: '00E07E0054E7',
+    pay_coin: 6,
+    pay_fee: 5050,
+    info: 'kbar会员包时套餐.xinghang'
+}'
+返回:
+{
+  "errcode": 200,
+  "errmsg": "服务正常",
+  "pay_url": "/bar/coupon/consume?order_id=COUPONBAR1449#coupon",
+  "order_id": "COUPONBAR1449"
+}
+2.用户扫码:
+101.254.157.124:8888/bar/coupon/consume?order_id=COUPONBAR1449

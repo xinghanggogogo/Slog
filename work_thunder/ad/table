@@ -1,0 +1,55 @@
+#广告对应ktv位置
+| ad_ktv_pos | CREATE TABLE `ad_ktv_pos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ktv_id` int(11) NOT NULL COMMENT 'KTV 的ID',
+  `ad_position` enum('start','end','mv','no_song','horizon_lock_screen','verticle_lock_screen','redpack','wx','horizon_carousel','verticle_carousel') NOT NULL DEFAULT 'start' COMMENT '广告位',
+  `ad_list` varchar(256) NOT NULL DEFAULT '' COMMENT '一组广告id',
+  `fullplay` int(11) NOT NULL DEFAULT '1' COMMENT '是否一定完整播放,不允许切',
+  `pos` varchar(32) NOT NULL DEFAULT '12,34' COMMENT 'X，Y坐标偏移值百分比',
+  `action` enum('cycle','random','random-one') NOT NULL DEFAULT 'cycle' COMMENT '播放方式',
+  `interval` varchar(32) NOT NULL DEFAULT '10000,200,10000' COMMENT '广告播放间隔',
+  `state` int(11) NOT NULL DEFAULT '0' COMMENT '状态',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_ktv_state` (`ktv_id`,`state`)
+) ENGINE=InnoDB AUTO_INCREMENT=190 DEFAULT CHARSET=utf8 |
+
+#广告表
+| ad_info | CREATE TABLE `ad_info` (
+  `ad_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) NOT NULL COMMENT '广告名称',
+  `url` varchar(128) NOT NULL DEFAULT '' COMMENT '广告素材地址',
+  `url2` varchar(128) NOT NULL DEFAULT '' COMMENT '480素材地址',
+  `ad_type` varchar(64) NOT NULL DEFAULT 'video' COMMENT '广告类型',
+  `time` int(11) NOT NULL DEFAULT '15' COMMENT '广告时长单位毫秒',
+  `owner` varchar(32) NOT NULL DEFAULT '' COMMENT '广告主，投放方',
+  `start_time` datetime NOT NULL COMMENT '广告上线时间',
+  `end_time` datetime NOT NULL COMMENT '广告下线时间',
+  `state` int(11) NOT NULL DEFAULT '0' COMMENT '状态',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `monitor_url` varchar(1024) NOT NULL DEFAULT '' COMMENT 'admaster，秒针，监控播放地址',
+  `md5` varchar(32) NOT NULL DEFAULT '' COMMENT 'ad素材的md5',
+  `click_monitor_url` varchar(256) NOT NULL DEFAULT '' COMMENT '点击监控地址',
+  `song_ids` varchar(128) NOT NULL DEFAULT '' COMMENT '哪些歌曲显示wx类型的广告',
+  `carousel_extra` varchar(1024) NOT NULL DEFAULT '' COMMENT '只对轮播图的广告有用,格式: erp的某个id,erp的某个url',
+  PRIMARY KEY (`ad_id`),
+  KEY `idx_id_state` (`ad_id`,`state`)
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 |
+
+#?
+| ad_screen | CREATE TABLE `ad_screen` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ktv_id` int(11) NOT NULL DEFAULT '0',
+  `room_id` varchar(128) NOT NULL DEFAULT '',
+  `url` varchar(256) NOT NULL DEFAULT '',
+  `time` datetime NOT NULL,
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27804 DEFAULT CHARSET=utf8 |
+
+增加广告位:
+alter table ad_ktv_pos modify column ad_position enum('start','end','mv','no_song','horizon_lock_screen','verticle_lock_screen','redpack','wx','horizon_carousel','verticle_carousel','multi_video');
+insert into ad_ktv_pos (ktv_id,ad_position) values(187, 'multi_video')

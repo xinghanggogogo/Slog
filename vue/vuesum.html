@@ -1,0 +1,140 @@
+<!-- 指令,需要添加元素上. -->
+v-text:
+<!-- 更新元素的 textContent -->
+<!-- 两者相同一样 -->
+<span v-text="msg"></span>
+<span>{{msg}}</span>
+
+v-html:
+<!-- 更新元素的 innerHTML -->
+<div v-html="html"></div>
+
+v-show:
+<!-- 根据条件展示元素 -->
+<!-- 注意 v-show 不支持 <template> 语法。 -->
+<h1 v-show="ok">Hello!</h1>
+
+v-if:
+<h1 v-if="ok">Yes</h1>
+<h1 v-else>No</h1>
+<!-- 用于template中 -->
+<cmp v-if="loading"></cmp>
+
+v-else-if
+<!-- 顾名思义，用作 v-if 的 else-if 块。可以链式的多次使用： -->
+<div v-if="type === 'A'">A</div>
+<div v-else-if="type === 'B'">B</div>
+<div v-else>Not A/B/C</div>
+
+v-for:
+<!-- 基于源数据多次渲染元素或模板块 -->
+<div v-for="item in items">
+  {{ item.text }}
+</div>
+<!-- 另外也可以为数组索引指定别名（或者用于对象的键）： -->
+<div v-for="(item, index) in items"></div>
+<div v-for="(val, key) in object"></div>
+<div v-for="(val, key, index) in object"></div>
+<!-- v-for 默认行为试着不改变整体，而是替换元素。迫使其重新排序的元素,您需要提供一个 key 的特殊属性: -->
+<div v-for="item in items" :key="item.id">
+  {{ item.text }}
+</div>
+
+v-on:
+缩写@
+<!-- 在元素上监听事件. -->
+<button @click="func(ok)"></button>
+<!-- 在子组件上监听事件 -->
+<!-- 当子组件触发 “my-event” 时将调用事件处理器 -->
+<my-component @my-event="handleThis"></my-component>
+
+v-bind:
+缩写:
+<!-- 绑定属性 -->
+<!-- src绑定 -->
+<img :src="imageSrc">
+<img :src="'/path/to/images/' + fileName">
+<!-- class 绑定 -->
+<div :class="{ red: isRed }"></div>
+<div :class="[classA, classB]"></div>
+<div :class="[classA, { classB: isB, classC: isC }]">
+<!-- style 绑定 -->
+<div :style="{ fontSize: size + 'px' }"></div>
+<div :style="[styleObjectA, styleObjectB]"></div>
+<!-- 绑定子组件data -->
+<my-component :prop="someThing"></my-component>
+
+v-model:
+<!--v-model指令在表单控件元素上创建双向数据绑定 -->
+<!-- 文本 -->
+<input v-model="message" placeholder="edit me">
+<p>Message is: {{ message }}</p>
+<!-- 多行文本 -->
+<span>Multiline message is:</span>
+<p style="white-space: pre">{{ message }}</p>
+<br>
+<textarea v-model="message" placeholder="add multiple lines"></textarea>
+<!-- checkbox -->
+<input type="checkbox" id="checkbox" v-model="checked">
+<label for="checkbox">{{ checked }}</label>
+<!-- checkbox2 将多个checkbox绑定在一个数组里 -->
+<input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+<label for="jack">Jack</label>
+<input type="checkbox" id="john" value="John" v-model="checkedNames">
+<label for="john">John</label>
+<input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+<label for="mike">Mike</label>
+<span>Checked names: {{ checkedNames }}</span>
+<!-- 单选按钮radio -->
+<input type="radio" id="one" value="one" v-model="pick">
+<label for="one">one</label>
+<input type="raido" id="two" value="two" v-model="pick">
+<label for="two"></label>
+<span>Pick name: {{ pick }}</span>
+<!-- select 选择列表 -->
+<select v-model="selected">
+  <option>A</option>
+  <option>B</option>
+  <option>C</option>
+</select>
+<span>Selected: {{ selected }}</span>
+<!--section + v-for循环渲染 -->
+<select name="s_id" v-model="your_option">
+    <option v-for="item in items" :value="item.value">
+        {{item.text}}
+    </option>
+</select>
+
+v-once
+<!-- 确定只渲染一次
+直接绑定元素,不需要参数 -->
+<!-- 单个元素 -->
+<span v-once>This will never change: {{msg}}</span>
+<!-- 有子元素 -->
+<div v-once>
+  <h1>comment</h1>
+  <p>{{msg}}</p>
+</div>
+<!-- 组件 -->
+<my-component v-once :comment="msg"></my-component>
+<!-- v-for 指令-->
+<ul>
+  <li v-for="i in list" v-once>{{i}}</li>
+</ul>
+
+<!-- ########## -->
+slot
+<!-- 插槽 -->
+<!-- 例如，假定我们有一个 app-layout 组件，它的模板为： -->
+<div class="container">
+    <slot name="header"></slot>
+    <slot></slot>
+    <slot name="footer"></slot>
+</div>
+<!-- 父组件模版中： -->
+<app-layout>
+  <h1 slot="header">这里可能是一个页面标题</h1>
+  <p>主要内容的一个段落。</p>
+  <p>另一个主要段落。</p>
+  <p slot="footer">这里有一些联系信息</p>
+</app-layout>

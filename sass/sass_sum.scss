@@ -1,0 +1,118 @@
+// 后缀名
+// sass有两种后缀名文件：一种后缀名为sass，不使用大括号和分号；
+// 一种就是我们这里使用的scss文件，这种和我们平时写的css文件格式差不多，使用大括号和分号。
+// 建议使用后缀名为scss的文件，以避免sass后缀名的严格格式要求报错。
+
+// 导入
+// sass的导入(@import)规则和CSS的有所不同，编译时会将@import的scss文件合并进来只生成一个CSS文件。
+// 但是如果你在sass文件中导入css文件如@import 'reset.css'，那效果跟普通CSS导入样式文件一样，导入的css文件不会合并到编译后的文件中，而是以@import方式存在。
+
+// 注释
+// 单行
+
+// 变量
+$borderDirection: top !default;
+$baseFontSize: 12px !default;
+$baseLineHeight: 1.5 !default;
+
+.border-#{$borderDirection} {
+    border-#{$borderDirection}: 1px solid #ccc;
+}
+
+// 变量类型:
+// list: nth($var, $index)获取变量值
+$linkColor: #08c #333 !default;
+a {
+    color: nth($linkColor,1);
+        &:hover {
+            color: nth($linkColor,2);
+  }
+}
+//list: 迭代
+$animal-list: puma, dog, cat;
+@each $animal in $animal-list {
+  .#{$animal}-icon {
+    background-image: url(/images/#{$animal}.png);
+  }
+}
+// map: 迭代
+$headings: (h1: 2em, h2: 1.5em, h3: 1.2em);
+@each $header, $size in $headings {
+    #{$header} {
+        font-size: $size;
+  }
+}
+
+// 嵌套
+
+// 跳出选择器: @at-root
+.parent-1 {
+    color: #f00;
+    @at-root .child {
+        width:200px;
+  }
+}
+
+// mixin
+@mixin center-block {
+    margin: 0 auto;
+}
+.demo {
+    @include center-block;
+}
+// mixin实现响应式布局: 含参数的mixin
+// http://blog.csdn.net/whqet/article/details/22569347
+
+// extend
+h1{
+    border: 4px solid #ff9aa9;
+}
+.speaker{
+    @extend h1;
+    border-width: 2px;
+}
+// 问extend同mixin的差别
+// mixin后接任意变量名, 内部mix属性.
+// extend表示继承, 指的必然是元素.
+
+// 函数
+// 一个使用rem的例子:
+$baseWidth: 1000;
+@function px2rem($px) {
+    @return $px / $baseWidth * 10rem;
+}
+.father {
+    width: px2rem(1000);
+    height: px2rem(500);
+    margin: 0 auto;
+    background-color: #f8f8f8;
+    .son {
+        font-size: px2rem(16);
+        color: red;
+    }
+}
+
+// 运算
+// sass具有运算的特性，可以对数值型的Value(如：数字、颜色、变量等)进行加减乘除四则运算。
+// 注意: 运算符前后请留一个空格，不然会出错。
+
+// if
+$type: monster;
+p {
+    @if $type == ocean {
+        color: blue;
+    } @else if $type == monster {
+        color: green;
+    } @else {
+        color: black;
+    }
+}
+
+// for
+@for $i from 1 through 3 {
+    .item-#{$i} { width: 2em * $i; }
+}
+
+// 关于sass中的&:
+// 代表元素自身
+// http://www.w3cplus.com/preprocessor/use-ampersand-in-selector-name-with-Sass.html

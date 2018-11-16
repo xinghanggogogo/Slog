@@ -1,0 +1,223 @@
+
+<!--
+豆瓣的一个模块
+你看其实很简单哈.
+a标签你不加链接的话颜色就会变.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style media="screen">
+        body, div, dl, dt, dd, ul, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, blockquote {
+            margin: 0;
+            padding: 0;
+        }
+        a {
+            text-decoration: none;
+        }
+        a:link {
+        color: #37a;
+        text-decoration: none;
+        }
+        a:visited {
+            color: #669;
+            text-decoration: none;
+        }
+        ul {
+            list-style: none;
+        }
+
+        .wrap {
+            width: 950px;
+            margin: 0 auto;
+        }
+        .side {
+            float: right;
+            width: 265px;
+            margin: 30px;
+        }
+        .side .pic {
+            margin: 10px 0;
+        }
+        .side .pic img {
+            width: 265px;
+        }
+        .side>h2 {
+            margin-bottom: 12px;
+            font: 15px Arial, Helvetica, sans-serif;
+            line-height: 1.5;
+            color: #072
+        }
+        .side>h2 a {
+            margin: 0 2px;
+        }
+        .side .online ul {
+            margin-top: -4px;
+        }
+        .side .online ul li {
+            margin-top: 10px;
+            color: #999;
+        }
+        .side .title {
+            margin-bottom: 4px;
+            line-height: 1.45;
+        }
+        .main {
+            overflow: hidden;
+            zoom: 1;
+        }
+        .mod {
+            margin-bottom: 30px;
+        }
+        .mod h2 {
+            margin-bottom: 12px;
+            font: 15px  Arial, Helvetica, sans-serif;
+            line-height: 1.5;
+            color: #072;
+        }
+        .mod .album {
+            float: left;
+            width: 350px;
+            margin-right: 30px;
+            font-size: 0;
+            color: #999;
+        }
+        .mod .album ul {
+            margin: -10px 0 0 -10px;
+        }
+        .album ul li {
+            display: inline-block;
+            zoom: 1;
+            width: 170px;
+            margin: 10px 0 0 10px;
+            font-size: 12px;
+            letter-spacing: normal;
+            word-spacing: normal;
+            vertical-align: top;
+        }
+        .album ul img {
+            width: 170px;
+        }
+        .notes {
+            overflow: hidden;
+            zoom: 1;
+            color: #666;
+        }
+        .notes .first .author {
+            color: #999;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="side">
+            <div class="pic">
+                <a href=""><img src="https://img5.doubanio.com/img/files/file-1431585796.jpg" alt=""></a>
+            </div>
+            <h2>
+                线上活动· · · · · ·
+                <span>(<a href="">更多</a>)</span>
+            </h2>
+            <div class="online">
+                <ul>
+                    <li>
+                        <div class="title"><a href="">来一句王家卫式的话</a></div>
+                        <div class="desc">
+                            时间：2月25日 - 5月24日
+                            <br>
+                            <span>910人参加</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="title"><a href="">来一句王家卫式的话</a></div>
+                        <div class="desc">
+                            时间：2月25日 - 5月24日
+                            <br>
+                            <span>910人参加</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="title"><a href="">来一句王家卫式的话</a></div>
+                        <div class="desc">
+                            时间：2月25日 - 5月24日
+                            <br>
+                            <span>910人参加</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main">
+            <div class="mod">
+                <h2>
+                    热点内容· · · · · ·
+                    <span>(<a href="">更多</a>)</span>
+                </h2>
+                <div class="album">
+                    <ul>
+                        <li>
+                            <div><a href=""><img src="https://img3.doubanio.com/view/photo/albumcover/public/p2427958700.jpg" alt=""></a></div>
+                            <p><a href="">京华的雪</a>94张照片</p>
+                        </li>
+                        <li>
+                            <div><a href=""><img src="https://img3.doubanio.com/view/photo/albumcover/public/p2427958700.jpg" alt=""></a></div>
+                            <p><a href="">京华的雪</a>94张照片</p>
+                        </li>
+                        <li>
+                            <div><a href=""><img src="https://img3.doubanio.com/view/photo/albumcover/public/p2427958700.jpg" alt=""></a></div>
+                            <p><a href="">京华的雪</a>94张照片</p>
+                        </li>
+                        <li>
+                            <div><a href=""><img src="https://img3.doubanio.com/view/photo/albumcover/public/p2427958700.jpg" alt=""></a></div>
+                            <p><a href="">京华的雪</a>94张照片</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="notes">
+                    <ul>
+                        <li class="first">
+                            <div class="title">
+                                <a href="https://www.douban.com/note/608166985/">《兰亭序》：没想到你是这样的，王羲之</a>
+                            </div>
+                            <div class="author">
+                                <p>白左圣母鱼饼饼的日记</p>
+                            </div>
+                            <p class="desc">永和九年的春天，王羲之很不好。 会稽内史王羲之对朝廷有很多重要的意见，不过没人...</p>
+                        </li>
+                        <li>
+                            <div class="title">
+                                <a href="">《兰亭序》：没想到你是这样的，王羲之</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="title">
+                                <a href="">《兰亭序》：没想到你是这样的，王羲之</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="title">
+                                <a href="">《兰亭序》：没想到你是这样的，王羲之</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="title">
+                                <a href="">《兰亭序》：没想到你是这样的，王羲之</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="title">
+                                <a href="">《兰亭序》：没想到你是这样的，王羲之</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

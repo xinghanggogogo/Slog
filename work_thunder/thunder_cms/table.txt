@@ -1,0 +1,21 @@
+CREATE TABLE `vod_down` (
+  `appid` int(11) NOT NULL COMMENT '应用编号 (1:云客户端； 2:欢乐歌房； 3:哇屋； 4:雷客)',
+  `song_no` varchar(12) NOT NULL COMMENT '歌曲编号',
+  `song_name` varchar(64) NOT NULL COMMENT '歌曲名称',
+  `song_url` varchar(256) NOT NULL COMMENT '歌曲文件URL',
+  `song_size` int NOT NULL COMMENT '歌曲文件长度（KB)',
+  `song_type` tinyint(2) NOT NULL COMMENT '歌曲类型（0:歌曲；1:电影；2:资源文件）',
+  `down_trigger` tinyint(2) NOT NULL COMMENT '下载方式（0:手动下载； 1:强推推送， 2:实时）',
+  `down_type` tinyint(2) NOT NULL COMMENT '下载类型（0:首次下载：1:替换更新）',
+  `song_resolution` varchar(10) NOT NULL COMMENT '码率(1920x1280)',
+  `client_id` varchar(64) NOT NULL COMMENT '客户端信息（KTVID， Device ID等）',
+  `start_time` int(11) NOT NULL COMMENT '开始时间（Unixtime)',
+  `end_time` int(11) NOT NULL COMMENT '结束时间（Unixtime)',
+  `day` char(10) NOT NULL COMMENT '下载日期 (例：2017-02-03)（统计用）',
+  `hour` tinyint(2) NOT NULL COMMENT '下载发生的小时段（0-23小时）（统计用）',
+  `time` int(11) NOT NULL COMMENT '信息记录时间',
+  `uniqueno` varchar(10) NULL COMMENT '歌曲下载来源模块唯一ID',
+  `extension` varchar(10) NULL COMMENT '后缀名'
+) ENGINE=BRIGHTHOUSE DEFAULT CHARSET=utf8
+
+mysql-ib -h 121.201.14.98 -ustat -p344404583985709753be40058e304889 -D stat_new;

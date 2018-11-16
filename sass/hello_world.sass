@@ -1,0 +1,17 @@
+$baseWidth: 1000
+
+@function pxToRem($px) {
+    @return $px / $baseWidth *10 + 'rem'
+}
+
+.father
+    width: pxToRem(1000)
+    height: pxToRem(500)
+    margin: 0 auto
+    background-color: #f8f8f8
+    .son
+        font-size: pxToRem(16)
+        color: red
+.daughter
+    font-size: pxToRem(16)
+    color: blue
