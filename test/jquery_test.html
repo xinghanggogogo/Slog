@@ -8,8 +8,27 @@
 <body>
 </body>
 <script>
-    $.get('http://106.75.97.4:8989/song/rank', function (data) {
-        console.log(data)
-    })
+$.ajax({
+  type: 'GET',
+  url: 'http://47.98.211.131/',
+  contentType: 'application/json',
+  dataType:'jsonp',
+  responseType:'application/json',
+  xhrFields: {
+    withCredentials: false
+  },
+  headers: {
+    'Access-Control-Allow-Credentials' : true,
+    'Access-Control-Allow-Origin':'*',
+    'Access-Control-Allow-Methods':'GET',
+    'Access-Control-Allow-Headers':'application/json',
+  },
+  success: function(data) {
+    console.log(data);
+  },
+  error: function(error) {
+    console.log("FAIL....=================");
+  }
+});
 </script>
 </html>

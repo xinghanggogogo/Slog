@@ -43,6 +43,7 @@ ssh work@106.75.34.22 -p 22
 #查看所有相关进程, 并杀死.
 ps -ef | grep pyspider | awk '{print $2}' | xargs kill -9
 ps -ef | grep phantonmjs | awk '{print $2}' | xargs kill -9
+lsof -i:8080 |awk 'NR!=1{print $2}' |xargs kill -9
 
 #mac
 1、将光标移动到行首：ctrl + a
@@ -269,3 +270,6 @@ curl -F 'file=@/User/xinghang/go.py' https://media.ptmi.gitv.tv/tvservice/player
 
 [aapt]
 aapt dump badging app-debug.apk
+
+[输出文件的某一行]
+cat search.txt |tail -n +14124 |head -n 10
