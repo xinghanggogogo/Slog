@@ -1,5 +1,5 @@
 # 关于tornado的异步调用:
-# 首先必须理解, 同步和异步的概念都是针对单进程的, 也是是针对某一次特定的访问本身, 跟其他访问无关.
+# 首先必须理解, 同步和异步的概念都是针对单线程的, 也是是针对某一次特定的访问本身, 跟其他访问无关.
 
 # 1.一个简单的同步阻塞的函数, 用的是tornado同步的客户端:
 from tornado.httpclient import HTTPClient
@@ -41,7 +41,7 @@ class MainHanlder(tornado.web.RequestHandler):
 # 在tornado3发布之后, 强化了coroutine的概念, 在异步编程中, 替代了原来的gen.engine,
 # 变成现在的gen.coroutine, 这个装饰器与异步本身没有关系, 异步的具体操作是tornado的AsyncHTTPClinet的实现的, 本质是IOloop()
 # 它为了简化在tornado中的异步编程, 避免写回调函数.
-# 在 gen.coroutin装饰器中, 调用get, 因为包含yield, 返回值是一个生成器(generator). 需要通过调用 next 或 send 来执行.
+# 在 gen.coroutin装饰器中, 调用get, 因为包含yield, 返回值是一个生成器(generator). 需要通过调用next和send来执行.
 from tornado.httpclient import AsyncHTTPClient
 class MainHanlder(tornado.web.RequestHandler):
     @gen.coroutine

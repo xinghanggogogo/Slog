@@ -1,0 +1,11 @@
+Skip List (https://blog.csdn.net/lz710117239/article/details/78408919)
+
+看过redis的源码
+
+跳跃表基于有序单链表, 在链表的基础上, 每个结点不只包含一个指针, 还可能包含多个指向后继结点的指针.
+这样就可以跳过一些不必要的结点, 从而加快查找、删除等操作.
+
+Redis只在两个地方用到了跳跃表, 一个是实现有序集合的键, 另一个是在集群结点中用作内部数据结构.
+
+(概率平衡)Skip lists are data structures that use probabilistic balancing rather than strictly enforced balancing.
+(更简单更快)As a result, the algorithms for insertion and deletion in skip lists are much simpler and significantly faster than equivalent algorithms for balanced trees.

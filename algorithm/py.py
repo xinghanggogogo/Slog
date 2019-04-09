@@ -2,7 +2,7 @@
 
 # -------------------
 # 插入区间
-# 这样写是不对的, 因为tuple一旦初始化, 就不能被修改
+# res, position, 左, 右, 合并, 插入
 def insert(lis, new_interval):
         results = []
         pos = 0
@@ -18,30 +18,7 @@ def insert(lis, new_interval):
         results.insert(pos, new_interval)
         return results
 
-# 必须定义数据结构
-class Interval:
-    def __init__(self, start, end):
-        self.start = start
-        self.end = end
-
-def insert(intervals, newInterval):
-    results = []
-    insertPos = 0
-    for interval in intervals:
-        if interval.end < newInterval.start:
-            results.append(interval)
-            insertPos += 1
-        # 这里已经可以返回
-        elif interval.start > newInterval.end:
-            results.append(interval)
-        else:
-            newInterval.start = min(interval.start, newInterval.start)
-            newInterval.end = max(interval.end, newInterval.end)
-    results.insert(insertPos, newInterval)
-    return results
-
-print insert([(1, 2), (3, 5), (8, 9)], (6, 7))
-print insert([(1, 2), (3, 5), (8, 9)], (2, 4))
+print insert([[1, 2], [3, 5], [8, 9]], [2, 4])
 
 
 # -------------------
@@ -171,7 +148,7 @@ def yuesefu(n, k):
     for i in range(2, n+1):
         node = Node(i)
         tmp.next = node
-        tmp = tmp.next 
+        tmp = tmp.next
     tmp.next = root
     # 依次报数
     tmp = root
@@ -257,7 +234,7 @@ def twoSum(nums, target):
     return res
 
 # 三数之和: n2
-# 四数之和: n3 
+# 四数之和: n3
 def threeSum(nums, target):
     res = []
     for i in range(len(nums)):
@@ -286,22 +263,45 @@ def fourSum(nums, target):
                     # res.append([i]+item)
     return res
 
-# 输出一个list中, 加和为m的所有的可能
-# 递归
-def func(seq, m, path=[]):
-    for i in seq:
-        m -= i
-        path.append(i)
-        if m == 0:
-            print path
-        elif m > 0:
-            func(seq[i+1:], m, path)
-        m += i
-        path.pop()
+# k数和
+def kSum(nums, k, target):
+    subsets = []
+    dfs(nums, 0, k, target, [], subsets)
+    return subsets
 
-seq = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-m = 10
-func(seq, m)
+def dfs(nums, index, k, target, subset, subsets):
+
+    if k==0 and target == 0 and subset: 
+        subsets.append(list(subset))
+        return
+
+    for i in range(index, len(nums)):
+        subset.append(nums[i])
+        print target-nums[i]
+        dfs(nums, i+1, k-1, target-nums[i], subset, subsets)
+        subset.pop()
+
+print kSum([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, -1], 3, 10)
+
+# 加和为target的所有可能
+def kSum(nums, target):
+    subsets = []
+    dfs(nums, 0, target, [], subsets)
+    return subsets
+
+def dfs(nums, index, target, subset, subsets):
+
+    if target == 0 and subset: 
+        subsets.append(list(subset))
+        return
+
+    for i in range(index, len(nums)):
+        subset.append(nums[i])
+        print target-nums[i]
+        dfs(nums, i+1, target-nums[i], subset, subsets)
+        subset.pop()
+
+print kSum([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, -1], 10)
 
 
 # -------------------
@@ -309,7 +309,7 @@ func(seq, m)
 # 时间复杂度O(n), 空间复杂度O(n)
 def findSame(l):
 
-    hash = {} 
+    hash = {}
     for i in range(len(l)):
         if hash.get(l[i]):
             return l[i]
@@ -583,8 +583,8 @@ if __name__ == '__main__':
 class Node:
     def __init__(self, data, left=None, right=None):
         self.data = data
-        self.left = left 
-        self.right = right 
+        self.left = left
+        self.right = right
 
 def preTraverse(tree):
     if not tree:
@@ -593,12 +593,41 @@ def preTraverse(tree):
     preTraverse(tree.left)
     preTraverse(tree.right)
 
+# 先序遍历非递归
+def midTraverse(tree):
+    if not tree or (not tree.left and not tree.right):
+        return tree
+    stack = []
+    node = tree
+    while stack or node:
+        while node:
+            stack.append(node)
+            print node.data
+            node = node.left
+        node = stack.pop()
+        node = node.right
+
+
 def midTraverse(tree):
     if not tree:
         return None
     midTraverse(tree.left)
     print tree.data
     midTraverse(tree.right)
+
+# 中序遍历非递归
+def midTraverse(self,root):
+    if not root:
+        return
+    stack = []
+    node = root
+    while stack or node:
+        while node:
+            myStack.append(node)
+            node = node.left
+        node = stack.pop()
+        print node.data,
+        node = node.right
 
 def afterTraverse(tree):
     if not tree:
@@ -607,28 +636,51 @@ def afterTraverse(tree):
     afterTraverse(tree.right)
     print tree.data
 
+# 层次遍历
 # Queue: get or put 不是push
-import Queue 
+import Queue
 queue = Queue.Queue()
 def levelTraverse(tree):
     if not tree:
         return None
     res = []
     queue.put(tree)
-    while queue:
+    while not queue.empty():
         tmp = queue.get()
-        res.append(tmp.data) 
+        res.append(tmp.data)
         if current.left:
             queue.put(current.left)
         if current.right:
             queue.put(current.right)
     return res
 
+# 层次遍历的又一种写法
+def leveltraverse(tree):
+    if not tree or (tree.left == None and tree.right == None):
+        return tree
+    res = []
+    lis = [tree]
+    while lis:
+        res = res + lis
+        tmp_lis = []
+        for node in lis:
+            if node.left:
+                tmp_lis.append(node.left)
+            if node.right:
+                tmp_lis.append(node.right)
+        lis = tmp_lis
+    return res
+
+tree = Node(1, Node(3, Node(7, Node(0)), Node(6)), Node(2, Node(5), Node(4)))
+res = sPring(tree)
+for item in res:
+    print item.data
+
 # 对二叉树而言, 深度优先就是先序遍历
 def deepTraverse(tree):
     if not tree:
         return None
-    print tree.data 
+    print tree.data
     deepTraverse(tree.left)
     deepTraverse(tree.right)
 
@@ -671,43 +723,47 @@ def getDepth(self, tree):
             length += 1
         return length
 
-# 从根节点到叶子节点的最小加和
-def getRootMinpath(tree):
+def getHeight(tree):
     if not tree:
         return 0
-    return min(getminpath(tree.left), getminpath(tree.right)) + tree.data
+    left = getHeight(root.left)
+    right = getHeight(root.right)
+    return max(left, right) + 1
 
-# 从根节点到叶子节点的最大加和
-def getRootmaxpath(tree):
+def getMaxPathFromRoot(tree):
     if not tree:
         return 0
-    return max(getmaxpath(tree.left), getmaxpath(tree.right)) + tree.data
+    left = getMaxPath(root.left)
+    right = getMaxPath(root.right)
+    return max(left, right) + tree.value
 
-def getLongestPath(root):
-    ans = 1
-    def getHeight(root):
-        if root == None:
+def getLongestPath(tree):
+    if not tree:
+        return 0
+    ans = 1 
+    def getHeight(tree):
+        if not tree:
             return 0
-        l = getHeight(root.left)
-        r = getHeight(root.right)
-        self.ans = max(ans, l + r + 1)
-        return max(l, r) + 1
-    
-    getHeight(root)
-    return self.ans - 1
+        left = getHeight(tree.left)
+        right = getHeight(tree.right)
+        ans = max(ans, left+right+1)
+        return max(left, right) + 1
+    getHeight(tree)
+    return ans
 
-# 带value的最长路径
-def getLongestPath(root)
-    self.curr_max = float('-inf')
-    def getMax(root):
-        if root == None:
-            return 0
-        left = max(0,getMax(root.left))
-        right = max(0,getMax(root.right))
-        self.curr_max = max(self.curr_max , left + right + root.val)
-        return max(left,right)+root.val
-    getMax(root)
-    return self.curr_max
+def getMaxPath(tree):
+    if not tree:
+        return 0 
+    ans = float('-inf')
+    def getMaxPathFromRoot(tree):
+        if not tree:
+            return 0 
+        left = max(getMaxPathFromRoot(tree.left), 0)
+        right = max(getMaxPathFromRoot(tree.right), 0)
+        ans = max(ans, left+right+tree.value) 
+        return max(left, right) + tree.value 
+    getMaxPathFromRoot(root)
+    return ans
 
 # 判断两个树是否相同
 def isSameTree(p, q):
@@ -830,7 +886,7 @@ def maxSubArray(self, nums):
 
 # 给定一个整数数组, 找出两个不重叠子数组使得它们的和最大
 def maxTwoSubArrays(nums):
-    # 考虑边界 
+    # 考虑边界
     if not nums:
         return None
     if len(nums) <= 2:
@@ -848,7 +904,7 @@ print maxSubArray(seq)
 print maxTwoSubArrays(seq)
 
 # 动态规划
-# 求两个字符串的最长公共子串的长度, 算法问题->数学问题->代码
+# 求两个字符串的最长公共子串的长度
 def longestCommonSubstring(a, b):
     x = len(a) + 1
     y = len(b) + 1
@@ -867,6 +923,61 @@ def longestCommonSubstring(a, b):
 a = 'ABCBDAB'
 b = 'BDCABA'
 print longestCommonSubstring(a, b)
+
+# 动态规划
+# 最长公共子序列的长度
+def longestCommonSubsequence(a, b):
+    x = len(a) + 1
+    y = len(b) + 1
+    dp = [[0] * x for _ in range(y)]
+    for i in range(1, y):
+        for j in range(1, x):
+            if b[i-1] == a[j-1]:
+                dp[i][j] = dp[i-1][j-1] + 1
+            else:
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+    return dp[y-1][x-1]
+
+# 需要打印
+def longestCommonSubsequence(a, b):
+    x = len(a) + 1
+    y = len(b) + 1
+    dp = [[0] * x for _ in range(y)]
+    dp_status = [[0] * x for _ in range(y)]
+    for i in range(1, y):
+        for j in range(1, x):
+            if b[i-1] == a[j-1]:
+                dp[i][j] = dp[i-1][j-1] + 1
+                dp_status[i][j] = 'ok'
+            else:
+                if dp[i][j-1] > dp[i-1][j]:
+                    dp[i][j] = dp[i][j-1]
+                    dp_status[i][j] = 'left'
+                else:
+                    dp[i][j] = dp[i-1][j]
+                    dp_status[i][j] = 'up'
+    return dp[y-1][x-1], dp_status
+
+a = 'ABCBDAB'
+b = 'BDCABA'
+dp, dp_status = longestCommonSubsequence('ABCBDAB', 'BDCABA')
+for item in dp_status:
+    print item
+
+def printLongestCommonSub(dp_status, a, x, y):
+    if x == 0 or y == 0:
+        return
+    if dp_status[y-1][x-1] == 'ok':
+        # 这里非常容易错!
+        print a[x-2]
+        printLongestCommonSub(dp_status, a, x-1, y-1)
+    if dp_status[y-1][x-1] == 'up':
+        printLongestCommonSub(dp_status, a, x, y-1)
+    if dp_status[y-1][x-1] == 'left':
+        printLongestCommonSub(dp_status, a, x-1, y)
+
+printLongestCommonSub(dp_status, a, len(a)+1, len(b)+1)
+
 
 # 背包问题
 # 动态规划
@@ -910,16 +1021,16 @@ print(result)
 
 # 动态规划O(n2)
 # 给定一个整数序列, 找到最长上升子序列(LIS), 返回LIS的长度
-# 这种子序列不一定是连续的或者唯一的 
+# 这种子序列不一定是连续的或者唯一的
 def longestIncreasingSubsequence(nums):
     if not nums:
         return 0
     dp = [1] * len(nums)
-    for curr, val in enumerate(nums):
-        for prev in xrange(curr):
-            if nums[prev] < val:
-                dp[curr] = max(dp[curr], dp[prev] + 1)
-    return max(dp)
+    for i in range(1, len(nums)):
+        for j in range(0, i):
+            if nums[i] > nums[j]:
+                dp[i] = max(dp[i], dp[j]+1)
+    return dp
 
 # 动态规划
 # 最小调整代价
@@ -993,7 +1104,7 @@ def isInterleave(s1, s2, s3):
         else:
             j += 1
         k += 1
-    
+
     if i == len(s1):
         return s3[k:] == s2[j:]
     return s3[k:] == s1[i:]
@@ -1015,12 +1126,12 @@ class Dqueue:
         if not list:
             return None
         self.left = Node(lis[0])
-        self.right = Node(lis[0]) 
+        self.right = Node(lis[0])
         tmp = self.left
         for i in lis[1:]:
             node = Node(i)
             tmp.next = node
-            node.pre = tmp 
+            node.pre = tmp
             tmp = node
             self.right = node
 
@@ -1067,7 +1178,7 @@ print ''
 # -------------------
 # l1: 2->4->3
 # l2: 5->6->1
-# 342 + 165 = 507 
+# 342 + 165 = 507
 # 链表加法, 先搞个dumpy
 # 带着carry, 实现逆置
 class Node:
@@ -1081,9 +1192,9 @@ def addLists(l1, l2):
     dumpy = Node(0)
     cur1 = l1
     cur2 = l2
-    carry = 0
+    v = 0
 
-    while cur1 or cur2 or carry:
+    while cur1 or cur2 or v:
         v1 = v2 = 0
         if cur1:
             v1 = cur1.value
@@ -1092,23 +1203,23 @@ def addLists(l1, l2):
             v2 = cur2.value
             cur2 = cur2.next
 
-        v = (v1 + v2 + carry) % 10
-        carry = (v1 + v2 + carry) / 10
+        node = Node((v1+v2+v)%10)
+        v = (v1+v2+v) / 10
+        
+        node.next = dumpy.next
+        dumpy.next = node
 
-        cur = Node(v)
-        cur.next = first.next
-        first.next = cur
-
-    return first.next
+    return dumpy.next
 
 # 输出7->0->5
-# 多了一个dumpy
+# 多了一个tmp
 def addLists(l1, l2):
-    dumpy = cur = Node(0)
+    dumpy = Node(0)
+    tmp = dumpy
     cur1 = l1
     cur2 = l2
-    carry = 0
-    while cur1 or cur2 or carry:
+    v = 0
+    while cur1 or cur2 or v:
         v1 = v2 = 0
         if cur1:
             v1 = cur1.value
@@ -1116,12 +1227,12 @@ def addLists(l1, l2):
         if cur2:
             v2 = cur2.value
             cur2 = cur2.next
-        v = (v1 + v2 + carry) % 10
-        carry = (v1 + v2 + carry) / 10
 
-        n = Node(v)
-        cur.next = n
-        cur = n
+        node = Node((v1+v2+v)%10)
+        v = (v1+v2+v) / 10
+
+        tmp.next = node
+        tmp = node
 
     return dumpy.next
 
@@ -1143,7 +1254,7 @@ show(l3)
 # -------------------
 # 数组顺序最大差值
 # 老虎证券
-# O(n^2) 
+# O(n^2)
 def find_max_in_list(l):
     Max = l[0]
     for i in range(1, len(l)):
@@ -1152,13 +1263,13 @@ def find_max_in_list(l):
     return Max
 
 def func(l):
-    Max = -65535 
+    Max = -65535
     for i in range(1, len(l)):
         l_temp = l[i:]
         max_in_list = find_max_in_list(l_temp)
         dis = max_in_list - l[i-1]
         Max = max(dis, Max)
-    return Max 
+    return Max
 l = [0, 1, 2, 3, 4, 5, 6]
 print func(l)
 
@@ -1210,7 +1321,7 @@ def isUgly(num):
         num /= 5
     return True if num == 1 else False
 
-# 给第n个丑数 
+# 给第n个丑数
 # heaq是小顶堆
 import heapq
 def nthUgly(self, n):
@@ -1260,6 +1371,7 @@ print kthLargestElement([9,3,2,4,8], 3)
 
 # -------------------
 # 求当前列表的所有子集
+# 注意: 在迭代res的时候, 必须用索引迭代!!! 不能直接迭代, 否则会死循环!!!
 def func(nums):
     nums = sorted(nums)
     res = [[]]
@@ -1323,7 +1435,7 @@ print partitionArray([2, -3, 3, 4, -1])
 def orderNums(nums):
     start = 0
     end = len(nums) - 1
-    # 按照零划分 
+    # 按照零划分
     while start <= end:
         while start <= end and nums[start] < 0:
             start += 1
@@ -1351,7 +1463,7 @@ print orderNums([-1, 2, 4, 0, 4, -1, 0])
 def findNum(nums):
     start = 0
     end = len(nums)-1
-    # 找到负数 
+    # 找到负数
     while start <= end:
         mid = (start + end) / 2
         if nums[mid] < 0:
@@ -1427,7 +1539,7 @@ print findPeak([1,2,1,2,3,1])
 
 
 # -------------------
-# 字符串大小排序 
+# 字符串大小排序
 # 这个问题类似于数组划分
 def sortLetters(self, nums):
     nums = list(nums)
@@ -1480,7 +1592,7 @@ def swapPairs(head):
 
     dumpy = Node(0)
     dumpy.next = head
-    current = dumpy 
+    current = dumpy
 
     while current.next and current.next.next:
         n1 = current.next
@@ -1554,8 +1666,8 @@ while head:
 
 
 # -------------------
-# 链表排序 
-# O(nlogn) 
+# 链表排序
+# O(nlogn)
 # 链表的归并排序
 def merge(head1, head2):
     if head1 == None: return head2
@@ -1606,11 +1718,11 @@ def detectCycle(head):
         slow = slow.next
         fast = fast.next.next
         if fast == slow:
-            return True 
+            return True
     return False
 
 # 返回环的入口
-# 原理 
+# 原理
 # a + b
 # a + b + n(b + c)
 # n(b + c) = a + b
@@ -1676,7 +1788,7 @@ def singleNumber(nums):
     res = 0;
     for num in nums:
         res = res ^ x
-    return res 
+    return res
 
 
 # -------------------
@@ -1805,3 +1917,255 @@ def printList(head):
 lis = Node(1, Node(10, Node(3, Node(9, Node(5)))))
 res = sortList(lis)
 printList(res)
+
+
+
+# -------------------
+# s形打印二叉树
+# 利用层次遍历
+def sPrint(tree):
+    if not tree or (tree.left == None and tree.right == None):
+        return tree
+    res = []
+    lis = [tree]
+    flag = True
+    while lis:
+        res = res + [o.data for o in lis] if flag else res + list(reversed([o.data for o in lis]))
+        tmp_lis = []
+        for node in lis:
+            if node.left:
+                tmp_lis.append(node.left)
+            if node.right:
+                tmp_lis.append(node.right)
+        lis = tmp_lis
+        flag = not flag
+    return res
+
+# 层次遍历, 从下往上(70)
+def levelTraverse(tree):
+    if not tree or (not tree.left and not tree.right):
+        return []
+    res = []
+    queue = [tree]
+    while queue:
+        res.append([o.data for o in queue])
+        queue_tmp = []
+        for node in queue:
+            if node.left:
+                queue_tmp.append(node.left)
+            if node.right:
+                queue_tmp.append(node.right)
+        queue = queue_tmp
+    return list(reversed(res))
+
+# 锯齿形打印
+def levelTraverse(tree):
+    if not tree or (not tree.left and not tree.right):
+        return []
+    res = []
+    queue = [tree]
+    flag = True
+    while queue:
+        if flag:
+            res.append([o.data for o in queue])
+        else:
+            res.append(list(reversed([o.data for o in queue])))
+        queue_tmp = []
+        for node in queue:
+            if node.left:
+                queue_tmp.append(node.left)
+            if node.right:
+                queue_tmp.append(node.right)
+        queue = queue_tmp
+        flag = not flag
+    return res
+
+# 第一个错误版本
+def findFirstBadVersion(self, n):
+    start = 0
+    end = len(n) - 1
+    while start <= end:
+        mid = (start + end) / 2
+        if SVNRepo.isBadVersion(mid):
+            if not SVNRepo.isBadVersion(mid-1):
+                return mid
+            else:
+                end = mid - 1
+        else:
+            start = mid + 1
+
+
+# -------------------
+# 下一个排列, 上一个排列
+# 记住两个例子: 564321和561234
+def nextPermution(nums):
+    # 边界
+    if not nums or len(nums) == 1:
+        return nums
+    # 找到低位
+    low_index = -1
+    for i in range(len(nums)-2, -1, -1):
+        if nums[i] < nums[i+1]:
+            low_index = i
+            break
+    if low_index == -1:
+        return list(reversed(nums))
+    # 找到高位交换
+    for i in range(len(nums)-1, low_index, -1):
+        if nums[i] > nums[low_index]:
+            nums[i], nums[low_index] = nums[low_index], nums[i]
+            break
+    # 原地逆置的方法
+    for j in range(0, (len(nums)-1-low_index)/2):
+        nums[low_index+j+1], nums[len(nums)-1-j] = nums[len(nums)-1-j], nums[low_index+j+1]
+    return nums
+
+def previousPermution(nums):
+    # 边界
+    if not nums or len(nums) == 1:
+        return nums
+    # 找到高位
+    low_index = -1
+    for i in range(len(nums)-2, -1, -1):
+        if nums[i] > nums[i+1]:
+            low_index = i
+            break
+    if low_index == -1:
+        return list(reversed(nums))
+    # 找到低位交换
+    for i in range(len(nums)-1, low_index, -1):
+        if nums[i] < nums[low_index]:
+            nums[i], nums[low_index] = nums[low_index], nums[i]
+            break
+
+    for j in range(0, (len(nums)-1-low_index)/2):
+        nums[low_index+j+1], nums[len(nums)-1-j] = nums[len(nums)-1-j], nums[low_index+j+1]
+    return nums
+
+
+# -------------------
+# 搜索区间
+def binarySearch(nums, n, start, end):
+    while start <= end:
+        mid = (start + end) / 2
+        if nums[mid] == n:
+            return mid
+        elif nums[mid] > n:
+            end = mid - 1
+        else:
+            start = mid + 1
+    return None
+
+def searchRange(nums, n):
+
+    if not nums:
+        return [-1, -1]
+
+    left = None
+    index = binarySearch(nums, n, 0, len(nums)-1)
+    print index
+    while index and nums[index-1] == n:
+        index = binarySearch(nums, n, 0, index-1)
+    left = index
+
+    # 边界
+    right = None
+    index = binarySearch(nums, n, 0, len(nums)-1)
+    while index and index is not len(nums)-1 and nums[index+1] == n:
+        index = binarySearch(nums, n, index+1, len(nums)-1)
+    right = index
+
+    if left == right == None:
+        return [-1, -1]
+
+    return [left, right]
+
+print searchRange([2, 3], 4)
+
+
+# -------------------
+# 二叉树的序列化和反序列化
+# 真是难呀
+class Node:
+    def __init__(self, val=None, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+import Queue
+queue = Queue.Queue()
+# 本质上是另一种层次遍历
+def serialize(root):
+    if not root:
+        return None
+    queue.put(root)
+    res = []
+    while not queue.empty():
+        node = queue.get()
+        res.append(str(node.val) if node else '#')
+        if node:
+            queue.put(node.left)
+            queue.put(node.right)
+    return res
+
+print serialize(Node(1, None, Node(2, None, Node(3))))
+
+def deserialize(lis):
+    if not lis:
+        return None
+
+    node_lis = [TreeNode(int(val)) if val != '#' else None for val in lis]
+
+    root = node_lis[0]
+    nodes = [root]
+    slow_index = 0
+    fast_index = 1
+
+    while slow_index < len(nodes):
+        node = nodes[slow_index]
+        node.left = node_lis[fast_index]
+        node.right = node_lis[fast_index + 1]
+        slow_index += 1
+        fast_index += 2
+
+        if node.left:
+            nodes.append(node.left)
+        if node.right:
+            nodes.append(node.right)
+    return root
+
+
+# 螺旋输出一个矩阵
+def printA(A):
+    if not A:
+        return []
+    up = 0
+    left = 0
+    down = len(A)-1
+    right = len(A[0])-1
+    # 0: go right
+    # 1: go down
+    # 2: go left
+    # 3: go up
+    direct = 0
+    res = []
+    while True:
+        if direct == 0:
+            for i in range(left, right+1):
+                res.append(A[up][i])
+            up += 1
+        if direct == 1:
+            for i in range(up, down+1):
+                res.append(A[i][right])
+            right -= 1
+        if direct == 2:
+            for i in range(right, left-1, -1):
+                res.append(A[down][i])
+            down -= 1
+        if direct == 3:
+            for i in range(down, up-1, -1):
+                res.append(A[i][left])
+            left += 1
+        if up > down or left > right:
+            return res
+        direct = (direct+1) % 4
